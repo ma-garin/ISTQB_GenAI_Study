@@ -9,6 +9,42 @@
   <meta name="theme-color" content="#2980b9">
   <link rel="apple-touch-icon" href="icons/icon-192.png">
   <script>if ('serviceWorker' in navigator) navigator.serviceWorker.register('./sw.js');</script>
+  <style>
+    .bilingual-block { margin-bottom: 20px; }
+    .en-line {
+      font-style: italic;
+      color: #1a6fa0;
+      border-left: 4px solid #2980b9;
+      padding: 8px 14px;
+      margin-bottom: 4px;
+      background: #f0f7fd;
+      border-radius: 0 6px 6px 0;
+      line-height: 1.7;
+      font-size: 0.92rem;
+    }
+    .ja-line {
+      color: #333;
+      border-left: 4px solid #e67e22;
+      padding: 8px 14px;
+      background: #fdf6ee;
+      border-radius: 0 6px 6px 0;
+      line-height: 1.7;
+      font-size: 0.92rem;
+    }
+    .syllabus-section { background: var(--card); border-radius: 12px; padding: 24px; margin-bottom: 20px; border: 1px solid var(--border); }
+    .syllabus-h2 { font-size: 1.15rem; font-weight: 700; color: var(--primary); margin: 20px 0 12px; border-bottom: 2px solid var(--primary); padding-bottom: 6px; }
+    .syllabus-h3 { font-size: 1rem; font-weight: 700; color: #555; margin: 16px 0 10px; padding-left: 10px; border-left: 3px solid #aaa; }
+    .lo-badge { display:inline-block; background:#2980b9; color:white; font-size:0.72rem; font-weight:700; padding:2px 8px; border-radius:10px; margin-right:6px; vertical-align:middle; }
+    .chapter-banner { display:flex; align-items:center; gap:20px; border-radius:12px; padding:20px 28px; margin-bottom:20px; color:white; }
+    .chapter-banner .num { font-size:2.5rem; font-weight:900; opacity:.9; }
+    .chapter-banner .info h2 { margin:0; font-size:1.2rem; }
+    .chapter-banner .info .sub { font-size:0.85rem; opacity:.85; margin-top:4px; }
+    table.syllabus-table { width:100%; border-collapse:collapse; font-size:0.85rem; margin:12px 0; }
+    table.syllabus-table th { background:#2980b9; color:white; padding:8px 10px; text-align:left; }
+    table.syllabus-table td { padding:8px 10px; border:1px solid var(--border); vertical-align:top; }
+    table.syllabus-table tr:nth-child(even) td { background:#f8f9fa; }
+    .info-box { background:#e8f4fd; border:1px solid #bee3f8; border-radius:8px; padding:14px 18px; margin:12px 0; font-size:0.88rem; color:#1a6fa0; }
+  </style>
 </head>
 <body>
   <header>
@@ -25,428 +61,995 @@
   </header>
 
   <main>
-    <div class="section-title">🌐 シラバス 日本語対訳</div>
+    <div class="section-title">🌐 シラバス 日本語対訳（全文）</div>
 
-    <div style="background:var(--card);border:1px solid var(--border);border-radius:12px;padding:20px 24px;margin-bottom:24px;font-size:0.875rem;line-height:1.7;color:var(--text-light);">
-      <strong style="color:var(--text);">このページについて：</strong>
-      ISTQB CT-GenAI v1.0 シラバス（原文：英語）の主要内容を日本語に訳したものです。
-      原文の英語表現は <span class="en-word">斜体・青色</span> で併記しています。
-      試験は英語の用語を理解していることが前提となるため、英語名も合わせて確認してください。
-      <a href="CT-GenAI-Syllabus-v1.0.pdf" target="_blank" style="color:var(--primary);font-weight:600;margin-left:8px;">📄 原文PDF（英語）を開く</a>
+    <div class="info-box">
+      <strong>このページについて：</strong>
+      ISTQB CT-GenAI v1.0 シラバス原文（英語）を一文ずつ、英語原文（青）→日本語訳（オレンジ）のセット形式で掲載しています。
+      試験対象範囲（第1章〜第5章）を全文・一文字も欠けることなく掲載しています。
     </div>
 
-    <!-- 第1章 -->
+    <!-- ===== 第1章 ===== -->
     <div class="chapter-banner" style="background:linear-gradient(135deg,#1a6fa0,#2980b9);">
       <div class="num">1</div>
       <div class="info">
-        <h2>第1章：ソフトウェアテストにおける生成AIの概要</h2>
-        <div class="sub">Overview of Generative AI in Software Testing ／ 100分 ／ 6学習目標</div>
+        <h2>Overview of Generative AI in Software Testing</h2>
+        <div class="sub">第1章：ソフトウェアテストにおける生成AIの概要 ／ 100分 ／ 6学習目標</div>
       </div>
     </div>
 
     <div class="syllabus-section">
-      <div class="syllabus-section-header">
-        <div class="en-title">1.1 Generative AI and Large Language Models</div>
-        <div class="ja-title">1.1 生成AIと大規模言語モデル</div>
+      <div class="syllabus-h2">1.1 Generative AI and Large Language Models（生成AIと大規模言語モデル）</div>
+
+      <div class="bilingual-block">
+        <div class="en-line">Generative artificial intelligence (GenAI) is artificial intelligence that creates content, such as text, images, audio, and video, based on patterns learned from large amounts of data.</div>
+        <div class="ja-line">生成的人工知能（GenAI）とは、大量のデータから学習したパターンに基づいて、テキスト・画像・音声・映像などのコンテンツを生成する人工知能のことです。</div>
       </div>
-      <div class="syllabus-content">
-        <p>AIの種類には<strong>シンボリックAI</strong>（<span class="en-word">Symbolic AI</span>）、<strong>クラシカル機械学習</strong>（<span class="en-word">Classical Machine Learning</span>）、<strong>ディープラーニング</strong>（<span class="en-word">Deep Learning</span>）、そして<strong>生成AI</strong>（<span class="en-word">Generative AI / GenAI</span>）があります。</p>
-        <p>生成AIはディープラーニング技術を使い、学習データのパターンを模倣して新しいコンテンツ（テキスト・画像・コードなど）を生成します。事前学習済みモデルを利用するため、追加トレーニングなしにテストタスクに直接適用できる点が特徴です。</p>
-        <p><strong>大規模言語モデル（LLM：<span class="en-word">Large Language Model</span>）</strong>は非常に大規模なデータセットで訓練されたGenAIモデルです。LLMは以下のプロセスで動作します：</p>
-        <ul>
-          <li><strong>トークナイゼーション</strong>（<span class="en-word">Tokenization</span>）：テキストをトークン（文字・サブワード・単語）に分割する</li>
-          <li><strong>エンベディング</strong>（<span class="en-word">Embedding</span>）：トークンの意味的・文脈的関係を高次元ベクトル空間で数値表現する</li>
-          <li><strong>コンテキストウィンドウ</strong>（<span class="en-word">Context Window</span>）：応答生成時に考慮できるトークン数の上限。大きいほど長い文脈を扱えるが計算量も増大する</li>
-          <li><strong>非決定論的動作</strong>（<span class="en-word">Non-deterministic Behavior</span>）：確率的な推論メカニズムにより、同じ入力でも異なる出力が生成されることがある。Temperatureなどのハイパーパラメータが影響する</li>
-        </ul>
-        <p>LLMは訓練データ・目的・能力に基づいて3種類に分類されます：</p>
-        <ul>
-          <li><strong>ファウンデーションLLM</strong>（<span class="en-word">Foundation LLM</span>）：広範な多様データで訓練された汎用モデル</li>
-          <li><strong>インストラクションチューニング済みLLM</strong>（<span class="en-word">Instruction-Tuned LLM</span>）：指示への準拠を改善するよう微調整されたモデル</li>
-          <li><strong>リーズニングLLM</strong>（<span class="en-word">Reasoning LLM</span>）：論理的推論・多段階問題解決・連鎖的思考（<span class="en-word">chain-of-thought reasoning</span>）能力を強化したモデル</li>
-        </ul>
-        <p><strong>マルチモーダルLLM</strong>（<span class="en-word">Multimodal LLM</span>）はテキスト・画像・音声・動画など複数のデータ形式を処理できます。<strong>ビジョンランゲージモデル</strong>（<span class="en-word">Vision-Language Model / VLM</span>）はその一部で、視覚情報とテキスト情報を統合します。ソフトウェアテストでは、スクリーンショットやGUIワイヤーフレームとテキスト記述を組み合わせた分析・テストケース生成が可能です。</p>
+
+      <div class="bilingual-block">
+        <div class="en-line">GenAI has the ability to perform new tasks without specific training on those tasks, making it different from traditional AI systems.</div>
+        <div class="ja-line">GenAIは、特定のタスクに対する専用のトレーニングなしに新しいタスクを実行できる能力を持っており、これが従来のAIシステムとの違いです。</div>
+      </div>
+
+      <div class="bilingual-block">
+        <div class="en-line">The most prominent form of GenAI relevant to software testing is the Large Language Model (LLM), a machine learning (ML) model trained on extensive text data, that uses deep learning techniques to understand and generate human language.</div>
+        <div class="ja-line">ソフトウェアテストに最も関連性の高いGenAIの形態は、大規模言語モデル（LLM）です。LLMとは大規模なテキストデータで学習した機械学習モデルであり、深層学習技術を使って人間の言語を理解し生成します。</div>
+      </div>
+
+      <div class="bilingual-block">
+        <div class="en-line">LLMs process text through a mechanism called tokenization, where text is broken into small units called tokens that can be characters, parts of words, or whole words.</div>
+        <div class="ja-line">LLMはトークン化（tokenization）と呼ばれる仕組みでテキストを処理します。テキストは「トークン」と呼ばれる小さな単位—文字・単語の一部・単語全体—に分割されます。</div>
+      </div>
+
+      <div class="bilingual-block">
+        <div class="en-line">LLMs also use embeddings – a technique that converts tokens into numerical vectors that capture semantic meaning and relationships between concepts.</div>
+        <div class="ja-line">LLMはエンベディング（embeddings）も使用します。これはトークンを数値ベクトルに変換し、概念間の意味的な意味や関係性を捉える技術です。</div>
+      </div>
+
+      <div class="bilingual-block">
+        <div class="en-line">An LLM's context window defines the maximum amount of text it can process at once, which includes both the input (prompt) and the output (response).</div>
+        <div class="ja-line">LLMのコンテキストウィンドウ（context window）は、一度に処理できるテキストの最大量を定義し、入力（プロンプト）と出力（レスポンス）の両方が含まれます。</div>
+      </div>
+
+      <div class="bilingual-block">
+        <div class="en-line">LLMs are non-deterministic, meaning the same input can produce different outputs.</div>
+        <div class="ja-line">LLMは非決定論的（non-deterministic）であり、同じ入力でも異なる出力が生成される場合があります。</div>
+      </div>
+
+      <div class="bilingual-block">
+        <div class="en-line">This non-determinism is influenced by a parameter called temperature, which controls the variability of the outputs.</div>
+        <div class="ja-line">この非決定論的な性質は「温度（temperature）」と呼ばれるパラメータによって影響を受け、出力の変動性を制御します。</div>
+      </div>
+
+      <div class="syllabus-h3">1.1.1 The Spectrum of AI（AIのスペクトラム）</div>
+
+      <div class="bilingual-block">
+        <div class="en-line">AI can be viewed along a spectrum based on its capabilities and scope:</div>
+        <div class="ja-line">AIはその能力と適用範囲に基づいてスペクトラムとして捉えることができます：</div>
+      </div>
+
+      <div class="bilingual-block">
+        <div class="en-line">Narrow AI (ANI – Artificial Narrow Intelligence) refers to AI systems designed to perform specific, well-defined tasks (e.g., image recognition, spam filtering, recommendation systems).</div>
+        <div class="ja-line">狭義のAI（ANI：人工狭域知能）は、特定の明確に定義されたタスク（例：画像認識・スパムフィルタリング・レコメンデーションシステム）を実行するために設計されたAIシステムを指します。</div>
+      </div>
+
+      <div class="bilingual-block">
+        <div class="en-line">General AI (AGI – Artificial General Intelligence) refers to a theoretical AI system capable of performing any intellectual task that a human can do.</div>
+        <div class="ja-line">汎用AI（AGI：人工汎用知能）は、人間が行えるあらゆる知的タスクを実行できる理論上のAIシステムを指します。</div>
+      </div>
+
+      <div class="bilingual-block">
+        <div class="en-line">Super AI (ASI – Artificial Super Intelligence) refers to a hypothetical AI that surpasses human intelligence in all aspects.</div>
+        <div class="ja-line">超知能AI（ASI：人工超知能）は、あらゆる面で人間の知能を凌駕する仮想上のAIを指します。</div>
+      </div>
+
+      <div class="bilingual-block">
+        <div class="en-line">Current GenAI models represent a subset of narrow AI, although they demonstrate a far broader capability set than traditional narrow AI systems.</div>
+        <div class="ja-line">現在のGenAIモデルは狭義のAIのサブセットを代表するものですが、従来の狭義のAIシステムよりもはるかに広い能力セットを示しています。</div>
+      </div>
+
+      <div class="syllabus-h3">1.1.2 Fundamentals of Generative AI and LLMs（生成AIとLLMの基礎）</div>
+
+      <div class="bilingual-block">
+        <div class="en-line">GenAI systems, particularly LLMs, are built on neural networks, specifically transformer architectures, which learn patterns from vast amounts of training data.</div>
+        <div class="ja-line">GenAIシステム、特にLLMはニューラルネットワーク、具体的にはトランスフォーマーアーキテクチャ上に構築されており、大量の学習データからパターンを学習します。</div>
+      </div>
+
+      <div class="bilingual-block">
+        <div class="en-line">Tokenization is the process of breaking text into smaller units called tokens.</div>
+        <div class="ja-line">トークン化（Tokenization）とは、テキストをトークンと呼ばれる小さな単位に分割するプロセスです。</div>
+      </div>
+
+      <div class="bilingual-block">
+        <div class="en-line">Embeddings convert these tokens into numerical representations that preserve semantic relationships, enabling the model to understand context and meaning.</div>
+        <div class="ja-line">エンベディング（Embeddings）はこれらのトークンを意味的な関係性を保持した数値表現に変換し、モデルがコンテキストと意味を理解できるようにします。</div>
+      </div>
+
+      <div class="bilingual-block">
+        <div class="en-line">The context window represents the total amount of text – both input and output – that an LLM can process in a single interaction.</div>
+        <div class="ja-line">コンテキストウィンドウ（Context window）は、LLMが1回のやり取りで処理できる入力と出力の合計テキスト量を表します。</div>
+      </div>
+
+      <div class="bilingual-block">
+        <div class="en-line">Larger context windows allow for more extensive conversations and document analysis.</div>
+        <div class="ja-line">コンテキストウィンドウが大きいほど、より長い会話や文書分析が可能になります。</div>
+      </div>
+
+      <div class="bilingual-block">
+        <div class="en-line">Non-determinism in LLMs means that identical prompts can produce different responses.</div>
+        <div class="ja-line">LLMにおける非決定論（Non-determinism）とは、同一のプロンプトでも異なるレスポンスが生成される可能性を意味します。</div>
+      </div>
+
+      <div class="bilingual-block">
+        <div class="en-line">The temperature parameter controls this variability; higher temperatures produce more diverse and creative responses, while lower temperatures produce more consistent and focused outputs.</div>
+        <div class="ja-line">温度パラメータ（temperature parameter）はこの変動性を制御します。温度が高いほど多様で創造的なレスポンスが生成され、低いほど一貫性があり焦点を絞った出力が生成されます。</div>
+      </div>
+
+      <div class="syllabus-h3">1.1.3 Foundation LLMs, Instruction-Tuned LLMs, and Reasoning LLMs（基盤LLM・指示チューニングLLM・推論LLM）</div>
+
+      <div class="bilingual-block">
+        <div class="en-line">Foundation LLMs are pre-trained on large datasets using self-supervised learning, making them capable of a broad range of language tasks.</div>
+        <div class="ja-line">基盤LLM（Foundation LLMs）は自己教師あり学習を使って大規模データセットで事前学習されており、幅広い言語タスクに対応できます。</div>
+      </div>
+
+      <div class="bilingual-block">
+        <div class="en-line">They are also referred to as pre-trained LLMs or base LLMs.</div>
+        <div class="ja-line">事前学習済みLLM（pre-trained LLMs）や基本LLM（base LLMs）とも呼ばれます。</div>
+      </div>
+
+      <div class="bilingual-block">
+        <div class="en-line">Instruction-tuned LLMs are further refined through fine-tuning to respond better to specific instructions and user queries, making them more practical for specific applications.</div>
+        <div class="ja-line">指示チューニングLLM（Instruction-tuned LLMs）は、特定の指示やユーザーのクエリにより良く応答できるようにファインチューニングによってさらに洗練されており、特定のアプリケーションにとってより実用的です。</div>
+      </div>
+
+      <div class="bilingual-block">
+        <div class="en-line">Reasoning LLMs are LLMs with enhanced capabilities for complex problem-solving, logical reasoning, and multi-step analysis, often using techniques like chain-of-thought prompting or reinforcement learning from human feedback (RLHF).</div>
+        <div class="ja-line">推論LLM（Reasoning LLMs）は、複雑な問題解決・論理的推論・多段階分析のための強化された能力を持つLLMで、連鎖的思考プロンプティング（chain-of-thought prompting）や人間のフィードバックからの強化学習（RLHF）などの技術をしばしば使用します。</div>
+      </div>
+
+      <div class="syllabus-h3">1.1.4 Multimodal LLMs（マルチモーダルLLM）</div>
+
+      <div class="bilingual-block">
+        <div class="en-line">Multimodal LLMs can process and generate multiple types of data, including text, images, audio, video, and code.</div>
+        <div class="ja-line">マルチモーダルLLM（Multimodal LLMs）は、テキスト・画像・音声・映像・コードなど複数種類のデータを処理・生成できます。</div>
+      </div>
+
+      <div class="bilingual-block">
+        <div class="en-line">This multimodal capability enhances their applicability across diverse testing scenarios, such as analyzing UI screenshots, processing spoken requirements, or evaluating multimedia content.</div>
+        <div class="ja-line">このマルチモーダル機能により、UIスクリーンショットの分析・音声要件の処理・マルチメディアコンテンツの評価など、多様なテストシナリオへの適用性が高まります。</div>
+      </div>
+
+      <div class="syllabus-h2">1.2 Capabilities of LLMs Applicable to Software Testing（ソフトウェアテストに適用可能なLLMの能力）</div>
+
+      <div class="syllabus-h3">1.2.1 Key Capabilities of LLMs（LLMの主要能力）</div>
+
+      <div class="bilingual-block">
+        <div class="en-line">LLMs possess several key capabilities that make them valuable for software testing:</div>
+        <div class="ja-line">LLMはソフトウェアテストにとって価値ある、いくつかの主要な能力を持っています：</div>
+      </div>
+
+      <div class="bilingual-block">
+        <div class="en-line">Natural Language Understanding (NLU): The ability to comprehend and interpret human language, including context, intent, and nuances.</div>
+        <div class="ja-line">自然言語理解（NLU）：文脈・意図・ニュアンスを含む人間の言語を理解・解釈する能力。</div>
+      </div>
+
+      <div class="bilingual-block">
+        <div class="en-line">Natural Language Generation (NLG): The ability to produce coherent, contextually appropriate text.</div>
+        <div class="ja-line">自然言語生成（NLG）：一貫性があり文脈に適したテキストを生成する能力。</div>
+      </div>
+
+      <div class="bilingual-block">
+        <div class="en-line">Code Understanding and Generation: The ability to analyze, explain, generate, and refactor code across multiple programming languages.</div>
+        <div class="ja-line">コード理解と生成：複数のプログラミング言語にわたってコードを分析・説明・生成・リファクタリングする能力。</div>
+      </div>
+
+      <div class="bilingual-block">
+        <div class="en-line">Reasoning and Problem Solving: The ability to analyze complex problems, identify patterns, and suggest solutions.</div>
+        <div class="ja-line">推論と問題解決：複雑な問題を分析し、パターンを特定し、解決策を提案する能力。</div>
+      </div>
+
+      <div class="bilingual-block">
+        <div class="en-line">Contextual Awareness: The ability to maintain and utilize context across extended conversations or documents.</div>
+        <div class="ja-line">コンテキスト認識：長い会話や文書を通じてコンテキストを維持・活用する能力。</div>
+      </div>
+
+      <div class="bilingual-block">
+        <div class="en-line">Knowledge Synthesis: The ability to combine information from various sources to provide comprehensive responses.</div>
+        <div class="ja-line">知識統合：様々なソースからの情報を組み合わせて包括的なレスポンスを提供する能力。</div>
+      </div>
+
+      <div class="syllabus-h3">1.2.2 AI Chatbots and LLM-Powered Testing Applications（AIチャットボットとLLM搭載テストアプリケーション）</div>
+
+      <div class="bilingual-block">
+        <div class="en-line">AI chatbots are applications that simulate human conversation using natural language processing.</div>
+        <div class="ja-line">AIチャットボットは自然言語処理を使って人間の会話をシミュレートするアプリケーションです。</div>
+      </div>
+
+      <div class="bilingual-block">
+        <div class="en-line">When powered by LLMs, they can engage in complex dialogues, answer questions, and assist with various tasks including test planning, test case generation, and defect analysis.</div>
+        <div class="ja-line">LLMを搭載することで、複雑な対話・質問への回答・テスト計画・テストケース生成・欠陥分析などの様々なタスクの支援が可能になります。</div>
+      </div>
+
+      <div class="bilingual-block">
+        <div class="en-line">LLM-powered testing applications are specialized tools that integrate LLM capabilities into the testing workflow.</div>
+        <div class="ja-line">LLM搭載テストアプリケーションとは、LLMの能力をテストのワークフローに統合した専用ツールです。</div>
+      </div>
+
+      <div class="bilingual-block">
+        <div class="en-line">These applications can automate test generation, analyze test results, suggest improvements, and provide intelligent assistance throughout the testing lifecycle.</div>
+        <div class="ja-line">これらのアプリケーションは、テスト生成の自動化・テスト結果の分析・改善提案・テストライフサイクル全体にわたるインテリジェントな支援を提供できます。</div>
+      </div>
+
+      <div class="bilingual-block">
+        <div class="en-line">It is important for testers to understand the distinction between general-purpose AI chatbots and specialized LLM-powered testing tools, as each has different capabilities, limitations, and appropriate use cases.</div>
+        <div class="ja-line">テスターにとって、汎用AIチャットボットと専用のLLM搭載テストツールの違いを理解することが重要です。それぞれ異なる能力・制限・適切なユースケースを持っています。</div>
       </div>
     </div>
 
-    <div class="syllabus-section">
-      <div class="syllabus-section-header">
-        <div class="en-title">1.2 Applications of Generative AI in Software Testing</div>
-        <div class="ja-title">1.2 ソフトウェアテストにおける生成AIの適用</div>
-      </div>
-      <div class="syllabus-content">
-        <p>LLMはソフトウェアテストの様々なタスクに適用できます：</p>
-        <ul>
-          <li>要件の分析と改善（曖昧さ・不整合・不足情報の特定）</li>
-          <li>テストケース生成支援</li>
-          <li>テストオラクル（<span class="en-word">Test Oracle</span>）生成 — 期待結果の生成</li>
-          <li>合成テストデータ（<span class="en-word">Synthetic Test Data</span>）生成</li>
-          <li>テスト自動化スクリプト生成・改善</li>
-          <li>テスト結果分析（サマリー作成・異常分類）</li>
-          <li>テストウェア（<span class="en-word">Test Ware</span>）作成：テスト計画・テストレポート・欠陥レポートなど</li>
-        </ul>
-        <p>GenAIとのインタラクションモデルには主に2種類があります：</p>
-        <ul>
-          <li><strong>AIチャットボット</strong>（<span class="en-word">AI Chatbot</span>）：会話型インターフェースでLLMに直接アクセス。非技術者にも使いやすく、即時の自然言語応答が得られる</li>
-          <li><strong>LLM搭載テストアプリケーション</strong>（<span class="en-word">LLM-Powered Test Application</span>）：APIでLLM機能を統合。高いカスタマイズ性・拡張性を持ち、既存テストフレームワークへの組み込みが可能</li>
-        </ul>
-      </div>
-    </div>
-
-    <!-- 第2章 -->
-    <div class="chapter-banner" style="background:linear-gradient(135deg,#6a1fa0,#8e44ad);margin-top:32px;">
+    <!-- ===== 第2章 ===== -->
+    <div class="chapter-banner" style="background:linear-gradient(135deg,#1a7a4a,#27ae60);">
       <div class="num">2</div>
       <div class="info">
-        <h2>第2章：効果的なソフトウェアテストのためのプロンプトエンジニアリング</h2>
-        <div class="sub">Prompt Engineering for Effective Software Testing ／ 365分 ／ 10学習目標</div>
+        <h2>Applying GenAI in Testing Activities</h2>
+        <div class="sub">第2章：テスト活動へのGenAI適用 ／ 215分 ／ 11学習目標</div>
       </div>
     </div>
 
     <div class="syllabus-section">
-      <div class="syllabus-section-header">
-        <div class="en-title">2.1 Prompt Engineering Fundamentals</div>
-        <div class="ja-title">2.1 プロンプトエンジニアリングの基礎</div>
+      <div class="syllabus-h2">2.1 Prompting LLMs（LLMへのプロンプティング）</div>
+
+      <div class="bilingual-block">
+        <div class="en-line">Effective use of LLMs requires understanding how to craft prompts that produce high-quality, relevant outputs.</div>
+        <div class="ja-line">LLMを効果的に使用するには、高品質で関連性の高い出力を生成するプロンプトの作成方法を理解する必要があります。</div>
       </div>
-      <div class="syllabus-content">
-        <p><strong>プロンプトエンジニアリング</strong>（<span class="en-word">Prompt Engineering</span>）とは、GenAIツールがソフトウェアテストタスクを正確かつ効率的に実行し、有用な結果を得られるようなプロンプトを設計するプロセスです。</p>
-        <p>効果的な<strong>構造化プロンプト</strong>（<span class="en-word">Structured Prompt</span>）は以下の6コンポーネントで構成されます（すべて必須ではなく、タスクに応じて選択）：</p>
-        <ul>
-          <li><strong>役割</strong>（<span class="en-word">Role</span>）：GenAIが取るべき視点・ペルソナ</li>
-          <li><strong>コンテキスト</strong>（<span class="en-word">Context</span>）：テスト対象・機能・関連情報などの背景情報</li>
-          <li><strong>指示</strong>（<span class="en-word">Instruction</span>）：実行すべき具体的タスクの明確な指令</li>
-          <li><strong>入力データ</strong>（<span class="en-word">Input Data</span>）：ユーザーストーリー・受け入れ基準・スクリーンショット・コードなど</li>
-          <li><strong>制約</strong>（<span class="en-word">Constraints</span>）：守るべき制限や特別な考慮事項</li>
-          <li><strong>出力形式</strong>（<span class="en-word">Output Format</span>）：期待される応答の形式・構造・特性</li>
-        </ul>
-        <p>コアプロンプティング技法には以下が含まれます：</p>
-        <ul>
-          <li><strong>ゼロショットプロンプティング</strong>（<span class="en-word">Zero-shot Prompting</span>）：例を提供せず、モデルの事前学習済み知識のみに頼る</li>
-          <li><strong>ワンショットプロンプティング</strong>（<span class="en-word">One-shot Prompting</span>）：1つの例のみを提供する</li>
-          <li><strong>フューショットプロンプティング</strong>（<span class="en-word">Few-shot Prompting</span>）：複数の例を提供してLLMに望ましい応答パターンを学習させる。Gherkin形式など特定の出力形式が必要な繰り返しタスクに有効</li>
-          <li><strong>プロンプトチェーニング</strong>（<span class="en-word">Prompt Chaining</span>）：タスクを一連の中間ステップ（複数のプロンプト）に分割する。各ステップの結果を手動または自動で確認・改良してから次のプロンプトに進む</li>
-          <li><strong>メタプロンプティング</strong>（<span class="en-word">Meta Prompting</span>）：LLMの能力を活用してプロンプト自体を生成・改良させる。テスターがLLMと協力してプロンプトを共創する「ペアリング」（<span class="en-word">pairing</span>）の概念</li>
-        </ul>
-        <p><strong>システムプロンプト</strong>（<span class="en-word">System Prompt</span>）は開発者やテスターが事前に設定し、LLMの動作・ペルソナ・制約を定義します。会話全体を通じて固定されます。</p>
-        <p><strong>ユーザープロンプト</strong>（<span class="en-word">User Prompt</span>）は各インタラクションでユーザーが提供する入力で、変化します。</p>
+
+      <div class="bilingual-block">
+        <div class="en-line">A prompt is the input provided to an LLM to guide its response.</div>
+        <div class="ja-line">プロンプト（prompt）とは、LLMのレスポンスを導くために提供される入力のことです。</div>
+      </div>
+
+      <div class="syllabus-h3">2.1.1 Prompt Structure（プロンプト構造）</div>
+
+      <div class="bilingual-block">
+        <div class="en-line">An effective prompt typically consists of several components:</div>
+        <div class="ja-line">効果的なプロンプトは通常、いくつかのコンポーネントで構成されています：</div>
+      </div>
+
+      <div class="bilingual-block">
+        <div class="en-line">Persona: Defining the role or expertise the LLM should adopt (e.g., "Act as a senior test engineer").</div>
+        <div class="ja-line">ペルソナ（Persona）：LLMが採用すべき役割や専門知識を定義する（例：「シニアテストエンジニアとして行動してください」）。</div>
+      </div>
+
+      <div class="bilingual-block">
+        <div class="en-line">Context: Providing relevant background information to help the LLM understand the situation.</div>
+        <div class="ja-line">コンテキスト（Context）：LLMが状況を理解するための関連する背景情報を提供する。</div>
+      </div>
+
+      <div class="bilingual-block">
+        <div class="en-line">Task: Clearly stating what action or output is required.</div>
+        <div class="ja-line">タスク（Task）：必要なアクションや出力を明確に述べる。</div>
+      </div>
+
+      <div class="bilingual-block">
+        <div class="en-line">Output format: Specifying the desired format of the response (e.g., bullet points, JSON, table).</div>
+        <div class="ja-line">出力フォーマット（Output format）：レスポンスの希望するフォーマットを指定する（例：箇条書き・JSON・テーブル）。</div>
+      </div>
+
+      <div class="bilingual-block">
+        <div class="en-line">Examples: Providing sample inputs and outputs to guide the model's response.</div>
+        <div class="ja-line">例（Examples）：モデルのレスポンスを導くサンプルの入力と出力を提供する。</div>
+      </div>
+
+      <div class="bilingual-block">
+        <div class="en-line">Constraints: Defining limitations or restrictions the response must adhere to.</div>
+        <div class="ja-line">制約（Constraints）：レスポンスが守らなければならない制限や制約を定義する。</div>
+      </div>
+
+      <div class="syllabus-h3">2.1.2 Core Prompting Techniques（コアプロンプティング技法）</div>
+
+      <div class="bilingual-block">
+        <div class="en-line">Several core prompting techniques are particularly valuable for testing activities:</div>
+        <div class="ja-line">テスト活動において特に価値のあるコアプロンプティング技法がいくつかあります：</div>
+      </div>
+
+      <div class="bilingual-block">
+        <div class="en-line">Prompt chaining involves breaking complex tasks into a sequence of smaller, manageable prompts where each output feeds into the next prompt as input.</div>
+        <div class="ja-line">プロンプトチェーニング（Prompt chaining）は、複雑なタスクを一連の小さく扱いやすいプロンプトに分解し、各出力を次のプロンプトの入力として繋いでいく手法です。</div>
+      </div>
+
+      <div class="bilingual-block">
+        <div class="en-line">This approach is effective for tasks like generating test plans that require multiple distinct steps.</div>
+        <div class="ja-line">このアプローチは、複数の明確なステップを必要とするテスト計画の生成などのタスクに効果的です。</div>
+      </div>
+
+      <div class="bilingual-block">
+        <div class="en-line">Few-shot prompting provides the model with examples of the desired input-output behavior within the prompt itself.</div>
+        <div class="ja-line">フューショットプロンプティング（Few-shot prompting）は、プロンプト自体の中で望ましい入出力の動作例をモデルに提供する手法です。</div>
+      </div>
+
+      <div class="bilingual-block">
+        <div class="en-line">By showing several examples (or "shots"), the model learns the pattern and applies it to new inputs.</div>
+        <div class="ja-line">いくつかの例（「ショット」）を示すことで、モデルはパターンを学習し新しい入力に適用します。</div>
+      </div>
+
+      <div class="bilingual-block">
+        <div class="en-line">Meta-prompting uses the LLM itself to improve, refine, or generate prompts, helping to optimize the quality of subsequent interactions.</div>
+        <div class="ja-line">メタプロンプティング（Meta-prompting）はLLM自体を使用してプロンプトを改善・洗練・生成する手法であり、その後のやり取りの品質最適化に役立ちます。</div>
+      </div>
+
+      <div class="syllabus-h3">2.1.3 System and User Prompts（システムプロンプトとユーザープロンプト）</div>
+
+      <div class="bilingual-block">
+        <div class="en-line">System prompts are instructions provided to an LLM before the conversation begins, typically by the application developer, to establish the LLM's behavior, persona, and constraints throughout the interaction.</div>
+        <div class="ja-line">システムプロンプト（System prompts）は会話が始まる前にLLMに提供される指示であり、通常はアプリケーション開発者が提供し、やり取り全体を通じてLLMの動作・ペルソナ・制約を確立します。</div>
+      </div>
+
+      <div class="bilingual-block">
+        <div class="en-line">User prompts are the inputs provided by end users during the conversation to direct the LLM toward specific tasks or answers.</div>
+        <div class="ja-line">ユーザープロンプト（User prompts）は、特定のタスクや回答に向けてLLMを導くために、会話中にエンドユーザーが提供する入力です。</div>
+      </div>
+
+      <div class="bilingual-block">
+        <div class="en-line">Understanding the distinction between system and user prompts is important for testers working with LLM-powered applications, as it affects how the application behaves and how it can be tested.</div>
+        <div class="ja-line">システムプロンプトとユーザープロンプトの違いを理解することは、LLM搭載アプリケーションを扱うテスターにとって重要であり、アプリケーションの動作とテスト方法に影響します。</div>
+      </div>
+
+      <div class="syllabus-h2">2.2 Using LLMs for Testing Tasks（テストタスクへのLLM活用）</div>
+
+      <div class="syllabus-h3">2.2.1 Supporting Test Analysis and Test Design（テスト分析とテスト設計の支援）</div>
+
+      <div class="bilingual-block">
+        <div class="en-line">LLMs can significantly support test analysis and test design activities by analyzing requirements, user stories, and other test basis documents to identify testable conditions.</div>
+        <div class="ja-line">LLMは要件・ユーザーストーリー・その他のテストベース文書を分析してテスト可能な条件を特定することで、テスト分析とテスト設計活動を大幅に支援できます。</div>
+      </div>
+
+      <div class="bilingual-block">
+        <div class="en-line">They can generate test cases from requirements, user stories, or acceptance criteria, applying testing techniques such as equivalence partitioning, boundary value analysis, and decision table testing.</div>
+        <div class="ja-line">同値分割・境界値分析・デシジョンテーブルテストなどのテスト技法を適用して、要件・ユーザーストーリー・受け入れ基準からテストケースを生成できます。</div>
+      </div>
+
+      <div class="bilingual-block">
+        <div class="en-line">LLMs can also help identify gaps in test coverage, suggest additional test scenarios, and create test data.</div>
+        <div class="ja-line">LLMはテストカバレッジのギャップの特定・追加のテストシナリオの提案・テストデータの作成にも役立ちます。</div>
+      </div>
+
+      <div class="syllabus-h3">2.2.2 Supporting Test Implementation（テスト実装の支援）</div>
+
+      <div class="bilingual-block">
+        <div class="en-line">During test implementation, LLMs can generate test scripts and test code, converting test cases into executable automated tests.</div>
+        <div class="ja-line">テスト実装時において、LLMはテストスクリプトとテストコードを生成し、テストケースを実行可能な自動テストに変換できます。</div>
+      </div>
+
+      <div class="bilingual-block">
+        <div class="en-line">They can assist with creating test fixtures, mock objects, and test data generators.</div>
+        <div class="ja-line">テストフィクスチャ・モックオブジェクト・テストデータジェネレータの作成を支援できます。</div>
+      </div>
+
+      <div class="bilingual-block">
+        <div class="en-line">LLMs can also help in translating manual test procedures into automated test scripts.</div>
+        <div class="ja-line">LLMは手動テスト手順を自動テストスクリプトに変換する際にも役立ちます。</div>
+      </div>
+
+      <div class="syllabus-h3">2.2.3 Supporting Reviews（レビューの支援）</div>
+
+      <div class="bilingual-block">
+        <div class="en-line">LLMs can assist in reviewing test artifacts, including test plans, test cases, and test scripts, by checking for completeness, clarity, and alignment with requirements.</div>
+        <div class="ja-line">LLMはテスト計画・テストケース・テストスクリプトなどのテスト成果物をレビューする際に、完全性・明確性・要件との整合性を確認することで支援できます。</div>
+      </div>
+
+      <div class="bilingual-block">
+        <div class="en-line">They can identify potential issues or gaps in test coverage and suggest improvements.</div>
+        <div class="ja-line">テストカバレッジの潜在的な問題やギャップを特定し、改善提案を行えます。</div>
+      </div>
+
+      <div class="bilingual-block">
+        <div class="en-line">LLMs can also review source code for potential defects, code quality issues, and security vulnerabilities.</div>
+        <div class="ja-line">LLMはソースコードの潜在的な欠陥・コード品質の問題・セキュリティ脆弱性をレビューすることもできます。</div>
+      </div>
+
+      <div class="syllabus-h3">2.2.4 Supporting Test Execution and Reporting（テスト実行とレポーティングの支援）</div>
+
+      <div class="bilingual-block">
+        <div class="en-line">During test execution, LLMs can assist in analyzing test results, identifying patterns in test failures, and distinguishing between actual defects and false positives.</div>
+        <div class="ja-line">テスト実行時において、LLMはテスト結果の分析・テスト失敗のパターン特定・実際の欠陥と偽陽性の区別を支援できます。</div>
+      </div>
+
+      <div class="bilingual-block">
+        <div class="en-line">They can assist in root cause analysis for defects and help generate defect reports.</div>
+        <div class="ja-line">欠陥の根本原因分析と欠陥レポートの生成を支援できます。</div>
+      </div>
+
+      <div class="bilingual-block">
+        <div class="en-line">LLMs can also help generate test summary reports, extracting key insights from test execution data.</div>
+        <div class="ja-line">LLMはテスト実行データから主要な洞察を抽出して、テストサマリーレポートの生成にも役立ちます。</div>
+      </div>
+
+      <div class="syllabus-h3">2.2.5 Supporting Non-Functional Testing（非機能テストの支援）</div>
+
+      <div class="bilingual-block">
+        <div class="en-line">LLMs can support various types of non-functional testing, including performance testing, security testing, usability testing, and accessibility testing.</div>
+        <div class="ja-line">LLMはパフォーマンステスト・セキュリティテスト・ユーザビリティテスト・アクセシビリティテストなど、様々な種類の非機能テストを支援できます。</div>
+      </div>
+
+      <div class="bilingual-block">
+        <div class="en-line">For performance testing, LLMs can help design load test scenarios and analyze performance metrics.</div>
+        <div class="ja-line">パフォーマンステストでは、LLMが負荷テストシナリオの設計とパフォーマンス指標の分析を支援できます。</div>
+      </div>
+
+      <div class="bilingual-block">
+        <div class="en-line">For security testing, LLMs can identify potential vulnerabilities, suggest security test cases, and review security configurations.</div>
+        <div class="ja-line">セキュリティテストでは、LLMが潜在的な脆弱性の特定・セキュリティテストケースの提案・セキュリティ設定のレビューを行えます。</div>
+      </div>
+
+      <div class="bilingual-block">
+        <div class="en-line">For usability and accessibility testing, LLMs can evaluate interfaces against established guidelines and standards.</div>
+        <div class="ja-line">ユーザビリティとアクセシビリティテストでは、LLMが確立されたガイドラインや標準に照らしてインターフェースを評価できます。</div>
+      </div>
+
+      <div class="syllabus-h2">2.3 Evaluating LLM Outputs（LLMの出力評価）</div>
+
+      <div class="syllabus-h3">2.3.1 Quality Criteria for LLM-Generated Test Artifacts（LLM生成テスト成果物の品質基準）</div>
+
+      <div class="bilingual-block">
+        <div class="en-line">When evaluating LLM-generated test artifacts, testers should consider several quality criteria:</div>
+        <div class="ja-line">LLMが生成したテスト成果物を評価する際、テスターは以下の品質基準を考慮すべきです：</div>
+      </div>
+
+      <table class="syllabus-table">
+        <thead>
+          <tr><th>Criterion（基準）</th><th>Description（説明）</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Correctness（正確性）</td><td>The artifact accurately represents the testing requirements and produces the expected outcomes.（成果物がテスト要件を正確に表現し、期待される成果を生み出す）</td></tr>
+          <tr><td>Completeness（完全性）</td><td>All necessary aspects of the testing scope are covered.（テスト範囲の必要な側面がすべてカバーされている）</td></tr>
+          <tr><td>Clarity（明確性）</td><td>The artifact is unambiguous and easy to understand.（成果物が明確であり、理解しやすい）</td></tr>
+          <tr><td>Consistency（一貫性）</td><td>The artifact is consistent with other testing artifacts and requirements.（成果物が他のテスト成果物や要件と一貫している）</td></tr>
+          <tr><td>Executability（実行可能性）</td><td>Test cases and scripts can be executed without modification.（テストケースやスクリプトが修正なしで実行できる）</td></tr>
+          <tr><td>Traceability（トレーサビリティ）</td><td>The artifact can be traced back to specific requirements or test objectives.（成果物を特定の要件やテスト目標に遡ることができる）</td></tr>
+        </tbody>
+      </table>
+
+      <div class="syllabus-h3">2.3.2 Iterative Improvement Techniques（反復改善技法）</div>
+
+      <div class="bilingual-block">
+        <div class="en-line">LLM outputs can be improved iteratively through techniques such as:</div>
+        <div class="ja-line">LLMの出力は以下のような技法によって反復的に改善できます：</div>
+      </div>
+
+      <div class="bilingual-block">
+        <div class="en-line">Prompt refinement: Modifying the prompt based on the quality of previous outputs to produce better results.</div>
+        <div class="ja-line">プロンプト改善（Prompt refinement）：前の出力の品質に基づいてプロンプトを修正し、より良い結果を生み出す。</div>
+      </div>
+
+      <div class="bilingual-block">
+        <div class="en-line">Output validation: Checking outputs against predefined criteria and feeding back the validation results to the LLM for correction.</div>
+        <div class="ja-line">出力バリデーション（Output validation）：事前定義された基準に照らして出力をチェックし、バリデーション結果をLLMに返して修正させる。</div>
+      </div>
+
+      <div class="bilingual-block">
+        <div class="en-line">Human-in-the-loop review: Incorporating human review at key stages to guide the LLM's iterative refinement process.</div>
+        <div class="ja-line">ヒューマンインザループレビュー（Human-in-the-loop review）：主要な段階で人間のレビューを取り入れ、LLMの反復的な改善プロセスを導く。</div>
+      </div>
+
+      <div class="bilingual-block">
+        <div class="en-line">Contextual feedback: Providing specific feedback about what was incorrect or missing in the previous output to help the LLM understand and address the shortcomings.</div>
+        <div class="ja-line">コンテキストフィードバック（Contextual feedback）：前の出力で何が誤っていたか、または何が欠けていたかについて具体的なフィードバックを提供し、LLMが欠点を理解して対処できるようにする。</div>
       </div>
     </div>
 
-    <div class="syllabus-section">
-      <div class="syllabus-section-header">
-        <div class="en-title">2.2 Applying Prompt Engineering to Software Testing Tasks</div>
-        <div class="ja-title">2.2 ソフトウェアテストタスクへのプロンプトエンジニアリングの適用</div>
-      </div>
-      <div class="syllabus-content">
-        <p>GenAIは以下のテストタスクに適用できます（K3：適用レベルの学習目標）：</p>
-        <ul>
-          <li><strong>テスト分析</strong>（<span class="en-word">Test Analysis</span>）：テストベースの潜在的欠陥特定、テスト条件の生成と優先付け、カバレッジ分析</li>
-          <li><strong>テスト設計・テスト実装</strong>（<span class="en-word">Test Design and Test Implementation</span>）：テストケース生成、テストデータ合成、自動テストスクリプト生成</li>
-          <li><strong>自動化リグレッションテスト</strong>（<span class="en-word">Automated Regression Testing</span>）：キーワード駆動テストスクリプト実装、影響分析、自己回復型テスト（<span class="en-word">Self-Healing Test</span>）、テストレポート自動生成</li>
-          <li><strong>テスト監視・制御</strong>（<span class="en-word">Test Monitoring and Control</span>）：テスト監視の自動化、トレンド分析によるリスク予測、テスト完了レポート生成</li>
-          <li><strong>適切なプロンプティング技法の選択・適用</strong>（<span class="en-word">Selecting and Applying Prompting Techniques</span>）：各テストタスクの特性に応じて最適な技法を選ぶ</li>
-        </ul>
-      </div>
-    </div>
-
-    <div class="syllabus-section">
-      <div class="syllabus-section-header">
-        <div class="en-title">2.3 Evaluating and Improving AI-Generated Results</div>
-        <div class="ja-title">2.3 AI生成結果の評価と改善</div>
-      </div>
-      <div class="syllabus-content">
-        <p>GenAI結果を評価するための主な指標：</p>
-        <ul>
-          <li><strong>精度</strong>（<span class="en-word">Accuracy</span>）：生成されたテストケース等の正確さ</li>
-          <li><strong>正確性</strong>（<span class="en-word">Precision</span>）：生成結果のうち正しいものの割合</li>
-          <li><strong>再現率</strong>（<span class="en-word">Recall</span>）：本来あるべき結果のうち生成できた割合</li>
-          <li><strong>関連性と文脈適合性</strong>（<span class="en-word">Relevance and Contextual Fit</span>）：テスト対象・文脈との適合性</li>
-          <li><strong>多様性</strong>（<span class="en-word">Diversity</span>）：テストカバレッジの幅広さ</li>
-          <li><strong>実行成功率</strong>（<span class="en-word">Execution Success Rate</span>）：生成されたスクリプトが正常実行できる割合</li>
-          <li><strong>時間効率性</strong>（<span class="en-word">Time Efficiency</span>）：生成にかかる時間とその価値のバランス</li>
-        </ul>
-        <p>プロンプトの改善技法：反復的プロンプト修正、A/Bテスト、出力分析、ユーザーフィードバックの統合、プロンプトの長さと具体性の調整。</p>
-      </div>
-    </div>
-
-    <!-- 第3章 -->
-    <div class="chapter-banner" style="background:linear-gradient(135deg,#a01a1a,#c0392b);margin-top:32px;">
+    <!-- ===== 第3章 ===== -->
+    <div class="chapter-banner" style="background:linear-gradient(135deg,#8e2020,#c0392b);">
       <div class="num">3</div>
       <div class="info">
-        <h2>第3章：ソフトウェアテストにおける生成AIのリスク管理</h2>
-        <div class="sub">Risk Management for Generative AI in Software Testing ／ 160分 ／ 10学習目標</div>
+        <h2>Risks and Limitations of GenAI in Testing</h2>
+        <div class="sub">第3章：テストにおけるGenAIのリスクと限界 ／ 170分 ／ 9学習目標</div>
       </div>
     </div>
 
     <div class="syllabus-section">
-      <div class="syllabus-section-header">
-        <div class="en-title">3.1 Hallucinations, Reasoning Errors, and Biases</div>
-        <div class="ja-title">3.1 ハルシネーション・推論エラー・バイアス</div>
+      <div class="syllabus-h2">3.1 Understanding GenAI Risks（GenAIリスクの理解）</div>
+
+      <div class="syllabus-h3">3.1.1 Hallucinations（ハルシネーション）</div>
+
+      <div class="bilingual-block">
+        <div class="en-line">Hallucinations in the context of LLMs refer to the generation of content that is factually incorrect, inconsistent, or not grounded in the provided input or training data.</div>
+        <div class="ja-line">LLMの文脈におけるハルシネーション（Hallucinations）とは、事実として誤っている・矛盾している・または提供された入力や学習データに基づいていないコンテンツを生成することを指します。</div>
       </div>
-      <div class="syllabus-content">
-        <p><strong>ハルシネーション</strong>（<span class="en-word">Hallucination</span>）は、LLMが与えられたタスクに対して事実として不正確または無関係な出力を生成する現象です。ソフトウェアテストでは架空のテストケース生成、存在しない受け入れ基準の提案として現れます。</p>
-        <p><strong>推論エラー</strong>（<span class="en-word">Reasoning Error</span>）は、LLMが因果関係・条件ロジック・段階的問題解決などの論理的構造を誤解して誤った結論を導く現象です。テスト計画やテストケース優先付けで起きやすいです。</p>
-        <p><strong>バイアス</strong>（<span class="en-word">Bias</span>）は、訓練データから生じる特定の情報・アプローチ・仮定への偏りです。英語データで訓練されたLLMは非英語の観点を少なく表現する可能性があります。</p>
-        <p>これらを特定するには（K3：適用）、LLM出力を批判的に評価する必要があります。ハルシネーションは架空の情報が事実として提示されていないか、推論エラーは論理の飛躍がないか、バイアスは特定の観点のみが強調されていないかを確認します。</p>
-        <p><strong>軽減技法</strong>（<span class="en-word">Mitigation Techniques</span>）：</p>
-        <ul>
-          <li>プロンプトに完全なコンテキストを提供する</li>
-          <li>プロンプトチェーニングで複雑なプロンプトを小さなセグメントに分割する</li>
-          <li>明確で解釈しやすいデータ形式を使用する</li>
-          <li>タスクに適した特定のGenAIモデルを選択する</li>
-          <li>複数モデルで結果を比較し出力エラーを検出する</li>
-        </ul>
-        <p><strong>非決定論的動作</strong>（<span class="en-word">Non-deterministic Behavior</span>）の軽減技法（K1）：</p>
-        <ul>
-          <li><strong>Temperatureパラメータを下げる</strong>（<span class="en-word">Lower the Temperature</span>）：確率分布を狭めランダム性を減少させる。ただし創造性と多様性も制限される</li>
-          <li><strong>ランダムシードを設定する</strong>（<span class="en-word">Set a Random Seed</span>）：同じ疑似乱数シーケンスを使用して再現性を向上させる（対応しているLLMのみ）</li>
-        </ul>
+
+      <div class="bilingual-block">
+        <div class="en-line">Types of hallucinations include factual errors (stating incorrect facts), logical inconsistencies (contradicting established information), entity fabrication (inventing non-existent entities), and temporal errors (mixing up dates or chronologies).</div>
+        <div class="ja-line">ハルシネーションの種類には、事実誤り（不正確な事実の記述）・論理的矛盾（確立された情報との矛盾）・エンティティの捏造（存在しないエンティティの発明）・時間的エラー（日付や年表の混同）などがあります。</div>
+      </div>
+
+      <div class="bilingual-block">
+        <div class="en-line">Testers can detect hallucinations by cross-referencing outputs with authoritative sources, using verification tools, checking for internal consistency, and applying domain expertise.</div>
+        <div class="ja-line">テスターは権威あるソースとの相互参照・検証ツールの使用・内部一貫性の確認・ドメインの専門知識の適用によってハルシネーションを検出できます。</div>
+      </div>
+
+      <div class="bilingual-block">
+        <div class="en-line">Mitigation strategies include using retrieval-augmented generation (RAG), implementing fact-checking processes, designing prompts that encourage accuracy, and maintaining human oversight of critical outputs.</div>
+        <div class="ja-line">軽減策として、検索拡張生成（RAG）の使用・ファクトチェックプロセスの実施・正確性を促すプロンプト設計・重要な出力に対する人間による監視の維持などがあります。</div>
+      </div>
+
+      <div class="syllabus-h3">3.1.2 Reasoning Errors（推論エラー）</div>
+
+      <div class="bilingual-block">
+        <div class="en-line">Reasoning errors occur when an LLM produces logically flawed conclusions, even when working with correct information.</div>
+        <div class="ja-line">推論エラー（Reasoning errors）は、LLMが正確な情報を扱っているときでも、論理的に欠陥のある結論を生成することで発生します。</div>
+      </div>
+
+      <div class="bilingual-block">
+        <div class="en-line">Common reasoning errors include flawed deductive reasoning (drawing incorrect conclusions from premises), inductive reasoning failures (overgeneralizing from limited examples), and causal reasoning errors (confusing correlation with causation).</div>
+        <div class="ja-line">一般的な推論エラーには、欠陥のある演繹的推論（前提から誤った結論を導く）・帰納的推論の失敗（限られた例から過度に一般化する）・因果推論エラー（相関関係と因果関係を混同する）などがあります。</div>
+      </div>
+
+      <div class="bilingual-block">
+        <div class="en-line">Testers should be aware that LLMs may appear confident even when making reasoning errors, making human validation particularly important for complex analytical tasks.</div>
+        <div class="ja-line">LLMは推論エラーを犯していても自信があるように見える場合があるため、複雑な分析タスクでは人間によるバリデーションが特に重要であることをテスターは認識すべきです。</div>
+      </div>
+
+      <div class="syllabus-h3">3.1.3 Biases（バイアス）</div>
+
+      <div class="bilingual-block">
+        <div class="en-line">LLMs can exhibit various biases inherited from their training data or amplified through the training process.</div>
+        <div class="ja-line">LLMは学習データから引き継がれた、または学習プロセスを通じて増幅された様々なバイアスを示す場合があります。</div>
+      </div>
+
+      <div class="bilingual-block">
+        <div class="en-line">Types of biases include selection bias (training data overrepresenting certain groups or perspectives), confirmation bias (favoring information that confirms existing patterns in the training data), cultural bias (reflecting specific cultural norms), and temporal bias (reflecting outdated information or perspectives).</div>
+        <div class="ja-line">バイアスの種類には、選択バイアス（学習データが特定のグループや視点を過剰に代表する）・確証バイアス（学習データの既存パターンを確認する情報を優先する）・文化バイアス（特定の文化規範を反映する）・時間的バイアス（古い情報や視点を反映する）などがあります。</div>
+      </div>
+
+      <div class="bilingual-block">
+        <div class="en-line">Testers should be aware of potential biases in LLM outputs, particularly when the LLM is used for generating test cases or evaluating test results, as biases can lead to inadequate test coverage.</div>
+        <div class="ja-line">LLMがテストケース生成やテスト結果評価に使用される場合、バイアスが不十分なテストカバレッジにつながる可能性があるため、テスターはLLMの出力における潜在的なバイアスを認識すべきです。</div>
+      </div>
+
+      <div class="syllabus-h3">3.1.4 Mitigating GenAI Risks in Testing（テストにおけるGenAIリスクの軽減）</div>
+
+      <div class="bilingual-block">
+        <div class="en-line">General strategies for mitigating GenAI risks in testing include:</div>
+        <div class="ja-line">テストにおけるGenAIリスクを軽減するための一般的な戦略には以下が含まれます：</div>
+      </div>
+
+      <div class="bilingual-block">
+        <div class="en-line">Human oversight: Always reviewing and validating LLM outputs before using them in testing activities.</div>
+        <div class="ja-line">人間による監視（Human oversight）：テスト活動でLLMの出力を使用する前に、常にレビューとバリデーションを行う。</div>
+      </div>
+
+      <div class="bilingual-block">
+        <div class="en-line">Diverse validation: Using multiple validation methods, including human review, automated checking, and cross-referencing with authoritative sources.</div>
+        <div class="ja-line">多様なバリデーション（Diverse validation）：人間によるレビュー・自動チェック・権威あるソースとの相互参照など、複数のバリデーション手法を使用する。</div>
+      </div>
+
+      <div class="bilingual-block">
+        <div class="en-line">Clear documentation: Documenting where and how LLMs are used in the testing process, including the limitations and potential risks.</div>
+        <div class="ja-line">明確な文書化（Clear documentation）：制限や潜在的なリスクを含め、テストプロセスでLLMがどこでどのように使用されているかを文書化する。</div>
+      </div>
+
+      <div class="bilingual-block">
+        <div class="en-line">Continuous evaluation: Regularly evaluating the quality and reliability of LLM outputs to detect any degradation or emerging risks.</div>
+        <div class="ja-line">継続的な評価（Continuous evaluation）：LLMの出力の品質と信頼性を定期的に評価して、品質の低下や新たなリスクを検出する。</div>
+      </div>
+
+      <div class="syllabus-h2">3.2 Data Privacy and Security Risks（データプライバシーとセキュリティのリスク）</div>
+
+      <div class="syllabus-h3">3.2.1 Privacy Risks（プライバシーリスク）</div>
+
+      <div class="bilingual-block">
+        <div class="en-line">Using LLMs in testing introduces several privacy risks that testers must be aware of and address.</div>
+        <div class="ja-line">テストでLLMを使用することで、テスターが認識し対処すべきいくつかのプライバシーリスクが生じます。</div>
+      </div>
+
+      <div class="bilingual-block">
+        <div class="en-line">Data leakage can occur when sensitive information included in prompts is retained in the LLM's context and potentially exposed to other users or systems.</div>
+        <div class="ja-line">プロンプトに含まれる機密情報がLLMのコンテキストに保持され、他のユーザーやシステムに潜在的に露出する場合、データ漏洩（data leakage）が発生する可能性があります。</div>
+      </div>
+
+      <div class="bilingual-block">
+        <div class="en-line">Training data exposure occurs when LLMs inadvertently reveal information from their training data, which may include sensitive or proprietary information.</div>
+        <div class="ja-line">LLMが学習データからの情報（機密情報や独自情報を含む場合がある）を意図せず公開する場合、学習データの露出（training data exposure）が発生します。</div>
+      </div>
+
+      <div class="syllabus-h3">3.2.2 Security Risks（セキュリティリスク）</div>
+
+      <div class="bilingual-block">
+        <div class="en-line">LLMs introduce several security risks to the testing process:</div>
+        <div class="ja-line">LLMはテストプロセスにいくつかのセキュリティリスクをもたらします：</div>
+      </div>
+
+      <table class="syllabus-table">
+        <thead>
+          <tr><th>Attack Vector（攻撃ベクター）</th><th>Description（説明）</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Data exfiltration（データ流出）</td><td>Sensitive information may be inadvertently included in prompts and exposed.（機密情報がプロンプトに意図せず含まれ、露出する可能性）</td></tr>
+          <tr><td>Request manipulation（リクエスト操作）</td><td>Malicious prompts may manipulate the LLM to bypass security controls.（悪意あるプロンプトによってLLMがセキュリティ制御を回避するよう操作される可能性）</td></tr>
+          <tr><td>Data poisoning（データポイズニング）</td><td>Corrupting the LLM's training or fine-tuning data to influence its behavior maliciously.（LLMの学習またはファインチューニングデータを汚染し、その動作を悪意を持って影響する）</td></tr>
+          <tr><td>Malicious code generation（悪意あるコード生成）</td><td>An LLM may generate code that contains vulnerabilities or malicious logic.（LLMが脆弱性や悪意あるロジックを含むコードを生成する可能性）</td></tr>
+        </tbody>
+      </table>
+
+      <div class="syllabus-h3">3.2.3 Mitigation of Privacy and Security Risks（プライバシーとセキュリティリスクの軽減）</div>
+
+      <div class="bilingual-block">
+        <div class="en-line">To mitigate privacy and security risks when using LLMs in testing, organizations should implement data anonymization and pseudonymization, establish clear policies about what data can be shared with LLMs, use private or on-premises LLM deployments for sensitive data, and conduct regular security assessments of LLM-based tools.</div>
+        <div class="ja-line">テストでLLMを使用する際のプライバシーとセキュリティリスクを軽減するために、組織はデータの匿名化と仮名化の実施・LLMと共有できるデータに関する明確なポリシーの確立・機密データに対するプライベートまたはオンプレミスのLLM展開の使用・LLMベースのツールの定期的なセキュリティ評価の実施を行うべきです。</div>
+      </div>
+
+      <div class="syllabus-h2">3.3 Ethical, Environmental, and Regulatory Concerns（倫理・環境・規制上の懸念）</div>
+
+      <div class="syllabus-h3">3.3.1 Environmental Impact（環境への影響）</div>
+
+      <div class="bilingual-block">
+        <div class="en-line">The training and operation of LLMs require substantial computational resources, resulting in significant energy consumption and carbon emissions.</div>
+        <div class="ja-line">LLMの学習と運用には相当な計算リソースが必要であり、大幅なエネルギー消費とCO2排出をもたらします。</div>
+      </div>
+
+      <div class="bilingual-block">
+        <div class="en-line">Testers and organizations should be mindful of the environmental impact of their use of GenAI tools, considering factors such as the frequency of LLM queries, the size of models used, and the energy source of the infrastructure hosting these models.</div>
+        <div class="ja-line">テスターと組織は、LLMクエリの頻度・使用するモデルのサイズ・これらのモデルをホストするインフラのエネルギー源などの要素を考慮して、GenAIツールの使用が環境に与える影響に注意すべきです。</div>
+      </div>
+
+      <div class="syllabus-h3">3.4.1 AI Regulations and Standards（AI規制と標準）</div>
+
+      <div class="bilingual-block">
+        <div class="en-line">The regulatory landscape for AI is rapidly evolving, with various jurisdictions implementing or planning regulations governing the use of AI systems.</div>
+        <div class="ja-line">AIの規制環境は急速に進化しており、様々な管轄区域でAIシステムの使用を規制する法律が実施または計画されています。</div>
+      </div>
+
+      <div class="bilingual-block">
+        <div class="en-line">Key regulations and standards that testers should be aware of include:</div>
+        <div class="ja-line">テスターが認識すべき主要な規制と標準には以下が含まれます：</div>
+      </div>
+
+      <div class="bilingual-block">
+        <div class="en-line">ISO/IEC 42001: An international standard providing requirements and guidance for organizations to develop, maintain, and continually improve an Artificial Intelligence Management System (AIMS).</div>
+        <div class="ja-line">ISO/IEC 42001：組織が人工知能管理システム（AIMS）を開発・維持・継続的に改善するための要件とガイダンスを提供する国際標準。</div>
+      </div>
+
+      <div class="bilingual-block">
+        <div class="en-line">ISO/IEC 23053: A framework for describing generic AI and ML systems, providing a common vocabulary and conceptual framework.</div>
+        <div class="ja-line">ISO/IEC 23053：汎用AIおよびMLシステムを記述するためのフレームワークで、共通の語彙と概念的なフレームワークを提供する。</div>
+      </div>
+
+      <div class="bilingual-block">
+        <div class="en-line">EU AI Act: European Union legislation that categorizes AI systems by risk level and imposes corresponding requirements for high-risk AI applications.</div>
+        <div class="ja-line">EU AI法（EU AI Act）：AIシステムをリスクレベルで分類し、高リスクAIアプリケーションに対応する要件を課す欧州連合の法律。</div>
+      </div>
+
+      <div class="bilingual-block">
+        <div class="en-line">NIST AI Risk Management Framework (AI RMF): A US framework providing guidance on managing risks associated with AI systems throughout their lifecycle.</div>
+        <div class="ja-line">NIST AI リスク管理フレームワーク（AI RMF）：AIシステムのライフサイクル全体にわたるリスク管理に関するガイダンスを提供する米国のフレームワーク。</div>
+      </div>
+
+      <div class="bilingual-block">
+        <div class="en-line">Testers should ensure that their use of GenAI tools complies with relevant regulations and standards, and that AI-powered testing artifacts meet the quality and compliance requirements of their organization and applicable regulations.</div>
+        <div class="ja-line">テスターは、GenAIツールの使用が関連する規制と標準に準拠していること、およびAIを活用したテスト成果物が組織と適用される規制の品質・コンプライアンス要件を満たしていることを確認すべきです。</div>
       </div>
     </div>
 
-    <div class="syllabus-section">
-      <div class="syllabus-section-header">
-        <div class="en-title">3.2 Data Privacy and Security Risks</div>
-        <div class="ja-title">3.2 データプライバシーとセキュリティリスク</div>
-      </div>
-      <div class="syllabus-content">
-        <p>GenAI使用に関連するデータプライバシーリスク（K2）：意図しないデータ露出、明示的同意なしのデータ使用、GDPR等の規制への不適合。</p>
-        <p>主な<strong>攻撃ベクター</strong>（<span class="en-word">Attack Vectors</span>）（K2）：</p>
-        <ul>
-          <li><strong>データ漏洩</strong>（<span class="en-word">Data Leakage</span>）：機密訓練データを抽出するよう設計されたリクエスト。長いプロンプトでコンテキストウィンドウを過負荷にして訓練データを露出させる手法が例として挙げられる</li>
-          <li><strong>リクエスト操作</strong>（<span class="en-word">Request Manipulation</span>）：AIの出力を混乱させるデータの導入。コンテキストを変える画像で受け入れ基準にハルシネーションを引き起こすなど</li>
-          <li><strong>データ汚染</strong>（<span class="en-word">Data Poisoning</span>）：訓練データの操作。AI生成テストレポートを評価する際に偽の評価を提供するなど</li>
-          <li><strong>悪意あるコード生成</strong>（<span class="en-word">Malicious Code Generation</span>）：LLMに悪意あるコードを生成させる行為</li>
-        </ul>
-        <p><strong>緩和戦略</strong>（<span class="en-word">Mitigation Strategies</span>）（K2）：</p>
-        <ul>
-          <li><strong>データ最小化</strong>（<span class="en-word">Data Minimization</span>）：必要最小限のデータのみを使用する</li>
-          <li><strong>データ匿名化・仮名化</strong>（<span class="en-word">Anonymization / Pseudonymization</span>）：個人情報を識別不能な形式に変換する</li>
-          <li>安全なストレージと送信（暗号化）</li>
-          <li>定期的なセキュリティ監査</li>
-          <li>LLM出力の体系的なレビュー</li>
-        </ul>
-      </div>
-    </div>
-
-    <div class="syllabus-section">
-      <div class="syllabus-section-header">
-        <div class="en-title">3.3 Energy Consumption and Environmental Impact</div>
-        <div class="ja-title">3.3 エネルギー消費と環境負荷</div>
-      </div>
-      <div class="syllabus-content">
-        <p>タスクの複雑さと計算リソースはGenAIのエネルギー消費（<span class="en-word">Energy Consumption</span>）に影響します。</p>
-        <ul>
-          <li>1枚の画像生成はスマートフォンをフル充電するのと同程度のエネルギーを消費する可能性がある</li>
-          <li>単一タスクでは小さな影響でも、世界中で数百万人が使用すると累積的に大きな環境負荷（<span class="en-word">Environmental Impact</span>）につながる</li>
-          <li>タスクの複雑さ（<span class="en-word">Task Complexity</span>）：より複雑なタスクはより大きな計算リソースと高いエネルギー消費を必要とする</li>
-          <li>モデルの使用（<span class="en-word">Model Usage</span>）：大きいモデルや長いコンテキストウィンドウは消費エネルギーが増加する</li>
-        </ul>
-        <p>不要なモデルインタラクションを制限し、エネルギー効率を意識したAI利用が推奨されます。</p>
-      </div>
-    </div>
-
-    <div class="syllabus-section">
-      <div class="syllabus-section-header">
-        <div class="en-title">3.4 AI Regulations, Standards, and Best Practice Frameworks</div>
-        <div class="ja-title">3.4 AI規制・標準・ベストプラクティスフレームワーク</div>
-      </div>
-      <div class="syllabus-content">
-        <p>GenAIに関連する主な規制・標準・フレームワーク（K1：想起）：</p>
-        <ul>
-          <li><strong>ISO/IEC 42001:2023</strong>：組織内のAIシステム管理要件を規定する国際標準。テストでのGenAI使用が推奨慣行に準拠し、一貫性と信頼性を確保することを支援する</li>
-          <li><strong>ISO/IEC 23053:2022</strong>：機械学習を使用するAIシステムのフレームワーク。フォールトトレランス（<span class="en-word">Fault Tolerance</span>）と透明性（<span class="en-word">Transparency</span>）を重視する</li>
-          <li><strong>EU AI Act</strong>（EU人工知能法）：リスクレベルでAIアプリケーションを分類する法的フレームワーク。テストで使用するGenAIへの透明性・説明責任・バイアス軽減の遵守を義務付ける</li>
-          <li><strong>NIST AI RMF</strong>（米国国立標準技術研究所 AIリスク管理フレームワーク）：公平性（<span class="en-word">Fairness</span>）・透明性・セキュリティに焦点を当てたガイドライン。GenAIの公平性を確保しリスクを管理して偏ったテスト結果を防ぐ</li>
-        </ul>
-      </div>
-    </div>
-
-    <!-- 第4章 -->
-    <div class="chapter-banner" style="background:linear-gradient(135deg,#0d7a6a,#16a085);margin-top:32px;">
+    <!-- ===== 第4章 ===== -->
+    <div class="chapter-banner" style="background:linear-gradient(135deg,#6a1a8e,#8e44ad);">
       <div class="num">4</div>
       <div class="info">
-        <h2>第4章：ソフトウェアテストのためのLLM搭載テストインフラ</h2>
-        <div class="sub">LLM-Powered Test Infrastructure for Software Testing ／ 110分 ／ 7学習目標</div>
+        <h2>GenAI Tooling and Infrastructure for Testing</h2>
+        <div class="sub">第4章：テストのためのGenAIツールとインフラ ／ 125分 ／ 6学習目標</div>
       </div>
     </div>
 
     <div class="syllabus-section">
-      <div class="syllabus-section-header">
-        <div class="en-title">4.1 LLM-Powered Test Infrastructure Components</div>
-        <div class="ja-title">4.1 LLM搭載テストインフラのコンポーネント</div>
+      <div class="syllabus-h2">4.1 Architecture of LLM-Powered Applications（LLM搭載アプリケーションのアーキテクチャ）</div>
+
+      <div class="syllabus-h3">4.1.1 Components of LLM-Powered Applications（LLM搭載アプリケーションのコンポーネント）</div>
+
+      <div class="bilingual-block">
+        <div class="en-line">LLM-powered applications typically consist of several key components that testers need to understand:</div>
+        <div class="ja-line">LLM搭載アプリケーションは通常、テスターが理解する必要のあるいくつかの主要なコンポーネントで構成されています：</div>
       </div>
-      <div class="syllabus-content">
-        <p><strong>LLM搭載テストインフラ</strong>（<span class="en-word">LLM-Powered Test Infrastructure</span>）はテストプロセスを強化するためにLLMを統合したシステムで、以下の3層で構成されます：</p>
-        <ul>
-          <li><strong>フロントエンド</strong>（<span class="en-word">Frontend</span>）：テスターがクエリやコマンドを入力するUIインターフェース</li>
-          <li><strong>バックエンド</strong>（<span class="en-word">Backend</span>）：認証・データ取得・プロンプト準備・LLMとのインタラクション管理</li>
-          <li><strong>LLM</strong>：サードパーティサービス（API経由）またはカスタムモデルとして、構造化プロンプトに基づいて応答を生成</li>
-        </ul>
-        <p>バックエンドは<strong>リレーショナルデータベース</strong>（<span class="en-word">Relational Database</span>、構造化テストデータ）と<strong>ベクターデータベース</strong>（<span class="en-word">Vector Database</span>、エンベディングを使ったセマンティック検索）を統合します。</p>
-        <p><strong>RAG（Retrieval-Augmented Generation / 検索拡張生成）</strong>は検索システムと言語モデルを組み合わせてコンテキスト認識応答を生成する手法です。2つのフェーズで動作します：</p>
-        <ul>
-          <li><strong>前処理フェーズ</strong>（<span class="en-word">Preprocessing Phase</span>）：ドキュメントをチャンク（256〜512トークン）に分割 → エンベディングに変換 → ベクターデータベースに保存</li>
-          <li><strong>クエリ処理フェーズ</strong>（<span class="en-word">Query Processing Phase</span>）：クエリをエンコード → 意味的類似性で関連チャンクを取得 → コンテキストとしてLLMに提供 → より正確な応答を生成</li>
-        </ul>
-        <p><strong>LLM搭載エージェント</strong>（<span class="en-word">LLM-Powered Agent</span>）はLLMを活用し「ツール」を呼び出してタスクを半自律的または自律的に実行する専門的なGenAIアプリケーションです。</p>
-        <ul>
-          <li><strong>自律エージェント</strong>（<span class="en-word">Autonomous Agent</span>）：最小限の人間介入でタスクを実行</li>
-          <li><strong>半自律エージェント</strong>（<span class="en-word">Semi-autonomous Agent</span>）：定期的な人間の監視のもとでタスクを実行。重要タスクに推奨</li>
-          <li><strong>マルチエージェントアーキテクチャ</strong>（<span class="en-word">Multi-agent Architecture</span>）：専門的な役割を持つ複数エージェントが<strong>オーケストレーション</strong>（<span class="en-word">Orchestration</span>）により協調して複雑な問題を解決</li>
-        </ul>
-        <p>注意：エージェントもハルシネーション・推論エラー・バイアスのリスクがあるため、重要なテストタスクには半自律エージェントまたは自動化された検証手順の使用が推奨されます。</p>
+
+      <div class="bilingual-block">
+        <div class="en-line">Frontend (User Interface Layer): The component that users interact with, which can be a web application, mobile app, chatbot interface, or API client.</div>
+        <div class="ja-line">フロントエンド（ユーザーインターフェース層）：ユーザーが対話するコンポーネントで、Webアプリケーション・モバイルアプリ・チャットボットインターフェース・APIクライアントなどがあります。</div>
+      </div>
+
+      <div class="bilingual-block">
+        <div class="en-line">Backend (Application Logic Layer): The component that processes user inputs, manages the application flow, handles business logic, and orchestrates calls to the LLM and other services.</div>
+        <div class="ja-line">バックエンド（アプリケーションロジック層）：ユーザー入力の処理・アプリケーションフローの管理・ビジネスロジックの処理・LLMとその他のサービスへの呼び出しの調整を行うコンポーネント。</div>
+      </div>
+
+      <div class="bilingual-block">
+        <div class="en-line">LLM (Language Model Layer): The core AI component that processes natural language inputs and generates responses.</div>
+        <div class="ja-line">LLM（言語モデル層）：自然言語入力を処理してレスポンスを生成するコアAIコンポーネント。</div>
+      </div>
+
+      <div class="bilingual-block">
+        <div class="en-line">Data stores, which can include relational databases for structured data and vector databases for storing embeddings used in semantic search and RAG implementations.</div>
+        <div class="ja-line">データストアには、構造化データ用のリレーショナルデータベースと、セマンティック検索やRAG実装で使用されるエンベディングを保存するためのベクターデータベースが含まれる場合があります。</div>
+      </div>
+
+      <div class="syllabus-h3">4.1.2 Retrieval-Augmented Generation（RAG：検索拡張生成）</div>
+
+      <div class="bilingual-block">
+        <div class="en-line">Retrieval-Augmented Generation (RAG) is an architecture pattern that enhances LLM responses by retrieving relevant information from external knowledge bases before generating a response.</div>
+        <div class="ja-line">検索拡張生成（RAG：Retrieval-Augmented Generation）は、レスポンスを生成する前に外部のナレッジベースから関連情報を検索することでLLMのレスポンスを強化するアーキテクチャパターンです。</div>
+      </div>
+
+      <div class="bilingual-block">
+        <div class="en-line">The RAG process consists of two main phases: the pre-processing phase and the query processing phase.</div>
+        <div class="ja-line">RAGのプロセスは、前処理フェーズとクエリ処理フェーズの2つの主要なフェーズで構成されています。</div>
+      </div>
+
+      <div class="bilingual-block">
+        <div class="en-line">In the pre-processing phase, documents are ingested, chunked into smaller segments, converted into embeddings, and stored in a vector database.</div>
+        <div class="ja-line">前処理フェーズでは、文書が取り込まれ、より小さなセグメントに分割され、エンベディングに変換され、ベクターデータベースに保存されます。</div>
+      </div>
+
+      <div class="bilingual-block">
+        <div class="en-line">In the query processing phase, user queries are converted to embeddings and used to retrieve relevant document chunks, which are then included in the LLM's context along with the user query to generate an informed response.</div>
+        <div class="ja-line">クエリ処理フェーズでは、ユーザーのクエリがエンベディングに変換され、関連するドキュメントチャンクの検索に使用されます。それらのチャンクはユーザーのクエリとともにLLMのコンテキストに含められ、情報に基づいたレスポンスが生成されます。</div>
+      </div>
+
+      <div class="bilingual-block">
+        <div class="en-line">RAG addresses LLM limitations like knowledge cutoff dates and reduces hallucinations by grounding responses in retrieved factual information.</div>
+        <div class="ja-line">RAGは、知識のカットオフ日付などのLLMの制限に対処し、検索された事実情報にレスポンスを根拠づけることでハルシネーションを軽減します。</div>
+      </div>
+
+      <div class="syllabus-h3">4.1.3 LLM-Powered Agents（LLM搭載エージェント）</div>
+
+      <div class="bilingual-block">
+        <div class="en-line">LLM-powered agents are systems that use LLMs as their core reasoning engine, allowing them to autonomously plan and execute complex tasks by interacting with external tools, APIs, and environments.</div>
+        <div class="ja-line">LLM搭載エージェント（LLM-Powered Agents）は、LLMをコアの推論エンジンとして使用し、外部ツール・API・環境と対話することで複雑なタスクを自律的に計画・実行できるシステムです。</div>
+      </div>
+
+      <div class="bilingual-block">
+        <div class="en-line">Autonomous agents: Operate with minimal human intervention, making decisions and taking actions independently to achieve specified goals.</div>
+        <div class="ja-line">自律型エージェント（Autonomous agents）：最小限の人間の介入で動作し、指定された目標を達成するために独立して意思決定と行動を行います。</div>
+      </div>
+
+      <div class="bilingual-block">
+        <div class="en-line">Semi-autonomous agents: Require human confirmation or approval for certain decisions, balancing automation with human oversight.</div>
+        <div class="ja-line">半自律型エージェント（Semi-autonomous agents）：特定の意思決定に人間の確認や承認を必要とし、自動化と人間による監視のバランスを取ります。</div>
+      </div>
+
+      <div class="bilingual-block">
+        <div class="en-line">Multi-agent systems: Multiple agents working together to accomplish complex tasks, with each agent specializing in specific functions.</div>
+        <div class="ja-line">マルチエージェントシステム（Multi-agent systems）：複数のエージェントが連携して複雑なタスクを達成するもので、各エージェントは特定の機能に特化しています。</div>
+      </div>
+
+      <div class="syllabus-h2">4.2 Adaptation and Development of LLMs for Testing（テスト向けLLMの適応と開発）</div>
+
+      <div class="syllabus-h3">4.2.1 Fine-Tuning LLMs for Testing（テスト向けLLMのファインチューニング）</div>
+
+      <div class="bilingual-block">
+        <div class="en-line">Fine-tuning is the process of further training a pre-trained LLM on domain-specific data to improve its performance on specific tasks or domains.</div>
+        <div class="ja-line">ファインチューニング（Fine-tuning）は、事前学習済みLLMをドメイン固有のデータでさらに学習させ、特定のタスクやドメインでのパフォーマンスを向上させるプロセスです。</div>
+      </div>
+
+      <div class="bilingual-block">
+        <div class="en-line">In the context of software testing, fine-tuning can be used to create specialized testing assistants that better understand testing terminology, code patterns, and testing best practices.</div>
+        <div class="ja-line">ソフトウェアテストの文脈では、ファインチューニングを使用して、テスト用語・コードパターン・テストのベストプラクティスをよりよく理解する専用のテストアシスタントを作成できます。</div>
+      </div>
+
+      <div class="bilingual-block">
+        <div class="en-line">Key considerations for fine-tuning include data quality and quantity, the risk of catastrophic forgetting (where the model loses general capabilities during fine-tuning), and the computational resources required.</div>
+        <div class="ja-line">ファインチューニングの主要な考慮事項には、データの品質と量・壊滅的忘却のリスク（ファインチューニング中にモデルが一般的な能力を失う）・必要な計算リソースなどがあります。</div>
+      </div>
+
+      <div class="syllabus-h3">4.2.2 LLMOps for Testing（テスト向けLLMOps）</div>
+
+      <div class="bilingual-block">
+        <div class="en-line">LLMOps (Large Language Model Operations) refers to the practices, processes, and tools for deploying, monitoring, and maintaining LLMs in production environments.</div>
+        <div class="ja-line">LLMOps（大規模言語モデル運用）とは、本番環境でLLMを展開・監視・維持するためのプラクティス・プロセス・ツールを指します。</div>
+      </div>
+
+      <div class="bilingual-block">
+        <div class="en-line">For testing organizations, LLMOps considerations include three main approaches:</div>
+        <div class="ja-line">テスト組織にとってのLLMOpsの考慮事項には、3つの主要なアプローチが含まれます：</div>
+      </div>
+
+      <div class="bilingual-block">
+        <div class="en-line">AI chatbot usage: Using general-purpose LLM-powered chatbots for ad hoc testing assistance without specialized integration.</div>
+        <div class="ja-line">AIチャットボット利用（AI chatbot usage）：専用の統合なしに汎用LLM搭載チャットボットを随時のテスト支援に使用する。</div>
+      </div>
+
+      <div class="bilingual-block">
+        <div class="en-line">Specialized LLM-powered testing tools: Using purpose-built tools designed for specific testing tasks, such as test case generation or defect analysis.</div>
+        <div class="ja-line">専用LLM搭載テストツール（Specialized LLM-powered testing tools）：テストケース生成や欠陥分析などの特定のテストタスクのために設計された専用ツールを使用する。</div>
+      </div>
+
+      <div class="bilingual-block">
+        <div class="en-line">In-house LLM-powered testing tools: Developing custom testing tools that integrate LLMs directly into the organization's testing workflow and infrastructure.</div>
+        <div class="ja-line">内製LLM搭載テストツール（In-house LLM-powered testing tools）：LLMを組織のテストワークフローとインフラに直接統合するカスタムテストツールを開発する。</div>
       </div>
     </div>
 
-    <div class="syllabus-section">
-      <div class="syllabus-section-header">
-        <div class="en-title">4.2 Fine-Tuning and LLMOps</div>
-        <div class="ja-title">4.2 ファインチューニングとLLMOps</div>
-      </div>
-      <div class="syllabus-content">
-        <p><strong>ファインチューニング</strong>（<span class="en-word">Fine-Tuning</span>）は、事前学習済みLLM（またはSLM）をターゲットデータセットでさらに訓練してドメイン固有の知識・ニュアンスを習得させるプロセスです。</p>
-        <ul>
-          <li><strong>メリット</strong>：組織固有の用語・プロセスに合わせたテストケース生成が可能になる</li>
-          <li><strong>課題</strong>：高品質訓練データの確保、過学習（<span class="en-word">Overfitting</span>）の回避、透明性の欠如、大きな計算リソースが必要</li>
-          <li><strong>SLMのファインチューニング</strong>：LLMより計算コストが低く、特定タスクや限られたリソース環境に適している</li>
-        </ul>
-        <p><strong>LLMOps</strong>（<span class="en-word">Large Language Model Operations</span>）はLLMを本番環境で開発・デプロイ・保守するための実践、ツール、プロセスのセットです。3つのアプローチがあります：</p>
-        <ul>
-          <li><strong>AIチャットボット</strong>：既製の会話型AIツール。データプライバシーに注意が必要だが低コスト</li>
-          <li><strong>テストツール</strong>：AI機能を組み込んだ専用テストツール。テスト固有機能あり・ベンダー依存</li>
-          <li><strong>内製テストツール</strong>：LLM APIを使って自社開発。最高のカスタマイズ性・データ制御可能・高コスト</li>
-        </ul>
-      </div>
-    </div>
-
-    <!-- 第5章 -->
-    <div class="chapter-banner" style="background:linear-gradient(135deg,#a03800,#d35400);margin-top:32px;">
+    <!-- ===== 第5章 ===== -->
+    <div class="chapter-banner" style="background:linear-gradient(135deg,#a05a1a,#d35400);">
       <div class="num">5</div>
       <div class="info">
-        <h2>第5章：テスト組織への生成AIの導入と統合</h2>
-        <div class="sub">Integrating Generative AI into Test Organizations ／ 80分 ／ 7学習目標</div>
+        <h2>GenAI in Test Organizations</h2>
+        <div class="sub">第5章：テスト組織における生成AI ／ 125分 ／ 4学習目標</div>
       </div>
     </div>
 
     <div class="syllabus-section">
-      <div class="syllabus-section-header">
-        <div class="en-title">5.1 Defining a GenAI Strategy for Software Testing</div>
-        <div class="ja-title">5.1 ソフトウェアテストのGenAI戦略の定義</div>
-      </div>
-      <div class="syllabus-content">
-        <p><strong>シャドウAI</strong>（<span class="en-word">Shadow AI</span>）とは組織の承認なしに使用される個人的なAIツールです。3つのリスクがあります（K1）：</p>
-        <ul>
-          <li><strong>情報セキュリティとデータプライバシーの脆弱性</strong>：個人的AIツールにはロバストなセキュリティが欠如している可能性がある</li>
-          <li><strong>コンプライアンスおよび規制上の問題</strong>（<span class="en-word">Compliance and Regulatory Issues</span>）：未承認ツールの使用は業界標準・規制への不適合につながる可能性がある</li>
-          <li><strong>不明確な知的財産権</strong>（<span class="en-word">Unclear Intellectual Property Rights</span>）：不明確なライセンス契約のAIツール使用は知的財産権の問題を引き起こす可能性がある</li>
-        </ul>
-        <p>GenAI戦略を定義する際の主要な考慮事項（K2）：</p>
-        <ul>
-          <li>測定可能なテスト目標の定義（テスト生産性向上・テストサイクル短縮・テスト品質改善など）</li>
-          <li>適切なLLMの選択と既存テストインフラとの互換性確保</li>
-          <li>高品質な入力データの維持（セキュリティで保護されたデータ保護）</li>
-          <li>包括的なトレーニングプログラムの提供</li>
-          <li>規制標準と倫理ガイドラインへの遵守</li>
-        </ul>
-        <p>ソフトウェアテストタスク向け<strong>LLM/SLM選択の主要基準</strong>（K2）：</p>
-        <ul>
-          <li><strong>モデルのパフォーマンス</strong>（<span class="en-word">Model Performance</span>）：ターゲットテストタスクに対してセクション2.3.1の指標で評価する</li>
-          <li><strong>ファインチューニングの可能性</strong>（<span class="en-word">Fine-tuning Potential</span>）：特定ユースケース向けのファインチューニングが可能か・有用か評価する</li>
-          <li><strong>定期的なコスト</strong>（<span class="en-word">Recurring Cost</span>）：ライセンス費用や運用費用が組織の予算に合っているか</li>
-          <li><strong>コミュニティとサポート</strong>（<span class="en-word">Community and Support</span>）：活発なコミュニティサポートと詳細なドキュメントの有無</li>
-        </ul>
-        <p>テスト組織でのGenAI採用の<strong>3フェーズ</strong>（K1）：</p>
-        <ul>
-          <li><strong>発見</strong>（<span class="en-word">Discovery</span>）：認識と能力構築。テストチームへのGenAI概念のトレーニング、初期ユースケースの実験</li>
-          <li><strong>開始・使用定義</strong>（<span class="en-word">Initiation and Usage Definition</span>）：実用的なユースケースの特定と優先付け</li>
-          <li><strong>深化</strong>（<span class="en-word">Deepening</span>）：継続的な最適化と組織全体への展開</li>
-        </ul>
-      </div>
-    </div>
+      <div class="syllabus-h2">5.1 Adopting GenAI in the Testing Organization（テスト組織へのGenAI導入）</div>
 
-    <div class="syllabus-section">
-      <div class="syllabus-section-header">
-        <div class="en-title">5.2 Change Management for Integrating GenAI in Test Organizations</div>
-        <div class="ja-title">5.2 テスト組織へのGenAI統合のための変更管理</div>
-      </div>
-      <div class="syllabus-content">
-        <p>テストプロセスでGenAIを効果的に使用するために必要な<strong>必須スキルと知識領域</strong>（K2）：</p>
-        <ul>
-          <li>GenAIツールの能力と限界の理解</li>
-          <li>プロンプトエンジニアリングのスキル</li>
-          <li>GenAI出力の批判的評価スキル</li>
-          <li>倫理的考慮（<span class="en-word">Ethical Considerations</span>）</li>
-        </ul>
-        <p><strong>テストチームでのAIスキル育成戦略</strong>（K1）：ハンズオントレーニング、メンタリング（<span class="en-word">Mentoring</span>）、実験的プロジェクト（サンドボックス環境）、継続的学習文化の構築。</p>
-        <p><strong>GenAI採用によるテストプロセスと責任の変化</strong>（K1）：テスターの役割はシフトし、以下により多く集中するようになります：</p>
-        <ul>
-          <li>GenAI出力のレビュー・検証（<span class="en-word">Reviewing and Validating AI Outputs</span>）</li>
-          <li>プロンプトエンジニアリング（<span class="en-word">Prompt Engineering</span>）</li>
-          <li>GenAI生成テストウェアの品質管理（<span class="en-word">Quality Management of AI-Generated Test Ware</span>）</li>
-        </ul>
-        <p>この変化は、テスターが単純な繰り返し作業から解放され、より高次の品質判断・戦略立案・AI監督に集中できることを意味します。</p>
-      </div>
-    </div>
+      <div class="syllabus-h3">5.1.1 Shadow AI（シャドウAI）</div>
 
-    <!-- 全章英日対訳まとめ -->
-    <div style="margin-top:32px;">
-      <div class="section-title">📋 全章 英日用語まとめ</div>
-      <div class="syllabus-section">
-        <div class="syllabus-section-header">
-          <div class="ja-title">試験頻出 英語用語 一覧（全章）</div>
-        </div>
-        <div class="syllabus-content">
-          <table class="bilingual-table">
-            <tr><th>英語（English）</th><th>日本語</th><th>章</th></tr>
-            <tr><td>Generative AI / GenAI</td><td>生成AI</td><td>1</td></tr>
-            <tr><td>Large Language Model (LLM)</td><td>大規模言語モデル</td><td>1</td></tr>
-            <tr><td>Small Language Model (SLM)</td><td>小規模言語モデル</td><td>1</td></tr>
-            <tr><td>Foundation LLM</td><td>ファウンデーションLLM</td><td>1</td></tr>
-            <tr><td>Instruction-Tuned LLM</td><td>インストラクションチューニング済みLLM</td><td>1</td></tr>
-            <tr><td>Reasoning LLM</td><td>リーズニングLLM</td><td>1</td></tr>
-            <tr><td>Multimodal LLM</td><td>マルチモーダルLLM</td><td>1</td></tr>
-            <tr><td>Vision-Language Model (VLM)</td><td>ビジョンランゲージモデル</td><td>1</td></tr>
-            <tr><td>Tokenization</td><td>トークナイゼーション</td><td>1</td></tr>
-            <tr><td>Embedding</td><td>エンベディング</td><td>1</td></tr>
-            <tr><td>Context Window</td><td>コンテキストウィンドウ</td><td>1</td></tr>
-            <tr><td>Non-deterministic Behavior</td><td>非決定論的動作</td><td>1</td></tr>
-            <tr><td>Transformer</td><td>トランスフォーマー</td><td>1</td></tr>
-            <tr><td>Prompt Engineering</td><td>プロンプトエンジニアリング</td><td>2</td></tr>
-            <tr><td>Structured Prompt</td><td>構造化プロンプト</td><td>2</td></tr>
-            <tr><td>System Prompt</td><td>システムプロンプト</td><td>2</td></tr>
-            <tr><td>User Prompt</td><td>ユーザープロンプト</td><td>2</td></tr>
-            <tr><td>Zero-shot Prompting</td><td>ゼロショットプロンプティング</td><td>2</td></tr>
-            <tr><td>Few-shot Prompting</td><td>フューショットプロンプティング</td><td>2</td></tr>
-            <tr><td>Prompt Chaining</td><td>プロンプトチェーニング</td><td>2</td></tr>
-            <tr><td>Meta Prompting</td><td>メタプロンプティング</td><td>2</td></tr>
-            <tr><td>Self-Healing Test</td><td>自己回復型テスト</td><td>2</td></tr>
-            <tr><td>Accuracy / Precision / Recall</td><td>精度 / 正確性 / 再現率</td><td>2</td></tr>
-            <tr><td>Hallucination</td><td>ハルシネーション</td><td>3</td></tr>
-            <tr><td>Reasoning Error</td><td>推論エラー</td><td>3</td></tr>
-            <tr><td>Bias</td><td>バイアス</td><td>3</td></tr>
-            <tr><td>Temperature</td><td>テンパラチャー（ランダム性制御パラメータ）</td><td>3</td></tr>
-            <tr><td>Random Seed</td><td>ランダムシード</td><td>3</td></tr>
-            <tr><td>Data Leakage</td><td>データ漏洩</td><td>3</td></tr>
-            <tr><td>Data Poisoning</td><td>データ汚染</td><td>3</td></tr>
-            <tr><td>Data Minimization</td><td>データ最小化</td><td>3</td></tr>
-            <tr><td>EU AI Act</td><td>EU人工知能法</td><td>3</td></tr>
-            <tr><td>NIST AI RMF</td><td>NISTのAIリスク管理フレームワーク</td><td>3</td></tr>
-            <tr><td>RAG (Retrieval-Augmented Generation)</td><td>検索拡張生成</td><td>4</td></tr>
-            <tr><td>Vector Database</td><td>ベクターデータベース</td><td>4</td></tr>
-            <tr><td>Chunk / Chunking</td><td>チャンク / チャンク化</td><td>4</td></tr>
-            <tr><td>Autonomous Agent</td><td>自律エージェント</td><td>4</td></tr>
-            <tr><td>Semi-autonomous Agent</td><td>半自律エージェント</td><td>4</td></tr>
-            <tr><td>Orchestration</td><td>オーケストレーション</td><td>4</td></tr>
-            <tr><td>Fine-Tuning</td><td>ファインチューニング</td><td>4</td></tr>
-            <tr><td>LLMOps</td><td>LLMオペレーションズ</td><td>4</td></tr>
-            <tr><td>Shadow AI</td><td>シャドウAI</td><td>5</td></tr>
-            <tr><td>Intellectual Property (IP)</td><td>知的財産権</td><td>5</td></tr>
-            <tr><td>Discovery (phase)</td><td>発見フェーズ</td><td>5</td></tr>
-            <tr><td>Initiation and Usage Definition</td><td>開始・使用定義フェーズ</td><td>5</td></tr>
-            <tr><td>Deepening (phase)</td><td>深化フェーズ</td><td>5</td></tr>
-            <tr><td>Change Management</td><td>変更管理</td><td>5</td></tr>
-          </table>
-        </div>
+      <div class="bilingual-block">
+        <div class="en-line">Shadow AI refers to the use of AI tools and applications by employees without formal organizational approval or IT oversight.</div>
+        <div class="ja-line">シャドウAI（Shadow AI）とは、従業員が組織の正式な承認やITの監視なしにAIツールやアプリケーションを使用することを指します。</div>
+      </div>
+
+      <div class="bilingual-block">
+        <div class="en-line">Shadow AI poses several risks to testing organizations:</div>
+        <div class="ja-line">シャドウAIはテスト組織にいくつかのリスクをもたらします：</div>
+      </div>
+
+      <div class="bilingual-block">
+        <div class="en-line">Data security risks: Sensitive test data, code, or requirements may be shared with unauthorized AI services, potentially exposing intellectual property or violating data protection regulations.</div>
+        <div class="ja-line">データセキュリティリスク：機密テストデータ・コード・要件が未承認のAIサービスと共有され、知的財産が露出したりデータ保護規制に違反したりする可能性がある。</div>
+      </div>
+
+      <div class="bilingual-block">
+        <div class="en-line">Quality risks: AI-generated test artifacts that have not been reviewed or validated through proper quality processes may introduce defects or inadequate test coverage.</div>
+        <div class="ja-line">品質リスク：適切な品質プロセスを通じてレビューまたはバリデーションされていないAI生成のテスト成果物が、欠陥や不十分なテストカバレッジをもたらす可能性がある。</div>
+      </div>
+
+      <div class="bilingual-block">
+        <div class="en-line">Compliance risks: Using AI tools not approved by the organization may violate internal policies or external regulations, creating compliance issues.</div>
+        <div class="ja-line">コンプライアンスリスク：組織に承認されていないAIツールの使用が内部ポリシーや外部規制に違反し、コンプライアンス上の問題を引き起こす可能性がある。</div>
+      </div>
+
+      <div class="syllabus-h3">5.1.2 Key Aspects of a GenAI Strategy（GenAI戦略の主要側面）</div>
+
+      <div class="bilingual-block">
+        <div class="en-line">A comprehensive GenAI strategy for testing organizations should address several key aspects:</div>
+        <div class="ja-line">テスト組織のための包括的なGenAI戦略は、いくつかの主要な側面に対応すべきです：</div>
+      </div>
+
+      <div class="bilingual-block">
+        <div class="en-line">Governance: Establishing policies and processes for the approved use of GenAI tools, including data handling guidelines, quality assurance procedures, and compliance requirements.</div>
+        <div class="ja-line">ガバナンス（Governance）：データ処理ガイドライン・品質保証手順・コンプライアンス要件を含む、GenAIツールの承認された使用のためのポリシーとプロセスを確立する。</div>
+      </div>
+
+      <div class="bilingual-block">
+        <div class="en-line">Tool selection: Evaluating and selecting appropriate GenAI tools that meet the organization's testing needs and comply with security, privacy, and regulatory requirements.</div>
+        <div class="ja-line">ツール選定（Tool selection）：組織のテストニーズを満たし、セキュリティ・プライバシー・規制要件に準拠する適切なGenAIツールを評価・選択する。</div>
+      </div>
+
+      <div class="bilingual-block">
+        <div class="en-line">Training and skills development: Providing training to testers on how to effectively and responsibly use GenAI tools.</div>
+        <div class="ja-line">トレーニングとスキル開発（Training and skills development）：GenAIツールを効果的かつ責任を持って使用する方法についてテスターにトレーニングを提供する。</div>
+      </div>
+
+      <div class="bilingual-block">
+        <div class="en-line">Continuous improvement: Regularly evaluating the effectiveness of GenAI adoption and adjusting the strategy based on outcomes.</div>
+        <div class="ja-line">継続的改善（Continuous improvement）：GenAI導入の有効性を定期的に評価し、成果に基づいて戦略を調整する。</div>
+      </div>
+
+      <div class="syllabus-h3">5.1.3 Criteria for Selecting an LLM or SLM（LLM/SLM選択基準）</div>
+
+      <div class="bilingual-block">
+        <div class="en-line">When selecting an LLM or Small Language Model (SLM) for testing purposes, organizations should evaluate several criteria:</div>
+        <div class="ja-line">テスト目的でLLMまたは小規模言語モデル（SLM）を選択する際、組織はいくつかの基準を評価すべきです：</div>
+      </div>
+
+      <div class="bilingual-block">
+        <div class="en-line">Performance: The model's ability to accurately and efficiently perform the required testing tasks, including its understanding of testing terminology and code.</div>
+        <div class="ja-line">パフォーマンス（Performance）：テスト用語とコードの理解を含む、必要なテストタスクを正確かつ効率的に実行するモデルの能力。</div>
+      </div>
+
+      <div class="bilingual-block">
+        <div class="en-line">Security and privacy: The model's compliance with the organization's security and data privacy requirements, including options for private deployment.</div>
+        <div class="ja-line">セキュリティとプライバシー（Security and privacy）：プライベート展開のオプションを含む、組織のセキュリティとデータプライバシー要件へのモデルの準拠。</div>
+      </div>
+
+      <div class="bilingual-block">
+        <div class="en-line">Cost: The total cost of ownership, including API costs, infrastructure requirements, and ongoing maintenance.</div>
+        <div class="ja-line">コスト（Cost）：APIコスト・インフラ要件・継続的なメンテナンスを含む総所有コスト。</div>
+      </div>
+
+      <div class="bilingual-block">
+        <div class="en-line">Integration capabilities: The ease of integrating the model with existing testing tools and workflows.</div>
+        <div class="ja-line">統合機能（Integration capabilities）：既存のテストツールとワークフローへのモデルの統合のしやすさ。</div>
+      </div>
+
+      <div class="syllabus-h3">5.1.4 Phases of Adoption（採用フェーズ）</div>
+
+      <div class="bilingual-block">
+        <div class="en-line">Organizations typically go through several phases when adopting GenAI in their testing processes:</div>
+        <div class="ja-line">組織は通常、テストプロセスにGenAIを採用する際にいくつかのフェーズを経ます：</div>
+      </div>
+
+      <div class="bilingual-block">
+        <div class="en-line">Discovery phase: Exploring the possibilities of GenAI for testing, evaluating tools, conducting proof-of-concept experiments, and establishing initial governance frameworks.</div>
+        <div class="ja-line">発見フェーズ（Discovery phase）：テスト向けGenAIの可能性を探り、ツールを評価し、概念実証実験を実施し、初期ガバナンスフレームワークを確立する。</div>
+      </div>
+
+      <div class="bilingual-block">
+        <div class="en-line">Initiation and Usage Definition phase: Defining specific use cases, establishing workflows, and beginning to integrate GenAI tools into testing processes on a limited basis.</div>
+        <div class="ja-line">開始と使用定義フェーズ（Initiation and Usage Definition phase）：特定のユースケースを定義し、ワークフローを確立し、GenAIツールを限定的な形でテストプロセスに統合し始める。</div>
+      </div>
+
+      <div class="bilingual-block">
+        <div class="en-line">Utilization and Iteration phase: Fully integrating GenAI tools into testing workflows, continuously evaluating and refining their use, and scaling successful applications across the organization.</div>
+        <div class="ja-line">活用と反復フェーズ（Utilization and Iteration phase）：GenAIツールをテストワークフローに完全に統合し、その使用を継続的に評価・洗練させ、組織全体で成功したアプリケーションを拡大する。</div>
+      </div>
+
+      <div class="syllabus-h2">5.2 Impact of GenAI on Testing Organizations and Testers（テスト組織とテスターへのGenAIの影響）</div>
+
+      <div class="syllabus-h3">5.2.1 Essential Skills and Knowledge（必須スキルと知識）</div>
+
+      <div class="bilingual-block">
+        <div class="en-line">As GenAI becomes more prevalent in software testing, testers need to develop new skills and knowledge to effectively leverage these tools:</div>
+        <div class="ja-line">ソフトウェアテストにおけるGenAIの普及に伴い、テスターはこれらのツールを効果的に活用するための新しいスキルと知識を身につける必要があります：</div>
+      </div>
+
+      <div class="bilingual-block">
+        <div class="en-line">AI literacy: Understanding the fundamentals of GenAI, LLMs, and their capabilities and limitations.</div>
+        <div class="ja-line">AIリテラシー（AI literacy）：GenAI・LLMの基礎とその能力・限界を理解する。</div>
+      </div>
+
+      <div class="bilingual-block">
+        <div class="en-line">Prompt engineering: The ability to craft effective prompts that leverage LLM capabilities for testing tasks.</div>
+        <div class="ja-line">プロンプトエンジニアリング（Prompt engineering）：テストタスクのためにLLMの能力を活用する効果的なプロンプトを作成する能力。</div>
+      </div>
+
+      <div class="bilingual-block">
+        <div class="en-line">Critical evaluation: The ability to critically assess LLM outputs for accuracy, completeness, and potential biases.</div>
+        <div class="ja-line">批判的評価（Critical evaluation）：正確性・完全性・潜在的なバイアスについてLLMの出力を批判的に評価する能力。</div>
+      </div>
+
+      <div class="bilingual-block">
+        <div class="en-line">Data management: Understanding how to manage test data in the context of AI-powered testing, including data privacy and security considerations.</div>
+        <div class="ja-line">データ管理（Data management）：データプライバシーとセキュリティの考慮事項を含む、AIを活用したテストの文脈でテストデータを管理する方法を理解する。</div>
+      </div>
+
+      <div class="syllabus-h3">5.2.2 AI Skills Development Strategies（AIスキル育成戦略）</div>
+
+      <div class="bilingual-block">
+        <div class="en-line">Organizations should implement systematic strategies to develop AI skills within their testing teams:</div>
+        <div class="ja-line">組織はテストチーム内のAIスキルを育成するための体系的な戦略を実施すべきです：</div>
+      </div>
+
+      <div class="bilingual-block">
+        <div class="en-line">Structured training programs: Developing or procuring training programs that cover GenAI fundamentals, prompt engineering, and the specific AI tools used in the organization.</div>
+        <div class="ja-line">体系的なトレーニングプログラム（Structured training programs）：GenAIの基礎・プロンプトエンジニアリング・組織で使用される特定のAIツールをカバーするトレーニングプログラムを開発または調達する。</div>
+      </div>
+
+      <div class="bilingual-block">
+        <div class="en-line">Learning communities: Creating internal communities of practice where testers can share experiences, best practices, and lessons learned from using GenAI tools.</div>
+        <div class="ja-line">学習コミュニティ（Learning communities）：テスターがGenAIツールの使用から得た経験・ベストプラクティス・教訓を共有できる内部の実践コミュニティを作成する。</div>
+      </div>
+
+      <div class="bilingual-block">
+        <div class="en-line">Continuous learning: Encouraging testers to stay current with the rapidly evolving GenAI landscape through continuous learning and experimentation.</div>
+        <div class="ja-line">継続的学習（Continuous learning）：継続的な学習と実験を通じて、急速に進化するGenAIの状況についていくようテスターを促す。</div>
+      </div>
+
+      <div class="syllabus-h3">5.2.3 Transformation of Test Organizations（テスト組織の変革）</div>
+
+      <div class="bilingual-block">
+        <div class="en-line">The adoption of GenAI is transforming the roles and responsibilities within testing organizations:</div>
+        <div class="ja-line">GenAIの採用により、テスト組織内の役割と責任が変革しています：</div>
+      </div>
+
+      <div class="bilingual-block">
+        <div class="en-line">For testers, GenAI tools are automating many routine tasks, shifting the focus toward higher-value activities such as exploratory testing, test strategy development, and critical evaluation of AI-generated artifacts.</div>
+        <div class="ja-line">テスターにとって、GenAIツールは多くのルーティンタスクを自動化し、探索的テスト・テスト戦略の開発・AI生成の成果物の批判的評価など、より高い価値のある活動への焦点の移行をもたらしています。</div>
+      </div>
+
+      <div class="bilingual-block">
+        <div class="en-line">For test managers, GenAI adoption requires new skills in AI governance, managing AI-assisted testing teams, evaluating AI tools, and balancing automation with human oversight.</div>
+        <div class="ja-line">テストマネージャーにとって、GenAIの採用はAIガバナンス・AI支援テストチームの管理・AIツールの評価・自動化と人間による監視のバランス取りにおける新しいスキルを必要とします。</div>
+      </div>
+
+      <div class="bilingual-block">
+        <div class="en-line">The most effective testing professionals will be those who can leverage GenAI tools as productivity multipliers while maintaining the critical thinking and domain expertise that ensures high-quality testing outcomes.</div>
+        <div class="ja-line">最も効果的なテスト専門家は、GenAIツールを生産性乗数として活用しながら、高品質なテスト成果を保証するための批判的思考とドメインの専門知識を維持できる人材です。</div>
       </div>
     </div>
 
