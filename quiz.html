@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>問題演習 | ISTQB CT-GenAI</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#2980b9">
+  <link rel="apple-touch-icon" href="icons/icon-192.png">
+  <script>if ('serviceWorker' in navigator) navigator.serviceWorker.register('./sw.js');</script>
+</head>
+<body>
+  <header>
+    <div class="header-inner">
+      <a href="index.html" class="logo">ISTQB CT-GenAI <span class="badge">v1.0</span></a>
+      <nav>
+        <a href="index.html">ホーム</a>
+        <a href="study.html">学習</a>
+        <a href="quiz.html" class="active">問題演習</a>
+        <a href="glossary.html">用語集</a>
+        <a href="syllabus-ja.html">日本語対訳</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <div class="section-title">✏️ 問題演習</div>
+
+    <!-- コントロール -->
+    <div class="quiz-controls">
+      <div class="select-group">
+        <label>章を選択：</label>
+        <select id="chapterSelect">
+          <option value="0">全章</option>
+          <option value="1">第1章：GenAIの概要</option>
+          <option value="2">第2章：プロンプトエンジニアリング</option>
+          <option value="3">第3章：リスク管理</option>
+          <option value="4">第4章：LLM搭載テストインフラ</option>
+          <option value="5">第5章：導入と統合</option>
+        </select>
+      </div>
+      <div class="select-group">
+        <label>出題順：</label>
+        <select id="orderSelect">
+          <option value="random">ランダム</option>
+          <option value="sequential">順番通り</option>
+        </select>
+      </div>
+      <button class="btn btn-primary" onclick="startQuiz()">▶ 開始</button>
+    </div>
+
+    <!-- スタート画面 -->
+    <div class="quiz-start" id="quizStart">
+      <div style="font-size:3rem;margin-bottom:16px;">✏️</div>
+      <h2>問題演習</h2>
+      <p>章と出題順を選択して「開始」ボタンを押してください。</p>
+      <div class="quiz-info-grid" id="quizInfoGrid">
+        <div class="quiz-info-item">
+          <div class="num" id="totalQCount">60</div>
+          <div class="label">問題数（全章）</div>
+        </div>
+        <div class="quiz-info-item">
+          <div class="num">K1–K3</div>
+          <div class="label">難易度レベル</div>
+        </div>
+        <div class="quiz-info-item">
+          <div class="num">5</div>
+          <div class="label">章構成</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- プログレスバー -->
+    <div class="quiz-progress" id="quizProgress" style="display:none;">
+      <div class="progress-bar">
+        <div class="progress-fill" id="progressFill" style="width:0%"></div>
+      </div>
+      <div class="progress-text" id="progressText">0 / 0</div>
+      <div class="score-text" id="scoreText">正解: 0</div>
+    </div>
+
+    <!-- 問題エリア -->
+    <div id="quizArea"></div>
+
+    <!-- 結果画面 -->
+    <div class="result-card" id="resultCard">
+      <div class="result-score" id="resultScore">0<span> / 0</span></div>
+      <h2 id="resultTitle"></h2>
+      <p id="resultMsg"></p>
+      <div class="result-chart">
+        <div class="result-item">
+          <div class="num correct-num" id="correctCount">0</div>
+          <div class="label">正解</div>
+        </div>
+        <div class="result-item">
+          <div class="num incorrect-num" id="incorrectCount">0</div>
+          <div class="label">不正解</div>
+        </div>
+        <div class="result-item">
+          <div class="num" id="accuracyRate">0%</div>
+          <div class="label">正答率</div>
+        </div>
+      </div>
+      <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
+        <button class="btn btn-primary" onclick="startQuiz()">もう一度</button>
+        <button class="btn btn-secondary" onclick="showStart()">設定に戻る</button>
+      </div>
+    </div>
+  </main>
+
+  <script src="js/quiz-data.js"></script>
+  <script>
+    const CHAPTER_COLORS = ['','#2980b9','#8e44ad','#c0392b','#16a085','#d35400'];
+    let questions = [];
+    let currentIndex = 0;
+    let score = 0;
+    let answered = [];
+
+    function getFilteredQuestions() {
+      const ch = parseInt(document.getElementById('chapterSelect').value);
+      let q = ch === 0 ? [...quizData] : quizData.filter(x => x.chapter === ch);
+      const order = document.getElementById('orderSelect').value;
+      if (order === 'random') {
+        for (let i = q.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [q[i], q[j]] = [q[j], q[i]];
+        }
+      }
+      return q;
+    }
+
+    function showStart() {
+      document.getElementById('quizStart').style.display = 'block';
+      document.getElementById('quizProgress').style.display = 'none';
+      document.getElementById('quizArea').innerHTML = '';
+      document.getElementById('resultCard').classList.remove('show');
+      updateInfoCount();
+    }
+
+    function updateInfoCount() {
+      const ch = parseInt(document.getElementById('chapterSelect').value);
+      const count = ch === 0 ? quizData.length : quizData.filter(x => x.chapter === ch).length;
+      document.getElementById('totalQCount').textContent = count;
+    }
+
+    document.getElementById('chapterSelect').addEventListener('change', updateInfoCount);
+
+    function startQuiz() {
+      questions = getFilteredQuestions();
+      if (questions.length === 0) return;
+      currentIndex = 0;
+      score = 0;
+      answered = new Array(questions.length).fill(null);
+      document.getElementById('quizStart').style.display = 'none';
+      document.getElementById('resultCard').classList.remove('show');
+      document.getElementById('quizProgress').style.display = 'flex';
+      renderQuestion();
+    }
+
+    function renderQuestion() {
+      updateProgress();
+      const q = questions[currentIndex];
+      const labels = ['A', 'B', 'C', 'D'];
+      const alreadyAnswered = answered[currentIndex] !== null;
+      const userAnswer = answered[currentIndex];
+
+      const optionsHtml = q.options.map((opt, i) => {
+        let cls = '';
+        if (alreadyAnswered) {
+          if (i === q.answer) cls = 'reveal-correct';
+          if (i === userAnswer && userAnswer !== q.answer) cls = 'incorrect';
+          if (i === userAnswer && userAnswer === q.answer) cls = 'correct';
+        }
+        return `<button class="option-btn ${cls}" onclick="selectAnswer(${i})" ${alreadyAnswered ? 'disabled' : ''}>
+          <span class="option-label">${labels[i]}</span>
+          <span>${opt}</span>
+        </button>`;
+      }).join('');
+
+      const expClass = alreadyAnswered ? 'show' : '';
+
+      document.getElementById('quizArea').innerHTML = `
+        <div class="question-card">
+          <div class="question-header">
+            <div class="q-chapter-badge" style="background:${CHAPTER_COLORS[q.chapter]}">第${q.chapter}章</div>
+            <div class="question-meta">
+              <div class="q-id">${q.lo} | ${q.id}</div>
+              <div class="q-level"><span class="badge-k${q.level.toLowerCase()}">${q.level}</span></div>
+            </div>
+            <div style="font-size:0.85rem;color:var(--text-light);">${currentIndex + 1} / ${questions.length}</div>
+          </div>
+          <div class="question-body">
+            <div class="question-text">${q.question}</div>
+            <div class="options">${optionsHtml}</div>
+            <div class="explanation ${expClass}">
+              <strong>💡 解説：</strong> ${q.explanation}
+            </div>
+          </div>
+          <div class="question-actions">
+            <button class="btn btn-secondary" onclick="prevQuestion()" ${currentIndex === 0 ? 'disabled' : ''}>← 前へ</button>
+            ${alreadyAnswered && currentIndex < questions.length - 1
+              ? `<button class="btn btn-primary" onclick="nextQuestion()">次へ →</button>`
+              : ''}
+            ${alreadyAnswered && currentIndex === questions.length - 1
+              ? `<button class="btn btn-success" onclick="showResult()">結果を見る</button>`
+              : ''}
+          </div>
+        </div>
+      `;
+    }
+
+    function selectAnswer(idx) {
+      if (answered[currentIndex] !== null) return;
+      answered[currentIndex] = idx;
+      if (idx === questions[currentIndex].answer) score++;
+      renderQuestion();
+    }
+
+    function nextQuestion() {
+      if (currentIndex < questions.length - 1) {
+        currentIndex++;
+        renderQuestion();
+      }
+    }
+
+    function prevQuestion() {
+      if (currentIndex > 0) {
+        currentIndex--;
+        renderQuestion();
+      }
+    }
+
+    function updateProgress() {
+      const answeredCount = answered.filter(a => a !== null).length;
+      const pct = questions.length > 0 ? (answeredCount / questions.length) * 100 : 0;
+      document.getElementById('progressFill').style.width = pct + '%';
+      document.getElementById('progressText').textContent = `${answeredCount} / ${questions.length}`;
+      document.getElementById('scoreText').textContent = `正解: ${score}`;
+    }
+
+    function showResult() {
+      const total = questions.length;
+      const pct = total > 0 ? Math.round((score / total) * 100) : 0;
+      document.getElementById('quizArea').innerHTML = '';
+      document.getElementById('quizProgress').style.display = 'none';
+
+      let title = '', msg = '';
+      if (pct >= 80) { title = '優秀！'; msg = 'CT-GenAI試験合格ラインを超えています。引き続き知識を深めましょう。'; }
+      else if (pct >= 60) { title = 'もう少し！'; msg = '合格ラインまであと一歩。苦手な章を重点的に復習しましょう。'; }
+      else { title = '復習が必要です'; msg = '基礎から丁寧に復習しましょう。学習コンテンツを参考にしてください。'; }
+
+      document.getElementById('resultScore').innerHTML = `${score}<span> / ${total}</span>`;
+      document.getElementById('resultTitle').textContent = title;
+      document.getElementById('resultMsg').textContent = msg;
+      document.getElementById('correctCount').textContent = score;
+      document.getElementById('incorrectCount').textContent = total - score;
+      document.getElementById('accuracyRate').textContent = pct + '%';
+      document.getElementById('resultCard').classList.add('show');
+    }
+
+    // 初期化
+    updateInfoCount();
+  </script>
+</body>
+</html>

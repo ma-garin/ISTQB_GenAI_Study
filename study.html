@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>学習コンテンツ | ISTQB CT-GenAI</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#2980b9">
+  <link rel="apple-touch-icon" href="icons/icon-192.png">
+  <script>if ('serviceWorker' in navigator) navigator.serviceWorker.register('./sw.js');</script>
+</head>
+<body>
+  <header>
+    <div class="header-inner">
+      <a href="index.html" class="logo">ISTQB CT-GenAI <span class="badge">v1.0</span></a>
+      <nav>
+        <a href="index.html">ホーム</a>
+        <a href="study.html" class="active">学習</a>
+        <a href="quiz.html">問題演習</a>
+        <a href="glossary.html">用語集</a>
+        <a href="syllabus-ja.html">日本語対訳</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <div class="section-title">📖 学習コンテンツ</div>
+
+    <div class="chapter-list">
+
+      <!-- 第1章 -->
+      <div class="chapter-card">
+        <div class="chapter-header" onclick="this.parentElement.classList.toggle('open')">
+          <div class="chapter-num ch-1">1</div>
+          <div class="chapter-meta">
+            <h3>第1章：ソフトウェアテストにおける生成AIの概要</h3>
+            <div class="time">100分 · 6学習目標 (K1–K2)</div>
+          </div>
+          <div class="chapter-arrow">▶</div>
+        </div>
+        <div class="chapter-body">
+
+          <div class="section-block">
+            <h4>1.1.1 AIスペクトラム — 4種類のAI技術分類</h4>
+            <p>AIは以下の4つの技術分野に分類されます（シラバスでは進化の流れとして紹介）。</p>
+            <ul>
+              <li><strong>シンボリックAI（Symbolic AI）：</strong>ルールベースのシステム。知識を記号と論理規則で表現し、人間の意思決定を模倣する。専門家システムや知識ベースシステムが代表例。</li>
+              <li><strong>クラシカル機械学習（Classical Machine Learning）：</strong>データ準備・特徴選択・モデル学習を必要とするデータ駆動型アプローチ。欠陥分類やソフトウェア問題の予測に使用できる。決定木・ランダムフォレスト・SVMなどが代表例。</li>
+              <li><strong>ディープラーニング（Deep Learning）：</strong>ニューラルネットワーク構造を使って大規模データからパターンを自動学習する。画像認識・音声認識に有効。機械学習の一部。</li>
+              <li><strong>生成AI（Generative AI / GenAI）：</strong>ディープラーニング技術でテキスト・画像・コードなど新しいコンテンツを生成する。事前学習済みモデルを使いトレーニングフェーズなしにテストタスクに直接適用できる点が特徴。</li>
+            </ul>
+          </div>
+
+          <div class="section-block">
+            <h4>1.1.2 生成AIとLLMの基礎</h4>
+            <p>LLM（大規模言語モデル / Large Language Model）は非常に大規模なデータセットで訓練されたGenAIモデルです。</p>
+            <ul>
+              <li><strong>トークナイゼーション（Tokenization）：</strong>テキストをトークン（文字・サブワード・単語）に分割するプロセス。LLMはまず入力をトークン化してから処理する。</li>
+              <li><strong>エンベディング（Embedding）：</strong>トークンの意味的・文法的・文脈的関係を高次元ベクトル空間で数値表現したもの。意味の近いトークンはベクトル空間で近い位置に配置される。</li>
+              <li><strong>コンテキストウィンドウ（Context Window）：</strong>LLMが応答生成時に考慮できるトークン数の上限。大きいほど長い文脈を扱えるが計算量も増大する。</li>
+              <li><strong>非決定論的動作（Non-deterministic Behavior）：</strong>LLMは確率的な推論メカニズムにより、同じ入力でも異なる出力を生成することがある。Temperatureなどのハイパーパラメータ設定が影響する。</li>
+              <li><strong>トランスフォーマー（Transformer）：</strong>LLMが使用するニューラルネットワークアーキテクチャ。広範なテキストシーケンスのコンテキストを処理し、一貫性のある応答を生成できる。</li>
+            </ul>
+          </div>
+
+          <div class="section-block">
+            <h4>1.1.3 LLMの3分類</h4>
+            <ul>
+              <li><strong>ファウンデーションLLM（Foundation LLM）：</strong>広範な多様データで訓練された汎用モデル。タスク要件への適応が必要なことが多い。GPT-4やClaude等の基盤モデルが該当。</li>
+              <li><strong>インストラクションチューニング済みLLM（Instruction-Tuned LLM）：</strong>ファウンデーションモデルから派生し、指示への準拠を改善するよう微調整されたモデル。人間の指示に従いやすい。</li>
+              <li><strong>リーズニングLLM（Reasoning LLM）：</strong>論理的推論・多段階問題解決・連鎖的思考（chain-of-thought）能力を強化したモデル。高い認知負荷のタスク（複雑なテスト計画など）に適している。</li>
+            </ul>
+            <p style="font-size:0.875rem;color:var(--text-light);margin-top:6px;">※ ファウンデーション → インストラクションチューニング → リーズニングの順に、より高度な指示理解・推論能力を持つ。</p>
+          </div>
+
+          <div class="section-block">
+            <h4>1.1.4 マルチモーダルLLMとビジョンランゲージモデル（VLM）</h4>
+            <p>マルチモーダルLLM（Multimodal LLM）はテキスト・画像・音声・動画など複数のデータモダリティを処理できます。ビジョンランゲージモデル（Vision-Language Model / VLM）はその一部で、視覚情報とテキスト情報を統合します。</p>
+            <p>ソフトウェアテストでの活用例：スクリーンショットやGUIワイヤーフレームとテキスト記述を組み合わせた分析・テストケース生成。UIのバグを画像から検出するなど。</p>
+          </div>
+
+          <div class="section-block">
+            <h4>1.2.1 テストタスクにおけるLLMの主要能力</h4>
+            <ul>
+              <li>要件の分析と改善（曖昧さ・不整合・不足情報の特定）</li>
+              <li>テストケース生成支援</li>
+              <li>テストオラクル（Test Oracle）生成 — 期待結果の生成</li>
+              <li>合成テストデータ（Synthetic Test Data）生成</li>
+              <li>テスト自動化スクリプト生成・改善</li>
+              <li>テスト結果分析（サマリー作成・異常分類）</li>
+              <li>テストウェア作成（テスト計画・テストレポート・欠陥レポート）</li>
+            </ul>
+          </div>
+
+          <div class="section-block">
+            <h4>1.2.2 AIチャットボット vs LLM搭載テストアプリケーション</h4>
+            <table class="lo-table">
+              <tr><th>インタラクションモデル</th><th>特徴</th><th>向いているケース</th></tr>
+              <tr><td>AIチャットボット<br><small style="color:var(--text-light)">(AI Chatbot)</small></td><td>会話型インターフェースでLLMに直接アクセス。非技術者にも使いやすい。即時の自然言語応答が得られる。</td><td>アドホックなテスト分析・ドキュメント作成・学習目的</td></tr>
+              <tr><td>LLM搭載テストアプリ<br><small style="color:var(--text-light)">(LLM-Powered Test App)</small></td><td>APIでLLM機能を統合。高いカスタマイズ性・拡張性。既存テストフレームワークへの組み込みが可能。</td><td>繰り返し実行・自動化・大規模テスト生成</td></tr>
+            </table>
+          </div>
+
+          <!-- 英日対訳 -->
+          <div class="section-block">
+            <h4>英日キーワード対訳（第1章）</h4>
+            <table class="bilingual-table">
+              <tr><th>英語（English）</th><th>日本語</th></tr>
+              <tr><td>Generative AI / GenAI</td><td>生成AI</td></tr>
+              <tr><td>Large Language Model (LLM)</td><td>大規模言語モデル</td></tr>
+              <tr><td>Small Language Model (SLM)</td><td>小規模言語モデル</td></tr>
+              <tr><td>Foundation LLM</td><td>ファウンデーションLLM / 基盤モデル</td></tr>
+              <tr><td>Instruction-Tuned LLM</td><td>インストラクションチューニング済みLLM</td></tr>
+              <tr><td>Reasoning LLM</td><td>リーズニングLLM / 推論LLM</td></tr>
+              <tr><td>Multimodal LLM</td><td>マルチモーダルLLM</td></tr>
+              <tr><td>Vision-Language Model (VLM)</td><td>ビジョンランゲージモデル</td></tr>
+              <tr><td>Tokenization</td><td>トークナイゼーション / トークン化</td></tr>
+              <tr><td>Embedding</td><td>エンベディング / 埋め込み</td></tr>
+              <tr><td>Context Window</td><td>コンテキストウィンドウ / 文脈窓</td></tr>
+              <tr><td>Non-deterministic Behavior</td><td>非決定論的動作</td></tr>
+              <tr><td>Transformer</td><td>トランスフォーマー</td></tr>
+              <tr><td>Test Oracle</td><td>テストオラクル / 期待結果生成</td></tr>
+              <tr><td>Synthetic Test Data</td><td>合成テストデータ</td></tr>
+            </table>
+          </div>
+
+          <!-- 試験対策 -->
+          <div class="exam-tip">
+            <div class="tip-title">試験対策ポイント（第1章）</div>
+            <ul>
+              <li>AIの4分類（シンボリック→クラシカルML→ディープラーニング→GenAI）の特徴を区別できるようにする（K1）</li>
+              <li>LLMの3分類（ファウンデーション・インストラクションチューニング・リーズニング）の違いを説明できるようにする（K2）</li>
+              <li>マルチモーダルLLMとVLMの関係（VLMはマルチモーダルLLMのサブセット）を押さえる（K2）</li>
+              <li>AIチャットボットとLLM搭載テストアプリの比較（使いやすさ vs カスタマイズ性）を理解する（K2）</li>
+              <li>LLMがテストタスクで実行できる7つの能力（要件分析・テストケース生成・オラクル・合成データ・自動化・結果分析・テストウェア作成）を覚える</li>
+            </ul>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- 第2章 -->
+      <div class="chapter-card">
+        <div class="chapter-header" onclick="this.parentElement.classList.toggle('open')">
+          <div class="chapter-num ch-2">2</div>
+          <div class="chapter-meta">
+            <h3>第2章：効果的なソフトウェアテストのためのプロンプトエンジニアリング</h3>
+            <div class="time">365分 · 10学習目標 (K2–K3)</div>
+          </div>
+          <div class="chapter-arrow">▶</div>
+        </div>
+        <div class="chapter-body">
+
+          <div class="section-block">
+            <h4>2.1.1 構造化プロンプトの6コンポーネント</h4>
+            <p>効果的なプロンプトは以下の6要素で構成されます。すべて必須ではなく、タスクに応じて選択的に使用します。</p>
+            <table class="lo-table">
+              <tr><th>コンポーネント</th><th>英語名</th><th>説明・例</th></tr>
+              <tr><td>役割</td><td>Role</td><td>GenAIが取るべき視点・ペルソナ（例：「あなたはシニアテストエンジニアです」）</td></tr>
+              <tr><td>コンテキスト</td><td>Context</td><td>テスト対象・機能・関連情報などの背景情報（例：「Eコマースサイトのカート機能をテストしています」）</td></tr>
+              <tr><td>指示</td><td>Instruction</td><td>実行すべき具体的タスクの明確な指令（例：「境界値分析を使ってテストケースを5つ生成してください」）</td></tr>
+              <tr><td>入力データ</td><td>Input Data</td><td>ユーザーストーリー・受け入れ基準・スクリーンショット・コードなど（例：受け入れ基準のテキスト）</td></tr>
+              <tr><td>制約</td><td>Constraints</td><td>守るべき制限や特別な考慮事項（例：「Gherkin形式で出力すること」「個人情報を含めないこと」）</td></tr>
+              <tr><td>出力形式</td><td>Output Format</td><td>期待される応答の形式・構造（例：「Markdownのテーブル形式で出力すること」）</td></tr>
+            </table>
+          </div>
+
+          <div class="section-block">
+            <h4>2.1.2 コアプロンプティング技法の3種類</h4>
+            <ul>
+              <li><strong>ゼロショットプロンプティング（Zero-shot Prompting）：</strong>例を提供せずにモデルの事前学習済み知識のみに頼る。シンプルで素早いが精度は低い場合がある。</li>
+              <li><strong>ワンショットプロンプティング（One-shot Prompting）：</strong>1つの例のみを提供する。</li>
+              <li><strong>フューショットプロンプティング（Few-shot Prompting）：</strong>プロンプトに複数の例を含めLLMに望ましい応答パターンを学習させる。特定の出力形式が必要な繰り返しタスク（Gherkin形式など）に有効。</li>
+              <li><strong>プロンプトチェーニング（Prompt Chaining）：</strong>タスクを複数の中間ステップに分割し、各ステップの結果を検証しながら進む。複雑なタスクの分解と体系的な検証に有用。</li>
+              <li><strong>メタプロンプティング（Meta Prompting）：</strong>LLM自身にプロンプトを生成・改良させる。テスターとLLMが協力してプロンプトを共創する「ペアリング」の概念。効率的なプロンプト最適化が可能。</li>
+            </ul>
+          </div>
+
+          <div class="section-block">
+            <h4>プロンプティング技法の選択ガイド</h4>
+            <table class="lo-table">
+              <tr><th>技法</th><th>推奨ユースケース</th><th>特徴</th></tr>
+              <tr><td>プロンプトチェーニング</td><td>各ステップで人間の検証が必要な複雑なタスク</td><td>テスト分析・設計・自動化で各段階を精度高く処理</td></tr>
+              <tr><td>フューショットプロンプティング</td><td>繰り返しタスク・特定の出力形式が必要なタスク</td><td>Gherkin形式・キーワード駆動テスト・特定フォーマット出力</td></tr>
+              <tr><td>メタプロンプティング</td><td>柔軟・動的なタスク、新しいタスク用プロンプト作成</td><td>複雑なタスク全般（テストレポート分析・異常検出など）</td></tr>
+            </table>
+          </div>
+
+          <div class="section-block">
+            <h4>2.1.3 システムプロンプトとユーザープロンプト</h4>
+            <table class="lo-table">
+              <tr><th></th><th>システムプロンプト (System Prompt)</th><th>ユーザープロンプト (User Prompt)</th></tr>
+              <tr><td>設定者</td><td>開発者・テスター（事前設定）</td><td>エンドユーザー（各インタラクション時）</td></tr>
+              <tr><td>内容</td><td>LLMの動作・ペルソナ・制約・役割を定義</td><td>特定の指示・質問・タスク</td></tr>
+              <tr><td>変化</td><td>会話全体を通じて固定される</td><td>各インタラクションで変化する</td></tr>
+              <tr><td>例</td><td>「あなたはシニアQAエンジニアです。Gherkin形式で回答してください。」</td><td>「ログイン機能のテストケースを作ってください。」</td></tr>
+            </table>
+          </div>
+
+          <div class="section-block">
+            <h4>2.2 ソフトウェアテストタスクへの適用（K3：適用レベル）</h4>
+            <ul>
+              <li><strong>テスト分析（2.2.1）：</strong>テストベースの潜在的欠陥特定、テスト条件の生成と優先付け、カバレッジ分析の支援。例：要件仕様書を入力し、テスト条件を抽出させる。</li>
+              <li><strong>テスト設計・実装（2.2.2）：</strong>テストケース生成、テストデータ合成、自動テストスクリプト生成、テスト実行スケジューリング。例：境界値分析・同値分割のテストケースをGherkin形式で生成。</li>
+              <li><strong>自動化リグレッションテスト（2.2.3）：</strong>キーワード駆動テストスクリプト実装、影響分析、自己回復型テスト（Self-Healing Test）、テストレポート自動生成。</li>
+              <li><strong>テスト監視・制御（2.2.4）：</strong>テスト監視の自動化、トレンド分析によるリスク予測、テスト完了レポート生成。メトリクスの分析と意思決定支援。</li>
+            </ul>
+          </div>
+
+          <div class="section-block">
+            <h4>2.3 GenAI結果の評価と改善</h4>
+            <p><strong>評価指標（2.3.1）：</strong></p>
+            <table class="lo-table">
+              <tr><th>指標</th><th>英語名</th><th>説明</th></tr>
+              <tr><td>精度</td><td>Accuracy</td><td>生成されたテストケース等の正確さ</td></tr>
+              <tr><td>正確性</td><td>Precision</td><td>生成結果のうち正しいものの割合</td></tr>
+              <tr><td>再現率</td><td>Recall</td><td>本来あるべき結果のうち生成できた割合</td></tr>
+              <tr><td>関連性と文脈適合性</td><td>Relevance and Contextual Fit</td><td>テスト対象・文脈との適合性</td></tr>
+              <tr><td>多様性</td><td>Diversity</td><td>テストカバレッジの幅広さ</td></tr>
+              <tr><td>実行成功率</td><td>Execution Success Rate</td><td>生成されたスクリプトが正常実行できる割合</td></tr>
+              <tr><td>時間効率性</td><td>Time Efficiency</td><td>生成にかかる時間とその価値のバランス</td></tr>
+            </table>
+            <p style="margin-top:8px;"><strong>改善技法（2.3.2）：</strong>反復的プロンプト修正、A/Bテスト、出力分析、ユーザーフィードバックの統合、プロンプトの長さと具体性の調整。</p>
+          </div>
+
+          <!-- 英日対訳 -->
+          <div class="section-block">
+            <h4>英日キーワード対訳（第2章）</h4>
+            <table class="bilingual-table">
+              <tr><th>英語（English）</th><th>日本語</th></tr>
+              <tr><td>Prompt Engineering</td><td>プロンプトエンジニアリング</td></tr>
+              <tr><td>Structured Prompt</td><td>構造化プロンプト</td></tr>
+              <tr><td>System Prompt</td><td>システムプロンプト</td></tr>
+              <tr><td>User Prompt</td><td>ユーザープロンプト</td></tr>
+              <tr><td>Zero-shot Prompting</td><td>ゼロショットプロンプティング</td></tr>
+              <tr><td>One-shot Prompting</td><td>ワンショットプロンプティング</td></tr>
+              <tr><td>Few-shot Prompting</td><td>フューショットプロンプティング</td></tr>
+              <tr><td>Prompt Chaining</td><td>プロンプトチェーニング</td></tr>
+              <tr><td>Meta Prompting</td><td>メタプロンプティング</td></tr>
+              <tr><td>Role (prompt component)</td><td>役割</td></tr>
+              <tr><td>Context (prompt component)</td><td>コンテキスト</td></tr>
+              <tr><td>Instruction (prompt component)</td><td>指示</td></tr>
+              <tr><td>Input Data (prompt component)</td><td>入力データ</td></tr>
+              <tr><td>Constraints (prompt component)</td><td>制約</td></tr>
+              <tr><td>Output Format (prompt component)</td><td>出力形式</td></tr>
+              <tr><td>Gherkin</td><td>ギャーキン（Given-When-Then形式のBDD記法）</td></tr>
+              <tr><td>Self-Healing Test</td><td>自己回復型テスト</td></tr>
+              <tr><td>Accuracy / Precision / Recall</td><td>精度 / 正確性 / 再現率</td></tr>
+            </table>
+          </div>
+
+          <!-- 試験対策 -->
+          <div class="exam-tip">
+            <div class="tip-title">試験対策ポイント（第2章）</div>
+            <ul>
+              <li>構造化プロンプトの6コンポーネント（役割・コンテキスト・指示・入力データ・制約・出力形式）を英語名と共に覚える（K2）</li>
+              <li>プロンプトチェーニング・フューショット・メタプロンプティングのそれぞれの使い分けを理解する（K2）</li>
+              <li>システムプロンプトとユーザープロンプトの違い（設定者・固定/変化・内容）を区別できるようにする（K2）</li>
+              <li>K3（適用）レベルのLO（2.2.1〜2.2.5）は実際にどのテストタスクにどの技法を適用するかが問われる。具体的なシナリオを想定して理解する。</li>
+              <li>評価指標7つ（Accuracy, Precision, Recall, Relevance and Contextual Fit, Diversity, Execution Success Rate, Time Efficiency）を覚える（K2）</li>
+            </ul>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- 第3章 -->
+      <div class="chapter-card">
+        <div class="chapter-header" onclick="this.parentElement.classList.toggle('open')">
+          <div class="chapter-num ch-3">3</div>
+          <div class="chapter-meta">
+            <h3>第3章：ソフトウェアテストにおける生成AIのリスク管理</h3>
+            <div class="time">160分 · 10学習目標 (K1–K3)</div>
+          </div>
+          <div class="chapter-arrow">▶</div>
+        </div>
+        <div class="chapter-body">
+
+          <div class="section-block">
+            <h4>3.1 ハルシネーション・推論エラー・バイアスの定義（K1）</h4>
+            <table class="lo-table">
+              <tr><th>問題</th><th>英語名</th><th>定義</th><th>テストでの例</th></tr>
+              <tr><td>ハルシネーション</td><td>Hallucination</td><td>LLMが事実として不正確または無関係な出力を生成する現象</td><td>架空のテストケース生成、存在しない受け入れ基準の提案</td></tr>
+              <tr><td>推論エラー</td><td>Reasoning Error</td><td>論理的構造（因果関係・条件ロジック・段階的問題解決）を誤解して誤った結論を導く現象</td><td>テスト計画や優先付けの誤り、誤ったテストロジックの生成</td></tr>
+              <tr><td>バイアス</td><td>Bias</td><td>訓練データから生じる特定情報・アプローチ・仮定への偏り</td><td>英語データで訓練されたLLMが非英語の観点を少なく表現する</td></tr>
+            </table>
+          </div>
+
+          <div class="section-block">
+            <h4>3.1.3 ハルシネーション・推論エラー・バイアスの軽減技法（K2）</h4>
+            <ul>
+              <li>プロンプトに完全なコンテキストを提供する</li>
+              <li>プロンプトチェーニングで複雑なプロンプトを小さなセグメントに分割する</li>
+              <li>明確で解釈しやすいデータ形式を使用する</li>
+              <li>タスクに適した特定のGenAIモデルを選択する（5.1.3参照）</li>
+              <li>複数モデルで結果を比較し出力エラーを検出する</li>
+            </ul>
+          </div>
+
+          <div class="section-block">
+            <h4>3.1.4 非決定論的動作の軽減（K1）</h4>
+            <ul>
+              <li><strong>Temperatureパラメータを下げる：</strong>確率分布を狭め、ランダム性を減少させてより一貫した出力にする。ただし創造性と多様性も制限される。</li>
+              <li><strong>ランダムシードを設定する（Random Seed）：</strong>同じ疑似乱数シーケンスを使用して再現性を向上させる（対応しているLLMのみ）。</li>
+            </ul>
+          </div>
+
+          <div class="section-block">
+            <h4>3.2 データプライバシーとセキュリティリスク（K2）</h4>
+            <p><strong>プライバシーリスク：</strong>意図しないデータ露出、明示的同意なしのデータ使用、GDPR等の規制への不適合。</p>
+            <p><strong>攻撃ベクター（Attack Vectors）：</strong></p>
+            <table class="lo-table">
+              <tr><th>攻撃ベクター</th><th>英語名</th><th>説明</th><th>例</th></tr>
+              <tr><td>データ漏洩</td><td>Data Leakage</td><td>機密訓練データを抽出するよう設計されたリクエスト</td><td>長いプロンプトでコンテキストウィンドウを過負荷にして訓練データを露出させる</td></tr>
+              <tr><td>リクエスト操作</td><td>Request Manipulation</td><td>AIの出力を混乱させるデータの導入</td><td>コンテキストを変える画像で受け入れ基準にハルシネーションを引き起こす</td></tr>
+              <tr><td>データ汚染</td><td>Data Poisoning</td><td>訓練データの操作</td><td>AI生成テストレポートを評価する際に偽の評価を提供する</td></tr>
+              <tr><td>悪意あるコード生成</td><td>Malicious Code Generation</td><td>LLMに悪意あるコードを生成させる</td><td>特定の悪意あるIPへの通信チャネルを開くコードを生成させる</td></tr>
+            </table>
+            <p style="margin-top:8px;"><strong>緩和戦略（Mitigation Strategies）：</strong>データ最小化（Data Minimization）、データ匿名化・仮名化（Anonymization / Pseudonymization）、安全なストレージと送信、定期的なセキュリティ監査、LLM出力の体系的なレビュー。</p>
+          </div>
+
+          <div class="section-block">
+            <h4>3.3 エネルギー消費と環境負荷（K2）</h4>
+            <p>タスクの複雑さと計算リソースはGenAIのエネルギー消費に影響します。<strong>1枚の画像生成はスマートフォンをフル充電するのと同程度</strong>のエネルギーを消費する可能性があります。単一タスクでは小さな影響でも、世界中で数百万人が使用すると累積的に大きな環境負荷につながります。不要なモデルインタラクションを制限することが重要です。</p>
+          </div>
+
+          <div class="section-block">
+            <h4>3.4 AI規制・標準・ベストプラクティスフレームワーク（K1）</h4>
+            <table class="lo-table">
+              <tr><th>名称/種類</th><th>説明</th><th>テストへの適用</th></tr>
+              <tr><td>ISO/IEC 42001:2023<br><small>（国際標準）</small></td><td>組織内のAIシステム管理要件を規定</td><td>テストでのGenAI使用が推奨慣行に準拠し、一貫性と信頼性を確保する</td></tr>
+              <tr><td>ISO/IEC 23053:2022<br><small>（国際標準）</small></td><td>機械学習を使用するAIシステムのフレームワーク。フォールトトレランスと透明性を重視</td><td>テストでGenAIを使用する際のデータ品質・透明性・フォールトトレランスのフレームワーク</td></tr>
+              <tr><td>EU AI Act<br><small>（法規制・EU）</small></td><td>リスクレベルでAIアプリケーションを分類する法的フレームワーク</td><td>テストで使用するGenAIへの透明性・説明責任・バイアス軽減の遵守を義務付ける</td></tr>
+              <tr><td>NIST AI RMF<br><small>（フレームワーク・米国）</small></td><td>公平性・透明性・セキュリティに焦点を当てたAIリスク管理ガイドライン</td><td>GenAIの公平性を確保しリスクを管理して偏ったテスト結果を防ぐ</td></tr>
+            </table>
+          </div>
+
+          <!-- 英日対訳 -->
+          <div class="section-block">
+            <h4>英日キーワード対訳（第3章）</h4>
+            <table class="bilingual-table">
+              <tr><th>英語（English）</th><th>日本語</th></tr>
+              <tr><td>Hallucination</td><td>ハルシネーション / 幻覚</td></tr>
+              <tr><td>Reasoning Error</td><td>推論エラー</td></tr>
+              <tr><td>Bias</td><td>バイアス / 偏り</td></tr>
+              <tr><td>Non-deterministic Behavior</td><td>非決定論的動作</td></tr>
+              <tr><td>Temperature</td><td>テンパラチャー（出力のランダム性を制御するパラメータ）</td></tr>
+              <tr><td>Random Seed</td><td>ランダムシード（再現性のための乱数の初期値）</td></tr>
+              <tr><td>Data Leakage</td><td>データ漏洩</td></tr>
+              <tr><td>Request Manipulation</td><td>リクエスト操作</td></tr>
+              <tr><td>Data Poisoning</td><td>データ汚染</td></tr>
+              <tr><td>Data Minimization</td><td>データ最小化</td></tr>
+              <tr><td>Anonymization / Pseudonymization</td><td>匿名化 / 仮名化</td></tr>
+              <tr><td>ISO/IEC 42001:2023</td><td>AIマネジメントシステム国際標準</td></tr>
+              <tr><td>EU AI Act</td><td>EU人工知能法</td></tr>
+              <tr><td>NIST AI RMF</td><td>NIST AIリスク管理フレームワーク</td></tr>
+            </table>
+          </div>
+
+          <!-- 試験対策 -->
+          <div class="exam-tip">
+            <div class="tip-title">試験対策ポイント（第3章）</div>
+            <ul>
+              <li>ハルシネーション・推論エラー・バイアスの定義を想起できるようにする（K1）</li>
+              <li>K3（適用）レベルのLO 3.1.2：実際のLLM出力を見てどの問題（ハルシネーション/推論エラー/バイアス）かを特定できるようにする</li>
+              <li>非決定論的動作の軽減技法2つ（Temperature低下・ランダムシード設定）を覚える（K1）</li>
+              <li>4つの攻撃ベクター（データ漏洩・リクエスト操作・データ汚染・悪意あるコード生成）を英語名と共に覚える（K2）</li>
+              <li>AI規制・標準4つ（ISO/IEC 42001、ISO/IEC 23053、EU AI Act、NIST AI RMF）の概要を覚える（K1）</li>
+            </ul>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- 第4章 -->
+      <div class="chapter-card">
+        <div class="chapter-header" onclick="this.parentElement.classList.toggle('open')">
+          <div class="chapter-num ch-4">4</div>
+          <div class="chapter-meta">
+            <h3>第4章：ソフトウェアテストのためのLLM搭載テストインフラ</h3>
+            <div class="time">110分 · 7学習目標 (K2)</div>
+          </div>
+          <div class="chapter-arrow">▶</div>
+        </div>
+        <div class="chapter-body">
+
+          <div class="section-block">
+            <h4>4.1.1 LLM搭載テストインフラのアーキテクチャ</h4>
+            <p>LLM搭載テストインフラはテストプロセスを強化するためにLLMを統合したシステムです。3層アーキテクチャで構成されます：</p>
+            <table class="lo-table">
+              <tr><th>層</th><th>英語名</th><th>役割</th></tr>
+              <tr><td>フロントエンド</td><td>Frontend</td><td>テスターがクエリやコマンドを入力するUIインターフェース</td></tr>
+              <tr><td>バックエンド</td><td>Backend</td><td>認証・データ取得・プロンプト準備・LLMとのインタラクション管理</td></tr>
+              <tr><td>LLM</td><td>LLM (Core)</td><td>サードパーティサービス（API経由）またはカスタムモデル。構造化プロンプトに基づいて応答を生成</td></tr>
+            </table>
+            <p style="margin-top:8px;">バックエンドはリレーショナルデータベース（構造化テストデータ）とベクターデータベース（エンベディングを使ったセマンティック検索）を統合します。</p>
+          </div>
+
+          <div class="section-block">
+            <h4>4.1.2 RAG（Retrieval-Augmented Generation / 検索拡張生成）</h4>
+            <p>RAGは検索システムと言語モデルを組み合わせてコンテキスト認識応答を生成する手法です。LLMの訓練データに存在しない最新・組織固有情報をリアルタイムで活用できます。</p>
+            <p><strong>前処理フェーズ（Preprocessing Phase）：</strong></p>
+            <ul>
+              <li>大きなドキュメントを小さなチャンク（256〜512トークン）に分割</li>
+              <li>各チャンクをクリーニング・処理し、事前学習済みモデルで高次元ベクトル（エンベディング）にエンコード</li>
+              <li>ベクターデータベースに保存</li>
+            </ul>
+            <p><strong>クエリ処理フェーズ（Query Processing Phase）：</strong></p>
+            <ul>
+              <li>ユーザーのクエリをエンコードし、意味的類似性に基づいて関連チャンクを取得</li>
+              <li>取得した情報をコンテキストとしてLLMに提供し、より正確な応答を生成</li>
+            </ul>
+            <p>ソフトウェアテストでの活用例：企業の要件仕様書・テスト計画・過去の欠陥データなどにリアルタイムアクセスが可能になります。</p>
+          </div>
+
+          <div class="section-block">
+            <h4>4.1.3 LLM搭載エージェント（LLM-Powered Agents）</h4>
+            <p>LLM搭載エージェントはLLMを活用し、「ツール」と呼ばれる定義された機能を呼び出してタスクを半自律的または自律的に実行できる専門的なGenAIアプリケーションです。</p>
+            <table class="lo-table">
+              <tr><th>エージェント種類</th><th>英語名</th><th>説明</th><th>推奨場面</th></tr>
+              <tr><td>自律エージェント</td><td>Autonomous Agent</td><td>事前定義されたルール・強化学習・適応フィードバックループを使って最小限の人間介入でタスクを実行</td><td>低リスクな繰り返し自動化タスク</td></tr>
+              <tr><td>半自律エージェント</td><td>Semi-autonomous Agent</td><td>定期的な人間の監視のもとでタスクを実行</td><td>重要なテストタスク（ハルシネーションリスクがある場合）</td></tr>
+              <tr><td>マルチエージェント</td><td>Multi-agent Architecture</td><td>専門的な役割を持つ複数エージェントが協調（オーケストレーション）して複雑な問題を解決</td><td>エンドツーエンドのテスト自動化パイプライン</td></tr>
+            </table>
+            <p style="margin-top:8px;">注意：エージェントもハルシネーション・推論エラー・バイアスのリスクがあるため、重要タスクには自動化された検証手順または半自律エージェントを使用することが推奨されます。</p>
+          </div>
+
+          <div class="section-block">
+            <h4>4.2.1 ファインチューニング（Fine-Tuning）</h4>
+            <p>事前学習済みLLM（またはSLM）をターゲットデータセットでさらに訓練してドメイン固有の知識・ニュアンスを習得させるプロセスです。</p>
+            <ul>
+              <li><strong>メリット：</strong>組織固有の用語・プロセスに合わせたテストケース生成が可能になる</li>
+              <li><strong>課題：</strong>高品質訓練データの確保・過学習（Overfitting）の回避・透明性の欠如・大きな計算リソースが必要</li>
+              <li><strong>SLMのファインチューニング：</strong>LLMより計算コストが低い。限られたリソース環境や特定タスクに適している。</li>
+            </ul>
+          </div>
+
+          <div class="section-block">
+            <h4>4.2.2 LLMOps（Large Language Model Operations）</h4>
+            <p>LLMを本番環境で開発・デプロイ・保守するための実践、ツール、プロセスのセットです。</p>
+            <table class="lo-table">
+              <tr><th>アプローチ</th><th>説明</th><th>考慮点</th></tr>
+              <tr><td>AIチャットボット</td><td>既製の会話型AIツール（例：ChatGPT等）を使用</td><td>データプライバシー・コスト低・カスタマイズ性低</td></tr>
+              <tr><td>テストツール</td><td>AI機能を組み込んだ専用テストツール</td><td>テスト固有機能・ベンダー依存・中程度のコスト</td></tr>
+              <tr><td>内製テストツール</td><td>LLM APIを使って自社でテストツールを開発</td><td>最高のカスタマイズ性・高コスト・データ制御可能</td></tr>
+            </table>
+          </div>
+
+          <!-- 英日対訳 -->
+          <div class="section-block">
+            <h4>英日キーワード対訳（第4章）</h4>
+            <table class="bilingual-table">
+              <tr><th>英語（English）</th><th>日本語</th></tr>
+              <tr><td>RAG (Retrieval-Augmented Generation)</td><td>検索拡張生成</td></tr>
+              <tr><td>Vector Database</td><td>ベクターデータベース</td></tr>
+              <tr><td>Embedding</td><td>エンベディング / ベクトル埋め込み</td></tr>
+              <tr><td>Chunk / Chunking</td><td>チャンク / チャンク化（文書の分割）</td></tr>
+              <tr><td>Semantic Similarity</td><td>意味的類似性</td></tr>
+              <tr><td>LLM-Powered Agent</td><td>LLM搭載エージェント</td></tr>
+              <tr><td>Autonomous Agent</td><td>自律エージェント</td></tr>
+              <tr><td>Semi-autonomous Agent</td><td>半自律エージェント</td></tr>
+              <tr><td>Multi-agent Architecture</td><td>マルチエージェントアーキテクチャ</td></tr>
+              <tr><td>Orchestration</td><td>オーケストレーション / 調整</td></tr>
+              <tr><td>Fine-Tuning</td><td>ファインチューニング / 微調整</td></tr>
+              <tr><td>Overfitting</td><td>過学習</td></tr>
+              <tr><td>LLMOps</td><td>LLMオペレーションズ（LLMの運用管理）</td></tr>
+            </table>
+          </div>
+
+          <!-- 試験対策 -->
+          <div class="exam-tip">
+            <div class="tip-title">試験対策ポイント（第4章）</div>
+            <ul>
+              <li>RAGの2フェーズ（前処理：チャンク化→エンベディング→ベクターDB保存、クエリ処理：クエリエンコード→類似検索→コンテキスト付きLLM推論）を説明できるようにする（K2）</li>
+              <li>3種類のエージェント（自律・半自律・マルチエージェント）の違いと使い分けを理解する（K2）</li>
+              <li>ファインチューニングのメリットと課題（特に過学習・データ品質・計算コスト）を説明できるようにする（K2）</li>
+              <li>LLMOpsの3アプローチ（チャットボット・テストツール・内製）のトレードオフを理解する（K2）</li>
+              <li>重要なタスクにはなぜ半自律エージェントが推奨されるかを説明できるようにする</li>
+            </ul>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- 第5章 -->
+      <div class="chapter-card">
+        <div class="chapter-header" onclick="this.parentElement.classList.toggle('open')">
+          <div class="chapter-num ch-5">5</div>
+          <div class="chapter-meta">
+            <h3>第5章：テスト組織への生成AIの導入と統合</h3>
+            <div class="time">80分 · 7学習目標 (K1–K2)</div>
+          </div>
+          <div class="chapter-arrow">▶</div>
+        </div>
+        <div class="chapter-body">
+
+          <div class="section-block">
+            <h4>5.1.1 シャドウAI（Shadow AI）のリスク（K1）</h4>
+            <p>シャドウAIとは<strong>組織の承認なしに使用される個人的なAIツール</strong>のことです。以下の3つのリスクがあります：</p>
+            <ul>
+              <li><strong>情報セキュリティとデータプライバシーの脆弱性：</strong>個人的AIツールにはロバストなセキュリティが欠如している可能性がある</li>
+              <li><strong>コンプライアンスおよび規制上の問題：</strong>未承認ツールの使用は業界標準・規制への不適合につながる可能性がある</li>
+              <li><strong>不明確な知的財産権（IP）：</strong>不明確なライセンス契約のAIツール使用は知的財産権の問題を引き起こす可能性がある</li>
+            </ul>
+          </div>
+
+          <div class="section-block">
+            <h4>5.1.2 GenAI戦略の主要考慮事項（K2）</h4>
+            <ul>
+              <li>測定可能なテスト目標の定義（テスト生産性向上・テストサイクル短縮・テスト品質改善など）</li>
+              <li>適切なLLMの選択と既存テストインフラとの互換性確保</li>
+              <li>高品質な入力データの維持（セキュリティで保護されたデータ保護）</li>
+              <li>包括的なトレーニングプログラムの提供</li>
+              <li>規制標準と倫理ガイドラインへの遵守</li>
+            </ul>
+          </div>
+
+          <div class="section-block">
+            <h4>5.1.3 LLM/SLM選択基準（K2）</h4>
+            <table class="lo-table">
+              <tr><th>基準</th><th>英語名</th><th>説明</th></tr>
+              <tr><td>モデルのパフォーマンス</td><td>Model Performance</td><td>ターゲットテストタスクに対してセクション2.3.1の指標で評価する</td></tr>
+              <tr><td>ファインチューニングの可能性</td><td>Fine-tuning Potential</td><td>特定ユースケース向けのファインチューニングが可能か・有用か評価する</td></tr>
+              <tr><td>定期的なコスト</td><td>Recurring Cost</td><td>ライセンス費用や運用費用が組織の予算に合っているか検討する</td></tr>
+              <tr><td>コミュニティとサポート</td><td>Community and Support</td><td>活発なコミュニティサポートと詳細なドキュメントがある</td></tr>
+            </table>
+          </div>
+
+          <div class="section-block">
+            <h4>5.1.4 GenAI採用の3フェーズ（K1）</h4>
+            <ul>
+              <li><strong>発見（Discovery）：</strong>認識と能力構築。テストチームへのGenAI概念のトレーニング、初期ユースケースの実験。</li>
+              <li><strong>開始・使用定義（Initiation and Usage Definition）：</strong>基本的な理解を確立後、実用的なユースケースの特定と優先付けを行う。</li>
+              <li><strong>深化（Deepening）：</strong>継続的な最適化と組織全体への展開。GenAIを組織のテストプロセスに完全に統合する。</li>
+            </ul>
+          </div>
+
+          <div class="section-block">
+            <h4>5.2 変更管理（Change Management）</h4>
+            <p><strong>テスターに必要なスキル（5.2.1 / K2）：</strong></p>
+            <ul>
+              <li>GenAIツールの能力と限界の理解</li>
+              <li>プロンプトエンジニアリングのスキル</li>
+              <li>GenAI出力の批判的評価スキル</li>
+              <li>倫理的考慮（Ethical Considerations）</li>
+            </ul>
+            <p><strong>AIスキル育成戦略（5.2.2 / K1）：</strong>ハンズオントレーニング、メンタリング、実験的プロジェクト（Sandbox環境）、継続的学習文化の構築。</p>
+            <p><strong>責任の変化（5.2.3 / K1）：</strong>GenAI採用によりテスターの役割はシフトし、以下により多く集中するようになります：</p>
+            <ul>
+              <li>GenAI出力のレビュー・検証</li>
+              <li>プロンプトエンジニアリング</li>
+              <li>GenAI生成テストウェアの品質管理</li>
+            </ul>
+          </div>
+
+          <!-- 英日対訳 -->
+          <div class="section-block">
+            <h4>英日キーワード対訳（第5章）</h4>
+            <table class="bilingual-table">
+              <tr><th>英語（English）</th><th>日本語</th></tr>
+              <tr><td>Shadow AI</td><td>シャドウAI（非承認AIツールの使用）</td></tr>
+              <tr><td>Intellectual Property (IP)</td><td>知的財産権</td></tr>
+              <tr><td>Compliance</td><td>コンプライアンス / 法令遵守</td></tr>
+              <tr><td>GenAI Strategy</td><td>GenAI戦略</td></tr>
+              <tr><td>Model Performance</td><td>モデルのパフォーマンス</td></tr>
+              <tr><td>Fine-tuning Potential</td><td>ファインチューニングの可能性</td></tr>
+              <tr><td>Recurring Cost</td><td>定期的なコスト / 継続費用</td></tr>
+              <tr><td>Discovery (adoption phase)</td><td>発見フェーズ</td></tr>
+              <tr><td>Initiation and Usage Definition</td><td>開始・使用定義フェーズ</td></tr>
+              <tr><td>Deepening</td><td>深化フェーズ</td></tr>
+              <tr><td>Change Management</td><td>変更管理</td></tr>
+              <tr><td>Ethical Considerations</td><td>倫理的考慮</td></tr>
+              <tr><td>Prompt Engineering (skill)</td><td>プロンプトエンジニアリングスキル</td></tr>
+            </table>
+          </div>
+
+          <!-- 試験対策 -->
+          <div class="exam-tip">
+            <div class="tip-title">試験対策ポイント（第5章）</div>
+            <ul>
+              <li>シャドウAIの3リスク（セキュリティ・コンプライアンス・知的財産権）を英語名と共に覚える（K1）</li>
+              <li>LLM/SLM選択の4基準（パフォーマンス・ファインチューニング可能性・コスト・コミュニティ）を説明できるようにする（K2）</li>
+              <li>GenAI採用の3フェーズ（Discovery → Initiation and Usage Definition → Deepening）の順序と内容を覚える（K1）</li>
+              <li>テスターの責任の変化：従来のテスト実行から、GenAI出力の検証・プロンプトエンジニアリング・品質管理へのシフトを理解する（K1）</li>
+            </ul>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </main>
+</body>
+</html>

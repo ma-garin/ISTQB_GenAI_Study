@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ISTQB CT-GenAI 学習アプリ</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#2980b9">
+  <link rel="apple-touch-icon" href="icons/icon-192.png">
+  <script>if ('serviceWorker' in navigator) navigator.serviceWorker.register('./sw.js');</script>
+</head>
+<body>
+  <header>
+    <div class="header-inner">
+      <a href="index.html" class="logo">
+        ISTQB CT-GenAI <span class="badge">v1.0</span>
+      </a>
+      <nav>
+        <a href="index.html" class="active">ホーム</a>
+        <a href="study.html">学習</a>
+        <a href="quiz.html">問題演習</a>
+        <a href="glossary.html">用語集</a>
+        <a href="syllabus-ja.html">日本語対訳</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <div class="hero">
+      <h1>ISTQB CT-GenAI 学習アプリ</h1>
+      <p>Certified Tester Specialist Level – Testing with Generative AI (CT-GenAI) v1.0 シラバスをベースにした学習・問題演習ツール</p>
+      <div class="version">シラバス v1.0 | 2025年7月25日 | 全5章 · 合計735分</div>
+    </div>
+
+    <div class="card-grid">
+      <a href="study.html" class="card">
+        <div class="card-icon">📖</div>
+        <h3>学習コンテンツ</h3>
+        <p>5章にわたるシラバスの要点を整理。学習目標（LO）を章ごとに確認できます。</p>
+      </a>
+      <a href="quiz.html" class="card">
+        <div class="card-icon">✏️</div>
+        <h3>問題演習</h3>
+        <p>シラバスに基づいた想定問題（K1〜K3レベル）を章ごとまたは全章で演習できます。</p>
+      </a>
+      <a href="glossary.html" class="card">
+        <div class="card-icon">📚</div>
+        <h3>用語集</h3>
+        <p>GenAI・LLM・プロンプトエンジニアリングなどの重要用語を検索・閲覧できます。</p>
+      </a>
+      <a href="CT-GenAI-Syllabus-v1.0.pdf" target="_blank" class="card">
+        <div class="card-icon">📄</div>
+        <h3>シラバスPDF</h3>
+        <p>原文シラバス (CT-GenAI v1.0) をPDFで参照できます。全70ページ。</p>
+      </a>
+    </div>
+
+    <div class="section-title">章構成</div>
+    <div class="chapter-list">
+      <div class="chapter-card">
+        <div class="chapter-header" onclick="this.parentElement.classList.toggle('open')">
+          <div class="chapter-num ch-1">1</div>
+          <div class="chapter-meta">
+            <h3>第1章：ソフトウェアテストにおける生成AIの概要</h3>
+            <div class="time">100分 · 6学習目標</div>
+          </div>
+          <div class="chapter-arrow">▶</div>
+        </div>
+        <div class="chapter-body">
+          <p style="font-size:0.875rem;color:var(--text-light);margin-bottom:8px;">LLMの基礎、AI技術の分類、ソフトウェアテストでのGenAI活用方法を学びます。</p>
+          <table class="lo-table">
+            <tr><th>LO ID</th><th>レベル</th><th>内容</th></tr>
+            <tr><td>GenAI-1.1.1</td><td><span class="badge-k1">K1</span></td><td>シンボリックAI・クラシカルML・ディープラーニング・生成AIの違いを想起する</td></tr>
+            <tr><td>GenAI-1.1.2</td><td><span class="badge-k2">K2</span></td><td>生成AIとLLMの基礎を説明する</td></tr>
+            <tr><td>GenAI-1.1.3</td><td><span class="badge-k2">K2</span></td><td>ファウンデーション・インストラクションチューニング・リーズニングLLMを区別する</td></tr>
+            <tr><td>GenAI-1.1.4</td><td><span class="badge-k2">K2</span></td><td>マルチモーダルLLMとビジョンランゲージモデルの基本原則を要約する</td></tr>
+            <tr><td>GenAI-1.2.1</td><td><span class="badge-k2">K2</span></td><td>テストタスクにおけるLLMの主要な能力の例を挙げる</td></tr>
+            <tr><td>GenAI-1.2.2</td><td><span class="badge-k2">K2</span></td><td>GenAIをソフトウェアテストで使用する際のインタラクションモデルを比較する</td></tr>
+          </table>
+        </div>
+      </div>
+
+      <div class="chapter-card">
+        <div class="chapter-header" onclick="this.parentElement.classList.toggle('open')">
+          <div class="chapter-num ch-2">2</div>
+          <div class="chapter-meta">
+            <h3>第2章：効果的なソフトウェアテストのためのプロンプトエンジニアリング</h3>
+            <div class="time">365分 · 13学習目標</div>
+          </div>
+          <div class="chapter-arrow">▶</div>
+        </div>
+        <div class="chapter-body">
+          <p style="font-size:0.875rem;color:var(--text-light);margin-bottom:8px;">効果的なプロンプト設計、コアプロンプティング技法、テストタスクへの適用方法を学びます。</p>
+          <table class="lo-table">
+            <tr><th>LO ID</th><th>レベル</th><th>内容</th></tr>
+            <tr><td>GenAI-2.1.1</td><td><span class="badge-k2">K2</span></td><td>ソフトウェアテストでの構造化プロンプトの例を挙げる</td></tr>
+            <tr><td>GenAI-2.1.2</td><td><span class="badge-k2">K2</span></td><td>コアプロンプティング技法を区別する</td></tr>
+            <tr><td>GenAI-2.1.3</td><td><span class="badge-k2">K2</span></td><td>システムプロンプトとユーザープロンプトを区別する</td></tr>
+            <tr><td>GenAI-2.2.1</td><td><span class="badge-k3">K3</span></td><td>生成AIをテスト分析タスクに適用する</td></tr>
+            <tr><td>GenAI-2.2.2</td><td><span class="badge-k3">K3</span></td><td>生成AIをテスト設計・テスト実装タスクに適用する</td></tr>
+            <tr><td>GenAI-2.2.3</td><td><span class="badge-k3">K3</span></td><td>生成AIを自動化リグレッションテストに適用する</td></tr>
+            <tr><td>GenAI-2.2.4</td><td><span class="badge-k3">K3</span></td><td>生成AIをテスト監視・制御タスクに適用する</td></tr>
+            <tr><td>GenAI-2.2.5</td><td><span class="badge-k3">K3</span></td><td>適切なプロンプティング技法を選択・適用する</td></tr>
+            <tr><td>GenAI-2.3.1</td><td><span class="badge-k2">K2</span></td><td>テストタスクにおけるGenAI結果の評価指標を理解する</td></tr>
+            <tr><td>GenAI-2.3.2</td><td><span class="badge-k2">K2</span></td><td>プロンプトを評価・反復的に改良する技法の例を挙げる</td></tr>
+          </table>
+        </div>
+      </div>
+
+      <div class="chapter-card">
+        <div class="chapter-header" onclick="this.parentElement.classList.toggle('open')">
+          <div class="chapter-num ch-3">3</div>
+          <div class="chapter-meta">
+            <h3>第3章：ソフトウェアテストにおける生成AIのリスク管理</h3>
+            <div class="time">160分 · 10学習目標</div>
+          </div>
+          <div class="chapter-arrow">▶</div>
+        </div>
+        <div class="chapter-body">
+          <p style="font-size:0.875rem;color:var(--text-light);margin-bottom:8px;">ハルシネーション・バイアス・データプライバシー・エネルギー消費・AI規制を学びます。</p>
+          <table class="lo-table">
+            <tr><th>LO ID</th><th>レベル</th><th>内容</th></tr>
+            <tr><td>GenAI-3.1.1</td><td><span class="badge-k1">K1</span></td><td>ハルシネーション・推論エラー・バイアスの定義を想起する</td></tr>
+            <tr><td>GenAI-3.1.2</td><td><span class="badge-k3">K3</span></td><td>LLM出力のハルシネーション・推論エラー・バイアスを特定する</td></tr>
+            <tr><td>GenAI-3.1.3</td><td><span class="badge-k2">K2</span></td><td>ハルシネーション・推論エラー・バイアスの軽減技法を要約する</td></tr>
+            <tr><td>GenAI-3.1.4</td><td><span class="badge-k1">K1</span></td><td>LLMの非決定論的動作の軽減技法を想起する</td></tr>
+            <tr><td>GenAI-3.2.1</td><td><span class="badge-k2">K2</span></td><td>GenAI使用に関連するデータプライバシーとセキュリティのリスクを説明する</td></tr>
+            <tr><td>GenAI-3.2.2</td><td><span class="badge-k2">K2</span></td><td>GenAIでのデータプライバシーと脆弱性の例を挙げる</td></tr>
+            <tr><td>GenAI-3.2.3</td><td><span class="badge-k2">K2</span></td><td>データプライバシー保護と安全性向上の緩和戦略を要約する</td></tr>
+            <tr><td>GenAI-3.3.1</td><td><span class="badge-k2">K2</span></td><td>タスク特性とモデル使用がGenAIのエネルギー消費に与える影響を説明する</td></tr>
+            <tr><td>GenAI-3.4.1</td><td><span class="badge-k1">K1</span></td><td>GenAIに関連するAI規制・標準・ベストプラクティスフレームワークの例を想起する</td></tr>
+          </table>
+        </div>
+      </div>
+
+      <div class="chapter-card">
+        <div class="chapter-header" onclick="this.parentElement.classList.toggle('open')">
+          <div class="chapter-num ch-4">4</div>
+          <div class="chapter-meta">
+            <h3>第4章：ソフトウェアテストのためのLLM搭載テストインフラ</h3>
+            <div class="time">110分 · 7学習目標</div>
+          </div>
+          <div class="chapter-arrow">▶</div>
+        </div>
+        <div class="chapter-body">
+          <p style="font-size:0.875rem;color:var(--text-light);margin-bottom:8px;">RAG・LLMエージェント・ファインチューニング・LLMOpsを学びます。</p>
+          <table class="lo-table">
+            <tr><th>LO ID</th><th>レベル</th><th>内容</th></tr>
+            <tr><td>GenAI-4.1.1</td><td><span class="badge-k2">K2</span></td><td>LLM搭載テストインフラの主要なアーキテクチャコンポーネントと概念を説明する</td></tr>
+            <tr><td>GenAI-4.1.2</td><td><span class="badge-k2">K2</span></td><td>RAGを要約する</td></tr>
+            <tr><td>GenAI-4.1.3</td><td><span class="badge-k2">K2</span></td><td>テストプロセスの自動化におけるLLM搭載エージェントの役割と適用を説明する</td></tr>
+            <tr><td>GenAI-4.2.1</td><td><span class="badge-k2">K2</span></td><td>特定のテストタスクに向けた言語モデルのファインチューニングを説明する</td></tr>
+            <tr><td>GenAI-4.2.2</td><td><span class="badge-k2">K2</span></td><td>LLMOpsとソフトウェアテストのためのLLMデプロイ・管理における役割を説明する</td></tr>
+          </table>
+        </div>
+      </div>
+
+      <div class="chapter-card">
+        <div class="chapter-header" onclick="this.parentElement.classList.toggle('open')">
+          <div class="chapter-num ch-5">5</div>
+          <div class="chapter-meta">
+            <h3>第5章：テスト組織への生成AIの導入と統合</h3>
+            <div class="time">80分 · 7学習目標</div>
+          </div>
+          <div class="chapter-arrow">▶</div>
+        </div>
+        <div class="chapter-body">
+          <p style="font-size:0.875rem;color:var(--text-light);margin-bottom:8px;">GenAI戦略の策定、シャドウAI、LLM選択基準、組織変革管理を学びます。</p>
+          <table class="lo-table">
+            <tr><th>LO ID</th><th>レベル</th><th>内容</th></tr>
+            <tr><td>GenAI-5.1.1</td><td><span class="badge-k1">K1</span></td><td>シャドウAIのリスクを想起する</td></tr>
+            <tr><td>GenAI-5.1.2</td><td><span class="badge-k2">K2</span></td><td>ソフトウェアテストのGenAI戦略を定義する際の主要な側面を説明する</td></tr>
+            <tr><td>GenAI-5.1.3</td><td><span class="badge-k2">K2</span></td><td>ソフトウェアテストタスク向けLLM/SLM選択の主要基準を要約する</td></tr>
+            <tr><td>GenAI-5.1.4</td><td><span class="badge-k1">K1</span></td><td>テスト組織でのGenAI採用における主要フェーズを想起する</td></tr>
+            <tr><td>GenAI-5.2.1</td><td><span class="badge-k2">K2</span></td><td>テストプロセスでGenAIを効果的に使用するために必要な必須スキルと知識領域を説明する</td></tr>
+            <tr><td>GenAI-5.2.2</td><td><span class="badge-k1">K1</span></td><td>テストチームでのAIスキル育成戦略を想起する</td></tr>
+            <tr><td>GenAI-5.2.3</td><td><span class="badge-k1">K1</span></td><td>GenAI採用によるテストプロセスと責任の変化を認識する</td></tr>
+          </table>
+        </div>
+      </div>
+    </div>
+  </main>
+</body>
+</html>
