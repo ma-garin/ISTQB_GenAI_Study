@@ -768,6 +768,144 @@ select {
   font-size: 0.74rem;
 }
 
+/* ===== SLIDES ===== */
+.slide-layout {
+  display: grid;
+  grid-template-columns: 260px 1fr;
+  gap: 16px;
+}
+
+.slide-sidebar {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 14px;
+  align-self: start;
+  position: sticky;
+  top: 76px;
+}
+
+.slide-sidebar h3 {
+  font-size: 0.9rem;
+  color: var(--primary);
+  margin-bottom: 10px;
+}
+
+.deck-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.deck-btn {
+  width: 100%;
+  text-align: left;
+  border: 1px solid var(--border);
+  background: #fff;
+  color: var(--text);
+  border-radius: 8px;
+  padding: 10px;
+  cursor: pointer;
+  font-size: 0.8rem;
+}
+
+.deck-btn.active {
+  border-color: var(--primary);
+  background: var(--primary-light);
+}
+
+.deck-btn .meta {
+  margin-top: 4px;
+  font-size: 0.7rem;
+  color: var(--text-light);
+}
+
+.slide-stage {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 18px;
+}
+
+.slide-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 12px;
+  flex-wrap: wrap;
+}
+
+.slide-header .title {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--primary);
+}
+
+.slide-meta {
+  font-size: 0.8rem;
+  color: var(--text-light);
+}
+
+.slide-card {
+  border: 1px solid #cfe0f2;
+  border-radius: 12px;
+  background: #fcfeff;
+  padding: 20px;
+  min-height: 360px;
+}
+
+.slide-card h2 {
+  font-size: 1.25rem;
+  margin-bottom: 10px;
+}
+
+.slide-subtitle {
+  font-size: 0.85rem;
+  color: var(--text-light);
+  margin-bottom: 12px;
+}
+
+.slide-bullets {
+  padding-left: 18px;
+}
+
+.slide-bullets li {
+  margin-bottom: 7px;
+  line-height: 1.6;
+  font-size: 0.9rem;
+}
+
+.slide-tags {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-top: 14px;
+}
+
+.slide-tag {
+  font-size: 0.72rem;
+  padding: 4px 8px;
+  border-radius: 999px;
+  background: #e8f4fd;
+  color: #1a6fa0;
+  font-weight: 700;
+}
+
+.slide-controls {
+  margin-top: 14px;
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.slide-progress {
+  margin-top: 10px;
+  font-size: 0.8rem;
+  color: var(--text-light);
+}
+
 /* ===== SYLLABUS JA ===== */
 .syllabus-section {
   background: var(--card);
@@ -812,4 +950,7 @@ select {
   .question-body { padding: 16px; }
   .question-header { padding: 12px 16px; }
   .question-actions { padding: 12px 16px; }
+  .slide-layout { grid-template-columns: 1fr; }
+  .slide-sidebar { position: static; }
+  .slide-card { min-height: 300px; padding: 14px; }
 }

@@ -11,6 +11,7 @@ ISTQB Certified Tester Specialist Level – Testing with Generative AI (CT-GenAI
 | ホーム | 章構成・学習目標一覧 |
 | 学習コンテンツ | 5章・英日バイリンガル解説・試験Tips |
 | 問題演習 | 60問（K1〜K3）・章別・ランダム出題 |
+| 学習スライド | 章別スライド学習（Foundation Seminar 2023 参考） |
 | 用語集 | 50+件・カテゴリ絞り込み・検索 |
 | 日本語対訳 | シラバス全文の日本語訳（英語用語付記） |
 
@@ -30,11 +31,13 @@ ISTQB Certified Tester Specialist Level – Testing with Generative AI (CT-GenAI
 ├── index.html          # トップページ
 ├── study.html          # 学習コンテンツ
 ├── quiz.html           # 問題演習
+├── slides.html         # 学習スライド
 ├── glossary.html       # 用語集
 ├── syllabus-ja.html    # シラバス日本語対訳
 ├── css/style.css       # スタイルシート
 ├── js/
 │   ├── quiz-data.js    # 問題データ（60問）
+│   ├── slides-data.js  # スライドデータ
 │   └── glossary-data.js# 用語データ
 ├── manifest.json       # PWAマニフェスト
 ├── sw.js               # Service Worker

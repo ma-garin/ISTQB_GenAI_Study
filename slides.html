@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>学習スライド | ISTQB CT-GenAI</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#2980b9">
+  <link rel="apple-touch-icon" href="icons/icon-192.png">
+  <script>if ('serviceWorker' in navigator) navigator.serviceWorker.register('./sw.js');</script>
+</head>
+<body>
+  <header>
+    <div class="header-inner">
+      <a href="index.html" class="logo">ISTQB CT-GenAI <span class="badge">v1.0</span></a>
+      <nav>
+        <a href="index.html">ホーム</a>
+        <a href="study.html">学習</a>
+        <a href="quiz.html">問題演習</a>
+        <a href="slides.html" class="active">スライド</a>
+        <a href="glossary.html">用語集</a>
+        <a href="syllabus-ja.html">日本語対訳</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <div class="section-title">🖥️ 学習スライド（章別）</div>
+    <p style="font-size:0.88rem;color:var(--text-light);margin-bottom:14px;">
+      Foundation Seminar 2023 資料を参考にした章別学習スライドです。各章は推奨枚数ベースで編成しています。
+    </p>
+
+    <div class="slide-layout">
+      <aside class="slide-sidebar">
+        <h3>デッキ一覧</h3>
+        <div class="deck-list" id="deckList"></div>
+      </aside>
+
+      <section class="slide-stage">
+        <div class="slide-header">
+          <div>
+            <div class="title" id="deckTitle">-</div>
+            <div class="slide-meta" id="deckMeta">-</div>
+          </div>
+          <button class="btn btn-secondary" onclick="shuffleDeck()">シャッフル学習</button>
+        </div>
+
+        <article class="slide-card" id="slideCard"></article>
+
+        <div class="slide-controls">
+          <button class="btn btn-secondary" id="prevBtn" onclick="prevSlide()">← 前のスライド</button>
+          <button class="btn btn-primary" id="nextBtn" onclick="nextSlide()">次のスライド →</button>
+        </div>
+
+        <div class="slide-progress" id="slideProgress">0 / 0</div>
+      </section>
+    </div>
+  </main>
+
+  <script src="js/slides-data.js"></script>
+  <script>
+    let currentDeckIndex = 0;
+    let currentSlideIndex = 0;
+    let shuffledSlides = null;
+
+    function renderDeckList() {
+      const html = slideDeckData.map((deck, idx) => `
+        <button class="deck-btn ${idx === currentDeckIndex ? 'active' : ''}" onclick="selectDeck(${idx})">
+          <div>${deck.label}</div>
+          <div class="meta">推奨 ${deck.recommended} 枚</div>
+        </button>
+      `).join('');
+      document.getElementById('deckList').innerHTML = html;
+    }
+
+    function getActiveSlides() {
+      if (shuffledSlides) return shuffledSlides;
+      return slideDeckData[currentDeckIndex].slides;
+    }
+
+    function selectDeck(deckIndex) {
+      currentDeckIndex = deckIndex;
+      currentSlideIndex = 0;
+      shuffledSlides = null;
+      renderDeckList();
+      renderSlide();
+    }
+
+    function shuffleDeck() {
+      const base = [...slideDeckData[currentDeckIndex].slides];
+      for (let i = base.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [base[i], base[j]] = [base[j], base[i]];
+      }
+      shuffledSlides = base;
+      currentSlideIndex = 0;
+      renderSlide();
+    }
+
+    function renderSlide() {
+      const deck = slideDeckData[currentDeckIndex];
+      const slides = getActiveSlides();
+      const slide = slides[currentSlideIndex];
+
+      document.getElementById('deckTitle').textContent = deck.label;
+      document.getElementById('deckMeta').textContent = `推奨 ${deck.recommended} 枚 | 収録 ${slides.length} 枚`;
+      document.getElementById('slideProgress').textContent = `${currentSlideIndex + 1} / ${slides.length}`;
+
+      const bullets = slide.bullets.map(b => `<li>${b}</li>`).join('');
+      const tags = (slide.tags || []).map(t => `<span class="slide-tag">${t}</span>`).join('');
+
+      document.getElementById('slideCard').innerHTML = `
+        <h2>${slide.title}</h2>
+        <div class="slide-subtitle">${slide.subtitle || ''}</div>
+        <ul class="slide-bullets">${bullets}</ul>
+        <div class="slide-tags">${tags}</div>
+      `;
+
+      document.getElementById('prevBtn').disabled = currentSlideIndex === 0;
+      document.getElementById('nextBtn').disabled = currentSlideIndex === slides.length - 1;
+    }
+
+    function nextSlide() {
+      const slides = getActiveSlides();
+      if (currentSlideIndex < slides.length - 1) {
+        currentSlideIndex += 1;
+        renderSlide();
+      }
+    }
+
+    function prevSlide() {
+      if (currentSlideIndex > 0) {
+        currentSlideIndex -= 1;
+        renderSlide();
+      }
+    }
+
+    renderDeckList();
+    renderSlide();
+  </script>
+</body>
+</html>

@@ -1,13 +1,15 @@
-const CACHE_NAME = 'ct-genai-v4';
+const CACHE_NAME = 'ct-genai-v5';
 const ASSETS = [
   './',
   './index.html',
   './study.html',
   './quiz.html',
+  './slides.html',
   './glossary.html',
   './syllabus-ja.html',
   './css/style.css',
   './js/quiz-data.js',
+  './js/slides-data.js',
   './js/glossary-data.js',
   './manifest.json',
   './icons/icon-192.png',
