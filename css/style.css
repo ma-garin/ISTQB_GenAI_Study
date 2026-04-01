@@ -643,6 +643,131 @@ select {
 .chapter-summary ul { font-size: 0.8rem; padding-left: 18px; }
 .chapter-summary li { margin-bottom: 3px; color: var(--text); }
 
+/* ===== VISUAL LEARNING ===== */
+.visual-block {
+  background: #fbfdff;
+  border: 1px solid #d8e6f6;
+  border-radius: 12px;
+  padding: 14px;
+  margin: 14px 0;
+}
+
+.visual-title {
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: var(--primary);
+  margin-bottom: 10px;
+}
+
+.spectrum-flow,
+.prompt-flow,
+.adoption-flow {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 10px;
+}
+
+.flow-node {
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: #fff;
+  padding: 10px;
+  position: relative;
+}
+
+.flow-node .tag {
+  display: inline-block;
+  font-size: 0.68rem;
+  font-weight: 700;
+  padding: 2px 6px;
+  border-radius: 999px;
+  background: var(--primary-light);
+  color: var(--primary-dark);
+  margin-bottom: 6px;
+}
+
+.flow-node .name {
+  font-size: 0.82rem;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+
+.flow-node .desc {
+  font-size: 0.75rem;
+  line-height: 1.45;
+  color: var(--text-light);
+}
+
+.risk-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 10px;
+}
+
+.risk-card {
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  background: #fff;
+  padding: 10px;
+}
+
+.risk-card .risk-head {
+  font-size: 0.78rem;
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+
+.risk-card .risk-meta {
+  font-size: 0.72rem;
+  color: var(--text-light);
+  margin-bottom: 5px;
+}
+
+.risk-high { border-left: 4px solid #e67e22; }
+.risk-critical { border-left: 4px solid #c0392b; }
+.risk-medium { border-left: 4px solid #2980b9; }
+
+.arch-stack {
+  display: grid;
+  gap: 8px;
+}
+
+.arch-layer {
+  border-radius: 10px;
+  padding: 10px 12px;
+  color: #fff;
+}
+
+.arch-frontend { background: linear-gradient(135deg, #1a6fa0, #2980b9); }
+.arch-backend { background: linear-gradient(135deg, #1f7a53, #27ae60); }
+.arch-llm { background: linear-gradient(135deg, #8e44ad, #6c3483); }
+
+.arch-layer .name {
+  font-size: 0.84rem;
+  font-weight: 700;
+}
+
+.arch-layer .desc {
+  font-size: 0.74rem;
+  opacity: 0.9;
+  margin-top: 2px;
+}
+
+.rag-mini-flow {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.rag-step {
+  border: 1px dashed #8bb3d9;
+  border-radius: 8px;
+  background: #fff;
+  padding: 8px;
+  font-size: 0.74rem;
+}
+
 /* ===== SYLLABUS JA ===== */
 .syllabus-section {
   background: var(--card);
