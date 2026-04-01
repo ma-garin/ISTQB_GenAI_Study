@@ -1,4 +1,4 @@
-const CACHE_NAME = 'ct-genai-v2';
+const CACHE_NAME = 'ct-genai-v3';
 const ASSETS = [
   './',
   './index.html',

@@ -519,6 +519,98 @@ select {
 .quiz-info-item .num { font-size: 2rem; font-weight: 800; color: var(--primary); }
 .quiz-info-item .label { font-size: 0.8rem; color: var(--text-light); }
 
+.lo-dashboard {
+  margin-top: 8px;
+  text-align: left;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 16px;
+  background: #fafcff;
+}
+
+.lo-dashboard h3 {
+  font-size: 1rem;
+  color: var(--primary);
+  margin-bottom: 10px;
+}
+
+.lo-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 10px;
+  margin-bottom: 14px;
+}
+
+.lo-stat-item {
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 10px 12px;
+}
+
+.lo-stat-item .num {
+  font-size: 1.35rem;
+  font-weight: 800;
+  color: var(--primary);
+  line-height: 1.1;
+}
+
+.lo-stat-item .label {
+  font-size: 0.75rem;
+  color: var(--text-light);
+}
+
+.lo-weak-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.lo-weak-item {
+  background: #fff;
+  border: 1px solid var(--border);
+  border-left: 4px solid var(--warning);
+  border-radius: 8px;
+  padding: 8px 10px;
+  font-size: 0.82rem;
+}
+
+.result-insights {
+  margin: 20px 0 24px;
+  text-align: left;
+}
+
+.result-insights h3 {
+  font-size: 0.95rem;
+  color: var(--primary);
+  margin-bottom: 8px;
+}
+
+.chapter-result-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+  gap: 10px;
+  margin-bottom: 14px;
+}
+
+.chapter-result-item {
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 10px 12px;
+  background: #fff;
+}
+
+.chapter-result-item .title {
+  font-size: 0.78rem;
+  color: var(--text-light);
+}
+
+.chapter-result-item .value {
+  font-size: 1rem;
+  font-weight: 700;
+  margin-top: 2px;
+}
+
 /* ===== EXAM TIP / BILINGUAL ===== */
 .exam-tip {
   background: #fff8e1;
