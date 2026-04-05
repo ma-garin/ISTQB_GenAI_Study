@@ -9,6 +9,7 @@
   <meta name="theme-color" content="#2980b9">
   <link rel="apple-touch-icon" href="icons/icon-192.png">
   <script>if ('serviceWorker' in navigator) navigator.serviceWorker.register('./sw.js');</script>
+  <script>if(localStorage.getItem('ctgenai-dark')==='1')document.body&&document.body.classList.add('dark-mode');</script>
 </head>
 <body>
   <header>
@@ -22,40 +23,117 @@
         <a href="glossary.html" class="active">用語集</a>
         <a href="syllabus-ja.html">日本語対訳</a>
       </nav>
+      <button class="dark-toggle" onclick="toggleDark()" id="darkBtn">🌙 ダーク</button>
     </div>
   </header>
 
   <main>
     <div class="section-title">📚 用語集</div>
 
-    <div class="glossary-search">
-      <input type="text" class="search-input" id="searchInput" placeholder="用語を検索..." oninput="filterGlossary()">
-      <div class="category-filters" id="categoryFilters"></div>
+    <!-- モード切替 -->
+    <div style="display:flex;gap:10px;margin-bottom:20px;flex-wrap:wrap;">
+      <button class="btn btn-primary" id="btnList" onclick="setMode('list')">📋 一覧モード</button>
+      <button class="btn btn-secondary" id="btnFlash" onclick="setMode('flash')">🃏 フラッシュカード</button>
     </div>
 
-    <div style="font-size:0.85rem;color:var(--text-light);margin-bottom:16px;" id="countText"></div>
+    <!-- 一覧モード -->
+    <div id="listMode">
+      <div class="glossary-search">
+        <input type="text" class="search-input" id="searchInput" placeholder="用語を検索..." oninput="filterGlossary()">
+        <div class="category-filters" id="categoryFilters"></div>
+      </div>
+      <div style="font-size:0.85rem;color:var(--text-light);margin-bottom:16px;" id="countText"></div>
+      <div class="glossary-grid" id="glossaryGrid"></div>
+    </div>
 
-    <div class="glossary-grid" id="glossaryGrid"></div>
+    <!-- フラッシュカードモード -->
+    <div id="flashMode" style="display:none;">
+      <div class="flashcard-controls">
+        <div class="select-group">
+          <label>カテゴリ：</label>
+          <select id="fcCategory" onchange="startFlashcards()">
+            <option value="all">全て</option>
+          </select>
+        </div>
+        <button class="btn btn-secondary" onclick="shuffleFlashcards()">🔀 シャッフル</button>
+        <div style="font-size:0.85rem;color:var(--text-light);margin-left:auto;" id="fcCounter"></div>
+      </div>
+
+      <div class="fc-progress" id="fcProgress"></div>
+
+      <div class="flashcard-stage">
+        <div class="flashcard" id="flashcard" onclick="flipCard()">
+          <div class="flashcard-front" id="fcFront">
+            <div class="card-category" id="fcCat"></div>
+            <div class="card-term" id="fcTerm"></div>
+            <div class="card-hint">タップ / クリックで定義を確認</div>
+          </div>
+          <div class="flashcard-back" id="fcBack">
+            <div class="card-def" id="fcDef"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="fc-actions">
+        <button class="btn btn-secondary" onclick="fcPrev()">← 前へ</button>
+        <button class="btn btn-success" onclick="fcKnow()">✓ 覚えた</button>
+        <button class="btn" style="background:#fdedec;color:#c0392b;border:none;" onclick="fcDontKnow()">✗ もう一度</button>
+        <button class="btn btn-secondary" onclick="fcNext()">次へ →</button>
+      </div>
+
+      <div style="margin-top:16px;background:var(--card);border:1px solid var(--border);border-radius:10px;padding:14px;">
+        <div style="font-size:0.85rem;font-weight:700;color:var(--primary);margin-bottom:8px;">📊 このセッションの記録</div>
+        <div style="display:flex;gap:20px;flex-wrap:wrap;">
+          <div><span style="font-size:1.3rem;font-weight:800;color:#27ae60;" id="fcKnowCount">0</span> <span style="font-size:0.78rem;color:var(--text-light);">覚えた</span></div>
+          <div><span style="font-size:1.3rem;font-weight:800;color:#c0392b;" id="fcRetryCount">0</span> <span style="font-size:0.78rem;color:var(--text-light);">要復習</span></div>
+        </div>
+      </div>
+    </div>
   </main>
 
   <script src="js/glossary-data.js"></script>
   <script>
+    /* ===== DARK MODE ===== */
+    function toggleDark() {
+      document.body.classList.toggle('dark-mode');
+      const on = document.body.classList.contains('dark-mode');
+      localStorage.setItem('ctgenai-dark', on ? '1' : '0');
+      document.getElementById('darkBtn').textContent = on ? '☀️ ライト' : '🌙 ダーク';
+    }
+    if (localStorage.getItem('ctgenai-dark') === '1') {
+      document.body.classList.add('dark-mode');
+      document.addEventListener('DOMContentLoaded', () => { const b = document.getElementById('darkBtn'); if(b) b.textContent = '☀️ ライト'; });
+    }
+
+    /* ===== CONSTANTS ===== */
     const CATEGORY_COLORS = {
-      'AI基礎': '#2980b9',
-      'LLM技術': '#8e44ad',
+      'AI基礎': '#2980b9', 'LLM技術': '#8e44ad',
       'プロンプトエンジニアリング': '#16a085',
-      'リスクと品質': '#c0392b',
-      'インフラ・アーキテクチャ': '#d35400'
+      'リスクと品質': '#c0392b', 'インフラ・アーキテクチャ': '#d35400'
     };
 
+    /* ===== LIST MODE ===== */
     let activeCategory = '全て';
+    let currentMode = 'list';
+
+    function setMode(mode) {
+      currentMode = mode;
+      document.getElementById('listMode').style.display = mode === 'list' ? 'block' : 'none';
+      document.getElementById('flashMode').style.display = mode === 'flash' ? 'block' : 'none';
+      document.getElementById('btnList').className = mode === 'list' ? 'btn btn-primary' : 'btn btn-secondary';
+      document.getElementById('btnFlash').className = mode === 'flash' ? 'btn btn-primary' : 'btn btn-secondary';
+      if (mode === 'flash') initFlashcards();
+    }
 
     function buildCategoryFilters() {
       const cats = ['全て', ...new Set(glossaryData.map(g => g.category))];
-      const el = document.getElementById('categoryFilters');
-      el.innerHTML = cats.map(c =>
+      document.getElementById('categoryFilters').innerHTML = cats.map(c =>
         `<button class="filter-btn ${c === activeCategory ? 'active' : ''}" onclick="setCategory('${c}')">${c}</button>`
       ).join('');
+      // also populate flashcard category select
+      const sel = document.getElementById('fcCategory');
+      sel.innerHTML = '<option value="all">全て</option>' + [...new Set(glossaryData.map(g => g.category))].map(c =>
+        `<option value="${c}">${c}</option>`).join('');
     }
 
     function setCategory(cat) {
@@ -68,35 +146,101 @@
       const query = document.getElementById('searchInput').value.toLowerCase();
       const filtered = glossaryData.filter(g => {
         const matchCat = activeCategory === '全て' || g.category === activeCategory;
-        const matchSearch = !query ||
-          g.term.toLowerCase().includes(query) ||
-          g.definition.toLowerCase().includes(query);
+        const matchSearch = !query || g.term.toLowerCase().includes(query) || g.definition.toLowerCase().includes(query);
         return matchCat && matchSearch;
       });
-
       document.getElementById('countText').textContent = `${filtered.length} 件 / 全 ${glossaryData.length} 件`;
-
       const grid = document.getElementById('glossaryGrid');
       if (filtered.length === 0) {
         grid.innerHTML = `<div class="empty-state"><div class="icon">🔍</div><div>該当する用語が見つかりませんでした</div></div>`;
         return;
       }
-
-      const highlight = (text) => {
-        if (!query) return text;
+      const hl = (t) => {
+        if (!query) return t;
         const re = new RegExp(`(${query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, 'gi');
-        return text.replace(re, '<mark style="background:#fff176;border-radius:2px;">$1</mark>');
+        return t.replace(re, '<mark style="background:#fff176;border-radius:2px;">$1</mark>');
       };
-
       grid.innerHTML = filtered.map(g => `
         <div class="glossary-item">
-          <div class="g-term">${highlight(g.term)}</div>
-          <div class="g-category" style="color:${CATEGORY_COLORS[g.category] || 'var(--primary)'}">● ${g.category}</div>
-          <div class="g-def">${highlight(g.definition)}</div>
-        </div>
-      `).join('');
+          <div class="g-term">${hl(g.term)}</div>
+          <div class="g-category" style="color:${CATEGORY_COLORS[g.category]||'var(--primary)'}">● ${g.category}</div>
+          <div class="g-def">${hl(g.definition)}</div>
+        </div>`).join('');
     }
 
+    /* ===== FLASHCARD MODE ===== */
+    let fcCards = [];
+    let fcIndex = 0;
+    let fcKnown = 0;
+    let fcRetry = 0;
+    let fcFlipped = false;
+
+    function initFlashcards() {
+      startFlashcards();
+    }
+
+    function startFlashcards() {
+      const cat = document.getElementById('fcCategory').value;
+      fcCards = cat === 'all' ? [...glossaryData] : glossaryData.filter(g => g.category === cat);
+      shuffleArr(fcCards);
+      fcIndex = 0; fcKnown = 0; fcRetry = 0; fcFlipped = false;
+      document.getElementById('fcKnowCount').textContent = '0';
+      document.getElementById('fcRetryCount').textContent = '0';
+      renderCard();
+    }
+
+    function shuffleFlashcards() { shuffleArr(fcCards); fcIndex = 0; fcFlipped = false; renderCard(); }
+
+    function shuffleArr(a) { for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];} }
+
+    function renderCard() {
+      if (fcCards.length === 0) return;
+      const card = document.getElementById('flashcard');
+      card.classList.remove('flipped');
+      fcFlipped = false;
+      const g = fcCards[fcIndex];
+      document.getElementById('fcCat').textContent = g.category;
+      document.getElementById('fcCat').style.color = CATEGORY_COLORS[g.category] || 'var(--primary)';
+      document.getElementById('fcTerm').textContent = g.term;
+      document.getElementById('fcDef').textContent = g.definition;
+      document.getElementById('fcCounter').textContent = `${fcIndex + 1} / ${fcCards.length}`;
+      document.getElementById('fcProgress').textContent = `${fcIndex + 1} / ${fcCards.length} 枚目`;
+    }
+
+    function flipCard() {
+      fcFlipped = !fcFlipped;
+      document.getElementById('flashcard').classList.toggle('flipped', fcFlipped);
+    }
+
+    function fcNext() { if (fcIndex < fcCards.length - 1) { fcIndex++; fcFlipped = false; renderCard(); } }
+    function fcPrev() { if (fcIndex > 0) { fcIndex--; fcFlipped = false; renderCard(); } }
+
+    function fcKnow() {
+      fcKnown++;
+      document.getElementById('fcKnowCount').textContent = fcKnown;
+      fcCards.splice(fcIndex, 1);
+      if (fcCards.length === 0) {
+        document.getElementById('fcTerm').textContent = '全て覚えました！🎉';
+        document.getElementById('fcDef').textContent = `正解: ${fcKnown}枚`;
+        document.getElementById('fcCat').textContent = '';
+        document.getElementById('fcCounter').textContent = '完了';
+        return;
+      }
+      if (fcIndex >= fcCards.length) fcIndex = 0;
+      renderCard();
+    }
+
+    function fcDontKnow() {
+      fcRetry++;
+      document.getElementById('fcRetryCount').textContent = fcRetry;
+      const card = fcCards.splice(fcIndex, 1)[0];
+      const insertAt = Math.min(fcIndex + 3, fcCards.length);
+      fcCards.splice(insertAt, 0, card);
+      if (fcIndex >= fcCards.length) fcIndex = 0;
+      renderCard();
+    }
+
+    /* ===== INIT ===== */
     buildCategoryFilters();
     filterGlossary();
   </script>

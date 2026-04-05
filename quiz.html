@@ -9,6 +9,8 @@
   <meta name="theme-color" content="#2980b9">
   <link rel="apple-touch-icon" href="icons/icon-192.png">
   <script>if ('serviceWorker' in navigator) navigator.serviceWorker.register('./sw.js');</script>
+  <script>if(localStorage.getItem('ctgenai-dark')==='1')document.documentElement.classList.add('dark-pre');</script>
+  <style>.dark-pre body{}</style>
 </head>
 <body>
   <header>
@@ -22,6 +24,7 @@
         <a href="glossary.html">用語集</a>
         <a href="syllabus-ja.html">日本語対訳</a>
       </nav>
+      <button class="dark-toggle" onclick="toggleDark()" id="darkBtn">🌙 ダーク</button>
     </div>
   </header>
 
@@ -35,6 +38,9 @@
         <select id="modeSelect">
           <option value="practice">通常演習</option>
           <option value="diagnostic">診断テスト（20問）</option>
+          <option value="exam">模擬試験（40問 / 60分）</option>
+          <option value="review">苦手復習（要復習問題のみ）</option>
+          <option value="bookmark">ブックマーク復習</option>
         </select>
       </div>
       <div class="select-group">
@@ -60,6 +66,7 @@
 
     <!-- スタート画面 -->
     <div class="quiz-start" id="quizStart">
+      <div id="streakArea"></div>
       <div style="font-size:3rem;margin-bottom:16px;">✏️</div>
       <h2>問題演習</h2>
       <p>章と出題順を選択して「開始」ボタンを押してください。</p>
@@ -83,6 +90,16 @@
         <div class="lo-stats-grid" id="loStatsGrid"></div>
         <div class="lo-weak-list" id="loWeakList"></div>
       </div>
+
+      <div class="progress-chart-wrap" id="sessionChartWrap" style="margin-top:16px;text-align:left;">
+        <h3>📊 直近の正答率推移</h3>
+        <div id="sessionChart"></div>
+      </div>
+
+      <div style="margin-top:16px;text-align:left;">
+        <h3 style="font-size:0.95rem;color:var(--primary);margin-bottom:8px;">🏆 実績</h3>
+        <div class="achievement-grid" id="achievementGrid"></div>
+      </div>
     </div>
 
     <!-- プログレスバー -->
@@ -92,6 +109,7 @@
       </div>
       <div class="progress-text" id="progressText">0 / 0</div>
       <div class="score-text" id="scoreText">正解: 0</div>
+      <div class="timer-display" id="timerDisplay" style="display:none;"></div>
     </div>
 
     <!-- 問題エリア -->
@@ -131,53 +149,165 @@
 
   <script src="js/quiz-data.js"></script>
   <script>
+    /* ===== CONSTANTS & STATE ===== */
     const CHAPTER_COLORS = ['', '#2980b9', '#8e44ad', '#c0392b', '#16a085', '#d35400'];
-    const LO_STATS_KEY = 'ctgenai-lo-stats-v1';
+    const LO_STATS_KEY    = 'ctgenai-lo-stats-v1';
+    const WRONG_IDS_KEY   = 'ctgenai-wrong-ids-v1';
+    const BOOKMARK_KEY    = 'ctgenai-bookmarks-v1';
+    const STREAK_KEY      = 'ctgenai-streak-v1';
+    const HISTORY_KEY     = 'ctgenai-session-history-v1';
     const DIAGNOSTIC_QUESTION_COUNT = 20;
+    const EXAM_QUESTION_COUNT = 40;
+    const EXAM_TIME_SECONDS = 60 * 60; // 60分
+
     let questions = [];
     let currentIndex = 0;
     let score = 0;
     let answered = [];
     let activeMode = 'practice';
+    let timerInterval = null;
+    let timerSeconds = 0;
+    let sessionStartTime = null;
 
-    function shuffleInPlace(arr) {
-      for (let i = arr.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [arr[i], arr[j]] = [arr[j], arr[i]];
+    /* ===== DARK MODE ===== */
+    function toggleDark() {
+      document.body.classList.toggle('dark-mode');
+      const on = document.body.classList.contains('dark-mode');
+      localStorage.setItem('ctgenai-dark', on ? '1' : '0');
+      document.getElementById('darkBtn').textContent = on ? '☀️ ライト' : '🌙 ダーク';
+    }
+    if (localStorage.getItem('ctgenai-dark') === '1') {
+      document.body.classList.add('dark-mode');
+      document.addEventListener('DOMContentLoaded', () => {
+        const btn = document.getElementById('darkBtn');
+        if (btn) btn.textContent = '☀️ ライト';
+      });
+    }
+
+    /* ===== STORAGE HELPERS ===== */
+    function load(key, def) { try { return JSON.parse(localStorage.getItem(key)) || def; } catch { return def; } }
+    function save(key, val) { localStorage.setItem(key, JSON.stringify(val)); }
+
+    /* ===== STREAK ===== */
+    function loadStreak() { return load(STREAK_KEY, { streak: 0, lastDate: '', totalSessions: 0, totalCorrect: 0 }); }
+    function updateStreak() {
+      const s = loadStreak();
+      const today = new Date().toISOString().slice(0, 10);
+      if (s.lastDate === today) return s;
+      const yesterday = new Date(Date.now() - 86400000).toISOString().slice(0, 10);
+      s.streak = (s.lastDate === yesterday) ? s.streak + 1 : 1;
+      s.lastDate = today;
+      s.totalSessions = (s.totalSessions || 0) + 1;
+      save(STREAK_KEY, s);
+      return s;
+    }
+    function addStreakCorrect(n) {
+      const s = loadStreak();
+      s.totalCorrect = (s.totalCorrect || 0) + n;
+      save(STREAK_KEY, s);
+    }
+
+    function renderStreakBanner() {
+      const s = loadStreak();
+      const el = document.getElementById('streakArea');
+      if (!el) return;
+      if (s.totalSessions === 0 && s.streak === 0) { el.innerHTML = ''; return; }
+      const fire = s.streak >= 7 ? '🔥🔥' : s.streak >= 3 ? '🔥' : '📅';
+      el.innerHTML = `
+        <div class="streak-banner">
+          <div class="streak-icon">${fire}</div>
+          <div class="streak-info">
+            <h3>${s.streak}日連続学習中！</h3>
+            <p>継続は力なり。今日も一問解いて記録を伸ばそう。</p>
+          </div>
+          <div class="streak-stats">
+            <div class="streak-stat"><div class="num">${s.streak}</div><div class="lbl">連続日数</div></div>
+            <div class="streak-stat"><div class="num">${s.totalSessions || 1}</div><div class="lbl">総セッション</div></div>
+            <div class="streak-stat"><div class="num">${s.totalCorrect || 0}</div><div class="lbl">累計正解</div></div>
+          </div>
+        </div>`;
+    }
+
+    /* ===== SESSION HISTORY ===== */
+    function saveSessionHistory(score, total, mode) {
+      const hist = load(HISTORY_KEY, []);
+      hist.push({ date: new Date().toISOString().slice(0, 10), score, total, pct: total > 0 ? Math.round(score / total * 100) : 0, mode });
+      if (hist.length > 30) hist.splice(0, hist.length - 30);
+      save(HISTORY_KEY, hist);
+    }
+
+    function renderSessionChart() {
+      const hist = load(HISTORY_KEY, []);
+      const el = document.getElementById('sessionChart');
+      if (!el) return;
+      if (hist.length === 0) {
+        el.innerHTML = '<div class="chart-empty">まだ記録がありません。最初のセッションを終えると表示されます。</div>';
+        return;
       }
+      const last = hist.slice(-12);
+      const max = 100;
+      const bars = last.map(h => {
+        const pct = h.pct;
+        const color = pct >= 80 ? '#27ae60' : pct >= 60 ? '#e67e22' : '#c0392b';
+        return `<div class="bar-chart-item">
+          <div class="bar-chart-bar" style="height:${Math.max(4, pct * 0.7)}px;background:${color};" title="${h.date}: ${pct}%"></div>
+          <div class="bar-chart-label">${pct}%</div>
+        </div>`;
+      }).join('');
+      el.innerHTML = `<div class="bar-chart">${bars}</div>`;
     }
 
-    function getAllLos() {
-      return [...new Set(quizData.map(q => q.lo))];
+    /* ===== ACHIEVEMENTS ===== */
+    const ACHIEVEMENTS = [
+      { id: 'first', icon: '🎯', label: '初回クリア', check: s => (s.totalSessions || 0) >= 1 },
+      { id: 'streak3', icon: '🔥', label: '3日連続', check: s => (s.streak || 0) >= 3 },
+      { id: 'streak7', icon: '🏅', label: '7日連続', check: s => (s.streak || 0) >= 7 },
+      { id: 'correct50', icon: '⭐', label: '正解50問', check: s => (s.totalCorrect || 0) >= 50 },
+      { id: 'correct200', icon: '🌟', label: '正解200問', check: s => (s.totalCorrect || 0) >= 200 },
+    ];
+
+    function renderAchievements() {
+      const s = loadStreak();
+      const el = document.getElementById('achievementGrid');
+      if (!el) return;
+      el.innerHTML = ACHIEVEMENTS.map(a => {
+        const earned = a.check(s);
+        return `<div class="achievement-badge ${earned ? 'earned' : 'locked'}">${a.icon} ${a.label}</div>`;
+      }).join('');
     }
 
-    function loadLoStats() {
-      try {
-        return JSON.parse(localStorage.getItem(LO_STATS_KEY) || '{}');
-      } catch (e) {
-        return {};
-      }
+    /* ===== BOOKMARK ===== */
+    function loadBookmarks() { return new Set(load(BOOKMARK_KEY, [])); }
+    function toggleBookmark(qId) {
+      const bm = loadBookmarks();
+      if (bm.has(qId)) bm.delete(qId); else bm.add(qId);
+      save(BOOKMARK_KEY, [...bm]);
+      renderQuestion();
     }
 
-    function saveLoStats(stats) {
-      localStorage.setItem(LO_STATS_KEY, JSON.stringify(stats));
+    /* ===== WRONG IDS ===== */
+    function loadWrongIds() { return new Set(load(WRONG_IDS_KEY, [])); }
+    function updateWrongIds(qId, isCorrect) {
+      const w = loadWrongIds();
+      if (isCorrect) w.delete(qId); else w.add(qId);
+      save(WRONG_IDS_KEY, [...w]);
     }
+
+    /* ===== LO STATS ===== */
+    function loadLoStats() { return load(LO_STATS_KEY, {}); }
+    function saveLoStats(stats) { save(LO_STATS_KEY, stats); }
 
     function initializeLoStats() {
       const stats = loadLoStats();
       for (const q of quizData) {
-        if (!stats[q.lo]) {
-          stats[q.lo] = { chapter: q.chapter, total: 0, correct: 0, lastAnswered: null };
-        }
+        if (!stats[q.lo]) stats[q.lo] = { chapter: q.chapter, total: 0, correct: 0, lastAnswered: null };
       }
       saveLoStats(stats);
     }
 
     function updateLoStats(question, isCorrect) {
       const stats = loadLoStats();
-      if (!stats[question.lo]) {
-        stats[question.lo] = { chapter: question.chapter, total: 0, correct: 0, lastAnswered: null };
-      }
+      if (!stats[question.lo]) stats[question.lo] = { chapter: question.chapter, total: 0, correct: 0, lastAnswered: null };
       stats[question.lo].chapter = question.chapter;
       stats[question.lo].total += 1;
       if (isCorrect) stats[question.lo].correct += 1;
@@ -185,115 +315,145 @@
       saveLoStats(stats);
     }
 
+    function getAllLos() { return [...new Set(quizData.map(q => q.lo))]; }
+
     function renderLoDashboard() {
       const stats = loadLoStats();
       const allLos = getAllLos();
       const rows = allLos.map(lo => {
-        const s = stats[lo] || { chapter: Number(lo.split('.')[1]), total: 0, correct: 0 };
+        const s = stats[lo] || { chapter: 1, total: 0, correct: 0 };
         const accuracy = s.total > 0 ? Math.round((s.correct / s.total) * 100) : null;
         return { lo, chapter: s.chapter, total: s.total, correct: s.correct, accuracy };
       });
-
       const attempted = rows.filter(r => r.total > 0);
       const mastered = rows.filter(r => r.total >= 3 && r.accuracy !== null && r.accuracy >= 80);
-      const weak = rows
-        .filter(r => r.total >= 2 && r.accuracy !== null && r.accuracy < 60)
-        .sort((a, b) => a.accuracy - b.accuracy || b.total - a.total)
-        .slice(0, 5);
+      const weak = rows.filter(r => r.total >= 2 && r.accuracy !== null && r.accuracy < 60)
+        .sort((a, b) => a.accuracy - b.accuracy).slice(0, 5);
 
       document.getElementById('loStatsGrid').innerHTML = `
         <div class="lo-stat-item"><div class="num">${allLos.length}</div><div class="label">LO総数</div></div>
         <div class="lo-stat-item"><div class="num">${attempted.length}</div><div class="label">着手済みLO</div></div>
-        <div class="lo-stat-item"><div class="num">${mastered.length}</div><div class="label">定着LO（80%以上）</div></div>
-        <div class="lo-stat-item"><div class="num">${weak.length}</div><div class="label">要復習LO</div></div>
+        <div class="lo-stat-item"><div class="num">${mastered.length}</div><div class="label">定着LO（80%↑）</div></div>
+        <div class="lo-stat-item"><div class="num">${loadWrongIds().size}</div><div class="label">要復習問題</div></div>
+        <div class="lo-stat-item"><div class="num">${loadBookmarks().size}</div><div class="label">ブックマーク</div></div>
       `;
-
       const weakHtml = weak.length
-        ? weak.map(w => `<div class="lo-weak-item">第${w.chapter}章 / ${w.lo} : 正答率 ${w.accuracy}%（${w.correct}/${w.total}）</div>`).join('')
-        : '<div class="lo-weak-item" style="border-left-color:#27ae60;">要復習LOはまだありません。まずは診断テストを受けてください。</div>';
+        ? weak.map(w => `<div class="lo-weak-item">第${w.chapter}章 / ${w.lo}：正答率 ${w.accuracy}%（${w.correct}/${w.total}）</div>`).join('')
+        : '<div class="lo-weak-item" style="border-left-color:#27ae60;">要復習LOはまだありません。</div>';
       document.getElementById('loWeakList').innerHTML = weakHtml;
     }
 
-    function getDiagnosticQuestions(totalCount) {
-      const chapters = [1, 2, 3, 4, 5];
-      const chapterPools = {};
-      chapters.forEach(ch => {
-        chapterPools[ch] = quizData.filter(q => q.chapter === ch);
-        shuffleInPlace(chapterPools[ch]);
-      });
+    /* ===== QUESTION SELECTION ===== */
+    function shuffleInPlace(arr) {
+      for (let i = arr.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [arr[i], arr[j]] = [arr[j], arr[i]];
+      }
+    }
 
+    function getBalancedQuestions(totalCount) {
+      const chapters = [1, 2, 3, 4, 5];
+      const pools = {};
+      chapters.forEach(ch => { pools[ch] = quizData.filter(q => q.chapter === ch).slice(); shuffleInPlace(pools[ch]); });
       const picked = [];
       let remaining = totalCount;
-      const basePerChapter = Math.floor(totalCount / chapters.length);
-
-      chapters.forEach(ch => {
-        const take = Math.min(basePerChapter, chapterPools[ch].length);
-        picked.push(...chapterPools[ch].splice(0, take));
-        remaining -= take;
-      });
-
-      const fillOrder = [...chapters].sort((a, b) => chapterPools[b].length - chapterPools[a].length);
+      const base = Math.floor(totalCount / chapters.length);
+      chapters.forEach(ch => { const take = Math.min(base, pools[ch].length); picked.push(...pools[ch].splice(0, take)); remaining -= take; });
+      const fill = [...chapters].sort((a, b) => pools[b].length - pools[a].length);
       while (remaining > 0) {
-        let tookAny = false;
-        for (const ch of fillOrder) {
-          if (remaining <= 0) break;
-          if (chapterPools[ch].length > 0) {
-            picked.push(chapterPools[ch].shift());
-            remaining -= 1;
-            tookAny = true;
-          }
-        }
-        if (!tookAny) break;
+        let ok = false;
+        for (const ch of fill) { if (remaining <= 0) break; if (pools[ch].length > 0) { picked.push(pools[ch].shift()); remaining--; ok = true; } }
+        if (!ok) break;
       }
-
       shuffleInPlace(picked);
       return picked;
     }
 
     function getFilteredQuestions() {
       const mode = document.getElementById('modeSelect').value;
-      if (mode === 'diagnostic') return getDiagnosticQuestions(DIAGNOSTIC_QUESTION_COUNT);
-
+      if (mode === 'diagnostic') return getBalancedQuestions(DIAGNOSTIC_QUESTION_COUNT);
+      if (mode === 'exam') return getBalancedQuestions(EXAM_QUESTION_COUNT);
+      if (mode === 'review') {
+        const wrongIds = loadWrongIds();
+        if (wrongIds.size === 0) { alert('まだ要復習問題がありません。通常演習を先に行ってください。'); return []; }
+        const q = quizData.filter(x => wrongIds.has(x.id));
+        shuffleInPlace(q);
+        return q;
+      }
+      if (mode === 'bookmark') {
+        const bm = loadBookmarks();
+        if (bm.size === 0) { alert('ブックマークした問題がありません。問題の★をクリックして追加してください。'); return []; }
+        const q = quizData.filter(x => bm.has(x.id));
+        shuffleInPlace(q);
+        return q;
+      }
       const ch = parseInt(document.getElementById('chapterSelect').value);
       let q = ch === 0 ? [...quizData] : quizData.filter(x => x.chapter === ch);
-      const order = document.getElementById('orderSelect').value;
-      if (order === 'random') shuffleInPlace(q);
+      if (document.getElementById('orderSelect').value === 'random') shuffleInPlace(q);
       return q;
     }
 
+    /* ===== TIMER ===== */
+    function startTimer(seconds) {
+      timerSeconds = seconds;
+      const el = document.getElementById('timerDisplay');
+      el.style.display = 'flex';
+      updateTimerDisplay();
+      timerInterval = setInterval(() => {
+        timerSeconds--;
+        updateTimerDisplay();
+        if (timerSeconds <= 0) { clearInterval(timerInterval); timerInterval = null; showResult(true); }
+      }, 1000);
+    }
+
+    function updateTimerDisplay() {
+      const el = document.getElementById('timerDisplay');
+      const m = Math.floor(timerSeconds / 60);
+      const s = timerSeconds % 60;
+      el.textContent = `⏱ ${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
+      el.className = 'timer-display';
+      if (timerSeconds <= 300) el.classList.add('warning');
+      if (timerSeconds <= 60) el.classList.add('critical');
+    }
+
+    function stopTimer() { if (timerInterval) { clearInterval(timerInterval); timerInterval = null; } }
+
+    /* ===== UI CONTROL ===== */
     function showStart() {
+      stopTimer();
       document.getElementById('quizStart').style.display = 'block';
       document.getElementById('quizProgress').style.display = 'none';
+      document.getElementById('timerDisplay').style.display = 'none';
       document.getElementById('quizArea').innerHTML = '';
       document.getElementById('resultCard').classList.remove('show');
       document.getElementById('resultInsights').style.display = 'none';
       updateInfoCount();
       renderLoDashboard();
+      renderStreakBanner();
+      renderSessionChart();
+      renderAchievements();
     }
 
     function updateModeUI() {
-      const isDiagnostic = document.getElementById('modeSelect').value === 'diagnostic';
-      document.getElementById('chapterSelect').disabled = isDiagnostic;
-      document.getElementById('orderSelect').disabled = isDiagnostic;
+      const mode = document.getElementById('modeSelect').value;
+      const locked = ['diagnostic', 'exam', 'review', 'bookmark'].includes(mode);
+      document.getElementById('chapterSelect').disabled = locked;
+      document.getElementById('orderSelect').disabled = locked;
     }
 
     function updateInfoCount() {
       const mode = document.getElementById('modeSelect').value;
-      if (mode === 'diagnostic') {
-        document.getElementById('totalQCount').textContent = DIAGNOSTIC_QUESTION_COUNT;
-        return;
-      }
+      const counts = { diagnostic: DIAGNOSTIC_QUESTION_COUNT, exam: EXAM_QUESTION_COUNT,
+        review: loadWrongIds().size, bookmark: loadBookmarks().size };
+      if (counts[mode] !== undefined) { document.getElementById('totalQCount').textContent = counts[mode]; return; }
       const ch = parseInt(document.getElementById('chapterSelect').value);
-      const count = ch === 0 ? quizData.length : quizData.filter(x => x.chapter === ch).length;
-      document.getElementById('totalQCount').textContent = count;
+      document.getElementById('totalQCount').textContent = ch === 0 ? quizData.length : quizData.filter(x => x.chapter === ch).length;
     }
 
     document.getElementById('chapterSelect').addEventListener('change', updateInfoCount);
-    document.getElementById('modeSelect').addEventListener('change', () => {
-      updateModeUI();
-      updateInfoCount();
-    });
+    document.getElementById('modeSelect').addEventListener('change', () => { updateModeUI(); updateInfoCount(); });
 
+    /* ===== QUIZ FLOW ===== */
     function startQuiz() {
       questions = getFilteredQuestions();
       if (questions.length === 0) return;
@@ -301,10 +461,14 @@
       currentIndex = 0;
       score = 0;
       answered = new Array(questions.length).fill(null);
+      sessionStartTime = Date.now();
+      stopTimer();
       document.getElementById('quizStart').style.display = 'none';
       document.getElementById('resultCard').classList.remove('show');
       document.getElementById('resultInsights').style.display = 'none';
       document.getElementById('quizProgress').style.display = 'flex';
+      if (activeMode === 'exam') startTimer(EXAM_TIME_SECONDS);
+      else document.getElementById('timerDisplay').style.display = 'none';
       renderQuestion();
     }
 
@@ -314,6 +478,8 @@
       const labels = ['A', 'B', 'C', 'D'];
       const alreadyAnswered = answered[currentIndex] !== null;
       const userAnswer = answered[currentIndex];
+      const bm = loadBookmarks();
+      const isBookmarked = bm.has(q.id);
 
       const optionsHtml = q.options.map((opt, i) => {
         let cls = '';
@@ -338,6 +504,7 @@
               <div class="q-id">${q.lo} | ${q.id}</div>
               <div class="q-level"><span class="badge-k${q.level.toLowerCase()}">${q.level}</span></div>
             </div>
+            <button class="bookmark-btn ${isBookmarked ? 'bookmarked' : ''}" onclick="toggleBookmark('${q.id}')" title="ブックマーク">${isBookmarked ? '★' : '☆'}</button>
             <div style="font-size:0.85rem;color:var(--text-light);">${currentIndex + 1} / ${questions.length}</div>
           </div>
           <div class="question-body">
@@ -355,6 +522,9 @@
             ${alreadyAnswered && currentIndex === questions.length - 1
               ? `<button class="btn btn-success" onclick="showResult()">結果を見る</button>`
               : ''}
+            ${activeMode === 'exam' && !alreadyAnswered
+              ? `<button class="btn btn-secondary" onclick="showResult()" style="margin-left:auto;">⏹ 途中終了</button>`
+              : ''}
           </div>
         </div>
       `;
@@ -363,25 +533,16 @@
     function selectAnswer(idx) {
       if (answered[currentIndex] !== null) return;
       answered[currentIndex] = idx;
-      const isCorrect = idx === questions[currentIndex].answer;
+      const q = questions[currentIndex];
+      const isCorrect = idx === q.answer;
       if (isCorrect) score++;
-      updateLoStats(questions[currentIndex], isCorrect);
+      updateLoStats(q, isCorrect);
+      updateWrongIds(q.id, isCorrect);
       renderQuestion();
     }
 
-    function nextQuestion() {
-      if (currentIndex < questions.length - 1) {
-        currentIndex++;
-        renderQuestion();
-      }
-    }
-
-    function prevQuestion() {
-      if (currentIndex > 0) {
-        currentIndex--;
-        renderQuestion();
-      }
-    }
+    function nextQuestion() { if (currentIndex < questions.length - 1) { currentIndex++; renderQuestion(); } }
+    function prevQuestion() { if (currentIndex > 0) { currentIndex--; renderQuestion(); } }
 
     function updateProgress() {
       const answeredCount = answered.filter(a => a !== null).length;
@@ -391,21 +552,31 @@
       document.getElementById('scoreText').textContent = `正解: ${score}`;
     }
 
-    function showResult() {
+    /* ===== RESULT ===== */
+    function showResult(timeUp = false) {
+      stopTimer();
       const total = questions.length;
       const pct = total > 0 ? Math.round((score / total) * 100) : 0;
       document.getElementById('quizArea').innerHTML = '';
       document.getElementById('quizProgress').style.display = 'none';
 
+      saveSessionHistory(score, total, activeMode);
+      updateStreak();
+      addStreakCorrect(score);
+
       let title = '', msg = '';
-      if (activeMode === 'diagnostic') {
-        if (pct >= 80) { title = '診断結果: 強みが明確です'; msg = '高得点です。弱いLOだけに絞って仕上げましょう。'; }
-        else if (pct >= 60) { title = '診断結果: 伸びしろあり'; msg = '章別とLO別の弱点を優先して復習すると効率的です。'; }
-        else { title = '診断結果: 基礎固め優先'; msg = '苦手章の学習後に再診断すると改善を確認できます。'; }
+      if (timeUp) { title = '時間終了！'; msg = `${total}問中${score}問正解（${pct}%）。時間内に全問解けるよう練習しましょう。`; }
+      else if (activeMode === 'exam') {
+        if (pct >= 65) { title = '模擬試験 合格圏！'; msg = '本番でも自信を持って臨みましょう。弱点LOを最終確認してください。'; }
+        else { title = '模擬試験 要対策'; msg = '合格ライン（65%）に届きませんでした。苦手章を重点復習しましょう。'; }
+      } else if (activeMode === 'diagnostic') {
+        if (pct >= 80) { title = '診断結果：強みが明確です'; msg = '高得点です。弱いLOだけに絞って仕上げましょう。'; }
+        else if (pct >= 60) { title = '診断結果：伸びしろあり'; msg = 'LO別の弱点を優先復習すると効率的です。'; }
+        else { title = '診断結果：基礎固め優先'; msg = '苦手章の学習後に再診断すると改善を確認できます。'; }
       } else {
-        if (pct >= 80) { title = '優秀！'; msg = 'CT-GenAI試験合格ラインを超えています。引き続き知識を深めましょう。'; }
-        else if (pct >= 60) { title = 'もう少し！'; msg = '合格ラインまであと一歩。苦手な章を重点的に復習しましょう。'; }
-        else { title = '復習が必要です'; msg = '基礎から丁寧に復習しましょう。学習コンテンツを参考にしてください。'; }
+        if (pct >= 80) { title = '優秀！'; msg = '合格ラインを超えています。引き続き知識を深めましょう。'; }
+        else if (pct >= 60) { title = 'もう少し！'; msg = '合格ラインまであと一歩。苦手な章を集中復習しましょう。'; }
+        else { title = '復習が必要です'; msg = '基礎から丁寧に復習しましょう。学習コンテンツを参考に。'; }
       }
 
       document.getElementById('resultScore').innerHTML = `${score}<span> / ${total}</span>`;
@@ -420,52 +591,41 @@
     }
 
     function renderResultInsights() {
-      const chapterStats = {};
-      const loStats = {};
-
+      const chapterStats = {}, loStats = {};
       for (let i = 0; i < questions.length; i++) {
         const q = questions[i];
-        const isCorrect = answered[i] === q.answer;
+        const ok = answered[i] === q.answer;
         if (!chapterStats[q.chapter]) chapterStats[q.chapter] = { total: 0, correct: 0 };
-        chapterStats[q.chapter].total += 1;
-        if (isCorrect) chapterStats[q.chapter].correct += 1;
-
+        chapterStats[q.chapter].total++; if (ok) chapterStats[q.chapter].correct++;
         if (!loStats[q.lo]) loStats[q.lo] = { chapter: q.chapter, total: 0, correct: 0 };
-        loStats[q.lo].total += 1;
-        if (isCorrect) loStats[q.lo].correct += 1;
+        loStats[q.lo].total++; if (ok) loStats[q.lo].correct++;
       }
+      const chHtml = Object.keys(chapterStats).sort((a,b)=>+a-+b).map(ch => {
+        const r = Math.round(chapterStats[ch].correct / chapterStats[ch].total * 100);
+        const color = r >= 80 ? '#27ae60' : r >= 60 ? '#e67e22' : '#c0392b';
+        return `<div class="chapter-result-item"><div class="title">第${ch}章</div><div class="value" style="color:${color}">${r}%（${chapterStats[ch].correct}/${chapterStats[ch].total}）</div></div>`;
+      }).join('');
+      document.getElementById('chapterResultGrid').innerHTML = chHtml;
 
-      const chapterHtml = Object.keys(chapterStats)
-        .sort((a, b) => Number(a) - Number(b))
-        .map(ch => {
-          const item = chapterStats[ch];
-          const rate = Math.round((item.correct / item.total) * 100);
-          return `<div class="chapter-result-item"><div class="title">第${ch}章</div><div class="value">${rate}%（${item.correct}/${item.total}）</div></div>`;
-        })
-        .join('');
-      document.getElementById('chapterResultGrid').innerHTML = chapterHtml;
+      const weak = Object.keys(loStats).map(lo => {
+        const d = loStats[lo];
+        return { lo, chapter: d.chapter, total: d.total, correct: d.correct, accuracy: Math.round(d.correct / d.total * 100) };
+      }).filter(x => x.accuracy < 70).sort((a,b) => a.accuracy - b.accuracy).slice(0, 5);
 
-      const weakLoRows = Object.keys(loStats)
-        .map(lo => {
-          const item = loStats[lo];
-          return { lo, chapter: item.chapter, total: item.total, correct: item.correct, accuracy: Math.round((item.correct / item.total) * 100) };
-        })
-        .filter(x => x.accuracy < 70)
-        .sort((a, b) => a.accuracy - b.accuracy || b.total - a.total)
-        .slice(0, 5);
-
-      const weakLoHtml = weakLoRows.length
-        ? weakLoRows.map(w => `<div class="lo-weak-item">第${w.chapter}章 / ${w.lo} : 正答率 ${w.accuracy}%（${w.correct}/${w.total}）</div>`).join('')
-        : '<div class="lo-weak-item" style="border-left-color:#27ae60;">今回の出題範囲では大きな弱点LOは見つかりませんでした。</div>';
-      document.getElementById('resultWeakLoList').innerHTML = weakLoHtml;
+      document.getElementById('resultWeakLoList').innerHTML = weak.length
+        ? weak.map(w => `<div class="lo-weak-item">第${w.chapter}章 / ${w.lo}：正答率 ${w.accuracy}%（${w.correct}/${w.total}）</div>`).join('')
+        : '<div class="lo-weak-item" style="border-left-color:#27ae60;">今回の出題範囲では弱点LOはありませんでした。</div>';
       document.getElementById('resultInsights').style.display = 'block';
     }
 
-    // 初期化
+    /* ===== INIT ===== */
     initializeLoStats();
     updateModeUI();
     updateInfoCount();
     renderLoDashboard();
+    renderStreakBanner();
+    renderSessionChart();
+    renderAchievements();
   </script>
 </body>
 </html>

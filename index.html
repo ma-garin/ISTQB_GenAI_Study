@@ -9,6 +9,7 @@
   <meta name="theme-color" content="#2980b9">
   <link rel="apple-touch-icon" href="icons/icon-192.png">
   <script>if ('serviceWorker' in navigator) navigator.serviceWorker.register('./sw.js');</script>
+  <script>if(localStorage.getItem('ctgenai-dark')==='1'){document.addEventListener('DOMContentLoaded',()=>{document.body.classList.add('dark-mode');document.documentElement.style.display='';});document.documentElement.style.display='none';}</script>
 </head>
 <body>
   <header>
@@ -24,10 +25,17 @@
         <a href="glossary.html">用語集</a>
         <a href="syllabus-ja.html">日本語対訳</a>
       </nav>
+      <button class="dark-toggle" onclick="toggleDark()" id="darkBtn">🌙 ダーク</button>
     </div>
   </header>
 
   <main>
+    <!-- 試験カウントダウン -->
+    <div id="examCountdownArea"></div>
+
+    <!-- 進捗サマリー -->
+    <div id="progressSummaryArea"></div>
+
     <div class="hero">
       <h1>ISTQB CT-GenAI 学習アプリ</h1>
       <p>Certified Tester Specialist Level – Testing with Generative AI (CT-GenAI) v1.0 シラバスをベースにした学習・問題演習ツール</p>
@@ -76,13 +84,13 @@
         <div class="chapter-body">
           <p style="font-size:0.875rem;color:var(--text-light);margin-bottom:8px;">LLMの基礎、AI技術の分類、ソフトウェアテストでのGenAI活用方法を学びます。</p>
           <table class="lo-table">
-            <tr><th>LO ID</th><th>レベル</th><th>内容</th></tr>
-            <tr><td>GenAI-1.1.1</td><td><span class="badge-k1">K1</span></td><td>シンボリックAI・クラシカルML・ディープラーニング・生成AIの違いを想起する</td></tr>
-            <tr><td>GenAI-1.1.2</td><td><span class="badge-k2">K2</span></td><td>生成AIとLLMの基礎を説明する</td></tr>
-            <tr><td>GenAI-1.1.3</td><td><span class="badge-k2">K2</span></td><td>ファウンデーション・インストラクションチューニング・リーズニングLLMを区別する</td></tr>
-            <tr><td>GenAI-1.1.4</td><td><span class="badge-k2">K2</span></td><td>マルチモーダルLLMとビジョンランゲージモデルの基本原則を要約する</td></tr>
-            <tr><td>GenAI-1.2.1</td><td><span class="badge-k2">K2</span></td><td>テストタスクにおけるLLMの主要な能力の例を挙げる</td></tr>
-            <tr><td>GenAI-1.2.2</td><td><span class="badge-k2">K2</span></td><td>GenAIをソフトウェアテストで使用する際のインタラクションモデルを比較する</td></tr>
+            <tr><th>LO ID</th><th>レベル</th><th>内容</th><th>進捗</th></tr>
+            <tr><td>GenAI-1.1.1</td><td><span class="badge-k1">K1</span></td><td>シンボリックAI・クラシカルML・ディープラーニング・生成AIの違いを想起する</td><td><span id="lo-GenAI-1.1.1"></span></td></tr>
+            <tr><td>GenAI-1.1.2</td><td><span class="badge-k2">K2</span></td><td>生成AIとLLMの基礎を説明する</td><td><span id="lo-GenAI-1.1.2"></span></td></tr>
+            <tr><td>GenAI-1.1.3</td><td><span class="badge-k2">K2</span></td><td>ファウンデーション・インストラクションチューニング・リーズニングLLMを区別する</td><td><span id="lo-GenAI-1.1.3"></span></td></tr>
+            <tr><td>GenAI-1.1.4</td><td><span class="badge-k2">K2</span></td><td>マルチモーダルLLMとビジョンランゲージモデルの基本原則を要約する</td><td><span id="lo-GenAI-1.1.4"></span></td></tr>
+            <tr><td>GenAI-1.2.1</td><td><span class="badge-k2">K2</span></td><td>テストタスクにおけるLLMの主要な能力の例を挙げる</td><td><span id="lo-GenAI-1.2.1"></span></td></tr>
+            <tr><td>GenAI-1.2.2</td><td><span class="badge-k2">K2</span></td><td>GenAIをソフトウェアテストで使用する際のインタラクションモデルを比較する</td><td><span id="lo-GenAI-1.2.2"></span></td></tr>
           </table>
         </div>
       </div>
@@ -99,17 +107,17 @@
         <div class="chapter-body">
           <p style="font-size:0.875rem;color:var(--text-light);margin-bottom:8px;">効果的なプロンプト設計、コアプロンプティング技法、テストタスクへの適用方法を学びます。</p>
           <table class="lo-table">
-            <tr><th>LO ID</th><th>レベル</th><th>内容</th></tr>
-            <tr><td>GenAI-2.1.1</td><td><span class="badge-k2">K2</span></td><td>ソフトウェアテストでの構造化プロンプトの例を挙げる</td></tr>
-            <tr><td>GenAI-2.1.2</td><td><span class="badge-k2">K2</span></td><td>コアプロンプティング技法を区別する</td></tr>
-            <tr><td>GenAI-2.1.3</td><td><span class="badge-k2">K2</span></td><td>システムプロンプトとユーザープロンプトを区別する</td></tr>
-            <tr><td>GenAI-2.2.1</td><td><span class="badge-k3">K3</span></td><td>生成AIをテスト分析タスクに適用する</td></tr>
-            <tr><td>GenAI-2.2.2</td><td><span class="badge-k3">K3</span></td><td>生成AIをテスト設計・テスト実装タスクに適用する</td></tr>
-            <tr><td>GenAI-2.2.3</td><td><span class="badge-k3">K3</span></td><td>生成AIを自動化リグレッションテストに適用する</td></tr>
-            <tr><td>GenAI-2.2.4</td><td><span class="badge-k3">K3</span></td><td>生成AIをテスト監視・制御タスクに適用する</td></tr>
-            <tr><td>GenAI-2.2.5</td><td><span class="badge-k3">K3</span></td><td>適切なプロンプティング技法を選択・適用する</td></tr>
-            <tr><td>GenAI-2.3.1</td><td><span class="badge-k2">K2</span></td><td>テストタスクにおけるGenAI結果の評価指標を理解する</td></tr>
-            <tr><td>GenAI-2.3.2</td><td><span class="badge-k2">K2</span></td><td>プロンプトを評価・反復的に改良する技法の例を挙げる</td></tr>
+            <tr><th>LO ID</th><th>レベル</th><th>内容</th><th>進捗</th></tr>
+            <tr><td>GenAI-2.1.1</td><td><span class="badge-k2">K2</span></td><td>ソフトウェアテストでの構造化プロンプトの例を挙げる</td><td><span id="lo-GenAI-2.1.1"></span></td></tr>
+            <tr><td>GenAI-2.1.2</td><td><span class="badge-k2">K2</span></td><td>コアプロンプティング技法を区別する</td><td><span id="lo-GenAI-2.1.2"></span></td></tr>
+            <tr><td>GenAI-2.1.3</td><td><span class="badge-k2">K2</span></td><td>システムプロンプトとユーザープロンプトを区別する</td><td><span id="lo-GenAI-2.1.3"></span></td></tr>
+            <tr><td>GenAI-2.2.1</td><td><span class="badge-k3">K3</span></td><td>生成AIをテスト分析タスクに適用する</td><td><span id="lo-GenAI-2.2.1"></span></td></tr>
+            <tr><td>GenAI-2.2.2</td><td><span class="badge-k3">K3</span></td><td>生成AIをテスト設計・テスト実装タスクに適用する</td><td><span id="lo-GenAI-2.2.2"></span></td></tr>
+            <tr><td>GenAI-2.2.3</td><td><span class="badge-k3">K3</span></td><td>生成AIを自動化リグレッションテストに適用する</td><td><span id="lo-GenAI-2.2.3"></span></td></tr>
+            <tr><td>GenAI-2.2.4</td><td><span class="badge-k3">K3</span></td><td>生成AIをテスト監視・制御タスクに適用する</td><td><span id="lo-GenAI-2.2.4"></span></td></tr>
+            <tr><td>GenAI-2.2.5</td><td><span class="badge-k3">K3</span></td><td>適切なプロンプティング技法を選択・適用する</td><td><span id="lo-GenAI-2.2.5"></span></td></tr>
+            <tr><td>GenAI-2.3.1</td><td><span class="badge-k2">K2</span></td><td>テストタスクにおけるGenAI結果の評価指標を理解する</td><td><span id="lo-GenAI-2.3.1"></span></td></tr>
+            <tr><td>GenAI-2.3.2</td><td><span class="badge-k2">K2</span></td><td>プロンプトを評価・反復的に改良する技法の例を挙げる</td><td><span id="lo-GenAI-2.3.2"></span></td></tr>
           </table>
         </div>
       </div>
@@ -126,16 +134,16 @@
         <div class="chapter-body">
           <p style="font-size:0.875rem;color:var(--text-light);margin-bottom:8px;">ハルシネーション・バイアス・データプライバシー・エネルギー消費・AI規制を学びます。</p>
           <table class="lo-table">
-            <tr><th>LO ID</th><th>レベル</th><th>内容</th></tr>
-            <tr><td>GenAI-3.1.1</td><td><span class="badge-k1">K1</span></td><td>ハルシネーション・推論エラー・バイアスの定義を想起する</td></tr>
-            <tr><td>GenAI-3.1.2</td><td><span class="badge-k3">K3</span></td><td>LLM出力のハルシネーション・推論エラー・バイアスを特定する</td></tr>
-            <tr><td>GenAI-3.1.3</td><td><span class="badge-k2">K2</span></td><td>ハルシネーション・推論エラー・バイアスの軽減技法を要約する</td></tr>
-            <tr><td>GenAI-3.1.4</td><td><span class="badge-k1">K1</span></td><td>LLMの非決定論的動作の軽減技法を想起する</td></tr>
-            <tr><td>GenAI-3.2.1</td><td><span class="badge-k2">K2</span></td><td>GenAI使用に関連するデータプライバシーとセキュリティのリスクを説明する</td></tr>
-            <tr><td>GenAI-3.2.2</td><td><span class="badge-k2">K2</span></td><td>GenAIでのデータプライバシーと脆弱性の例を挙げる</td></tr>
-            <tr><td>GenAI-3.2.3</td><td><span class="badge-k2">K2</span></td><td>データプライバシー保護と安全性向上の緩和戦略を要約する</td></tr>
-            <tr><td>GenAI-3.3.1</td><td><span class="badge-k2">K2</span></td><td>タスク特性とモデル使用がGenAIのエネルギー消費に与える影響を説明する</td></tr>
-            <tr><td>GenAI-3.4.1</td><td><span class="badge-k1">K1</span></td><td>GenAIに関連するAI規制・標準・ベストプラクティスフレームワークの例を想起する</td></tr>
+            <tr><th>LO ID</th><th>レベル</th><th>内容</th><th>進捗</th></tr>
+            <tr><td>GenAI-3.1.1</td><td><span class="badge-k1">K1</span></td><td>ハルシネーション・推論エラー・バイアスの定義を想起する</td><td><span id="lo-GenAI-3.1.1"></span></td></tr>
+            <tr><td>GenAI-3.1.2</td><td><span class="badge-k3">K3</span></td><td>LLM出力のハルシネーション・推論エラー・バイアスを特定する</td><td><span id="lo-GenAI-3.1.2"></span></td></tr>
+            <tr><td>GenAI-3.1.3</td><td><span class="badge-k2">K2</span></td><td>ハルシネーション・推論エラー・バイアスの軽減技法を要約する</td><td><span id="lo-GenAI-3.1.3"></span></td></tr>
+            <tr><td>GenAI-3.1.4</td><td><span class="badge-k1">K1</span></td><td>LLMの非決定論的動作の軽減技法を想起する</td><td><span id="lo-GenAI-3.1.4"></span></td></tr>
+            <tr><td>GenAI-3.2.1</td><td><span class="badge-k2">K2</span></td><td>GenAI使用に関連するデータプライバシーとセキュリティのリスクを説明する</td><td><span id="lo-GenAI-3.2.1"></span></td></tr>
+            <tr><td>GenAI-3.2.2</td><td><span class="badge-k2">K2</span></td><td>GenAIでのデータプライバシーと脆弱性の例を挙げる</td><td><span id="lo-GenAI-3.2.2"></span></td></tr>
+            <tr><td>GenAI-3.2.3</td><td><span class="badge-k2">K2</span></td><td>データプライバシー保護と安全性向上の緩和戦略を要約する</td><td><span id="lo-GenAI-3.2.3"></span></td></tr>
+            <tr><td>GenAI-3.3.1</td><td><span class="badge-k2">K2</span></td><td>タスク特性とモデル使用がGenAIのエネルギー消費に与える影響を説明する</td><td><span id="lo-GenAI-3.3.1"></span></td></tr>
+            <tr><td>GenAI-3.4.1</td><td><span class="badge-k1">K1</span></td><td>GenAIに関連するAI規制・標準・ベストプラクティスフレームワークの例を想起する</td><td><span id="lo-GenAI-3.4.1"></span></td></tr>
           </table>
         </div>
       </div>
@@ -152,12 +160,12 @@
         <div class="chapter-body">
           <p style="font-size:0.875rem;color:var(--text-light);margin-bottom:8px;">RAG・LLMエージェント・ファインチューニング・LLMOpsを学びます。</p>
           <table class="lo-table">
-            <tr><th>LO ID</th><th>レベル</th><th>内容</th></tr>
-            <tr><td>GenAI-4.1.1</td><td><span class="badge-k2">K2</span></td><td>LLM搭載テストインフラの主要なアーキテクチャコンポーネントと概念を説明する</td></tr>
-            <tr><td>GenAI-4.1.2</td><td><span class="badge-k2">K2</span></td><td>RAGを要約する</td></tr>
-            <tr><td>GenAI-4.1.3</td><td><span class="badge-k2">K2</span></td><td>テストプロセスの自動化におけるLLM搭載エージェントの役割と適用を説明する</td></tr>
-            <tr><td>GenAI-4.2.1</td><td><span class="badge-k2">K2</span></td><td>特定のテストタスクに向けた言語モデルのファインチューニングを説明する</td></tr>
-            <tr><td>GenAI-4.2.2</td><td><span class="badge-k2">K2</span></td><td>LLMOpsとソフトウェアテストのためのLLMデプロイ・管理における役割を説明する</td></tr>
+            <tr><th>LO ID</th><th>レベル</th><th>内容</th><th>進捗</th></tr>
+            <tr><td>GenAI-4.1.1</td><td><span class="badge-k2">K2</span></td><td>LLM搭載テストインフラの主要なアーキテクチャコンポーネントと概念を説明する</td><td><span id="lo-GenAI-4.1.1"></span></td></tr>
+            <tr><td>GenAI-4.1.2</td><td><span class="badge-k2">K2</span></td><td>RAGを要約する</td><td><span id="lo-GenAI-4.1.2"></span></td></tr>
+            <tr><td>GenAI-4.1.3</td><td><span class="badge-k2">K2</span></td><td>テストプロセスの自動化におけるLLM搭載エージェントの役割と適用を説明する</td><td><span id="lo-GenAI-4.1.3"></span></td></tr>
+            <tr><td>GenAI-4.2.1</td><td><span class="badge-k2">K2</span></td><td>特定のテストタスクに向けた言語モデルのファインチューニングを説明する</td><td><span id="lo-GenAI-4.2.1"></span></td></tr>
+            <tr><td>GenAI-4.2.2</td><td><span class="badge-k2">K2</span></td><td>LLMOpsとソフトウェアテストのためのLLMデプロイ・管理における役割を説明する</td><td><span id="lo-GenAI-4.2.2"></span></td></tr>
           </table>
         </div>
       </div>
@@ -174,18 +182,157 @@
         <div class="chapter-body">
           <p style="font-size:0.875rem;color:var(--text-light);margin-bottom:8px;">GenAI戦略の策定、シャドウAI、LLM選択基準、組織変革管理を学びます。</p>
           <table class="lo-table">
-            <tr><th>LO ID</th><th>レベル</th><th>内容</th></tr>
-            <tr><td>GenAI-5.1.1</td><td><span class="badge-k1">K1</span></td><td>シャドウAIのリスクを想起する</td></tr>
-            <tr><td>GenAI-5.1.2</td><td><span class="badge-k2">K2</span></td><td>ソフトウェアテストのGenAI戦略を定義する際の主要な側面を説明する</td></tr>
-            <tr><td>GenAI-5.1.3</td><td><span class="badge-k2">K2</span></td><td>ソフトウェアテストタスク向けLLM/SLM選択の主要基準を要約する</td></tr>
-            <tr><td>GenAI-5.1.4</td><td><span class="badge-k1">K1</span></td><td>テスト組織でのGenAI採用における主要フェーズを想起する</td></tr>
-            <tr><td>GenAI-5.2.1</td><td><span class="badge-k2">K2</span></td><td>テストプロセスでGenAIを効果的に使用するために必要な必須スキルと知識領域を説明する</td></tr>
-            <tr><td>GenAI-5.2.2</td><td><span class="badge-k1">K1</span></td><td>テストチームでのAIスキル育成戦略を想起する</td></tr>
-            <tr><td>GenAI-5.2.3</td><td><span class="badge-k1">K1</span></td><td>GenAI採用によるテストプロセスと責任の変化を認識する</td></tr>
+            <tr><th>LO ID</th><th>レベル</th><th>内容</th><th>進捗</th></tr>
+            <tr><td>GenAI-5.1.1</td><td><span class="badge-k1">K1</span></td><td>シャドウAIのリスクを想起する</td><td><span id="lo-GenAI-5.1.1"></span></td></tr>
+            <tr><td>GenAI-5.1.2</td><td><span class="badge-k2">K2</span></td><td>ソフトウェアテストのGenAI戦略を定義する際の主要な側面を説明する</td><td><span id="lo-GenAI-5.1.2"></span></td></tr>
+            <tr><td>GenAI-5.1.3</td><td><span class="badge-k2">K2</span></td><td>ソフトウェアテストタスク向けLLM/SLM選択の主要基準を要約する</td><td><span id="lo-GenAI-5.1.3"></span></td></tr>
+            <tr><td>GenAI-5.1.4</td><td><span class="badge-k1">K1</span></td><td>テスト組織でのGenAI採用における主要フェーズを想起する</td><td><span id="lo-GenAI-5.1.4"></span></td></tr>
+            <tr><td>GenAI-5.2.1</td><td><span class="badge-k2">K2</span></td><td>テストプロセスでGenAIを効果的に使用するために必要な必須スキルと知識領域を説明する</td><td><span id="lo-GenAI-5.2.1"></span></td></tr>
+            <tr><td>GenAI-5.2.2</td><td><span class="badge-k1">K1</span></td><td>テストチームでのAIスキル育成戦略を想起する</td><td><span id="lo-GenAI-5.2.2"></span></td></tr>
+            <tr><td>GenAI-5.2.3</td><td><span class="badge-k1">K1</span></td><td>GenAI採用によるテストプロセスと責任の変化を認識する</td><td><span id="lo-GenAI-5.2.3"></span></td></tr>
           </table>
         </div>
       </div>
     </div>
   </main>
+
+  <script>
+    /* ===== DARK MODE ===== */
+    function toggleDark() {
+      document.body.classList.toggle('dark-mode');
+      const on = document.body.classList.contains('dark-mode');
+      localStorage.setItem('ctgenai-dark', on ? '1' : '0');
+      document.getElementById('darkBtn').textContent = on ? '☀️ ライト' : '🌙 ダーク';
+    }
+    if (localStorage.getItem('ctgenai-dark') === '1') {
+      document.body.classList.add('dark-mode');
+      document.documentElement.style.display = '';
+      const btn = document.getElementById('darkBtn');
+      if (btn) btn.textContent = '☀️ ライト';
+    } else {
+      document.documentElement.style.display = '';
+    }
+
+    /* ===== STORAGE HELPERS ===== */
+    function load(key, def) { try { return JSON.parse(localStorage.getItem(key)) || def; } catch { return def; } }
+
+    /* ===== EXAM COUNTDOWN ===== */
+    function renderExamCountdown() {
+      const examDate = localStorage.getItem('ctgenai-exam-date');
+      const area = document.getElementById('examCountdownArea');
+      if (!area) return;
+
+      const setDateHtml = `<button class="set-date-btn" onclick="setExamDate()">📅 試験日を設定</button>`;
+
+      if (!examDate) {
+        area.innerHTML = `
+          <div class="exam-countdown">
+            <div class="countdown-icon">🎯</div>
+            <div class="countdown-info">
+              <h3>試験日カウントダウン</h3>
+              <p>受験予定日を設定してカウントダウンを開始しましょう</p>
+            </div>
+            ${setDateHtml}
+          </div>`;
+        return;
+      }
+
+      const now = new Date();
+      const exam = new Date(examDate);
+      const diff = exam - now;
+
+      if (diff < 0) {
+        area.innerHTML = `<div class="exam-countdown"><div class="countdown-icon">✅</div><div class="countdown-info"><h3>試験日が過ぎました</h3><p>お疲れ様でした！</p></div>${setDateHtml}</div>`;
+        return;
+      }
+
+      const days = Math.floor(diff / 86400000);
+      const hours = Math.floor((diff % 86400000) / 3600000);
+      const mins = Math.floor((diff % 3600000) / 60000);
+
+      area.innerHTML = `
+        <div class="exam-countdown">
+          <div class="countdown-icon">⏳</div>
+          <div class="countdown-info">
+            <h3>CT-GenAI 試験まで</h3>
+            <p>試験日: ${examDate} — 集中して仕上げましょう！</p>
+          </div>
+          <div class="countdown-numbers">
+            <div class="countdown-unit"><div class="num">${days}</div><div class="lbl">日</div></div>
+            <div class="countdown-unit"><div class="num">${hours}</div><div class="lbl">時間</div></div>
+            <div class="countdown-unit"><div class="num">${mins}</div><div class="lbl">分</div></div>
+          </div>
+          ${setDateHtml}
+        </div>`;
+    }
+
+    function setExamDate() {
+      const d = prompt('試験予定日を入力してください (例: 2026-06-15)');
+      if (d && /^\d{4}-\d{2}-\d{2}$/.test(d)) {
+        localStorage.setItem('ctgenai-exam-date', d);
+        renderExamCountdown();
+      }
+    }
+
+    /* ===== PROGRESS SUMMARY ===== */
+    function renderProgressSummary() {
+      const stats = load('ctgenai-lo-stats-v1', {});
+      const streak = load('ctgenai-streak-v1', {});
+      const hist = load('ctgenai-session-history-v1', []);
+      const area = document.getElementById('progressSummaryArea');
+      if (!area) return;
+
+      const los = Object.keys(stats);
+      const attempted = los.filter(lo => stats[lo].total > 0);
+      const mastered = los.filter(lo => stats[lo].total >= 3 && stats[lo].total > 0 && (stats[lo].correct / stats[lo].total) >= 0.8);
+      const totalSessions = streak.totalSessions || 0;
+      const lastPct = hist.length > 0 ? hist[hist.length - 1].pct : null;
+
+      if (totalSessions === 0) { area.innerHTML = ''; return; }
+
+      area.innerHTML = `
+        <div class="progress-summary">
+          <h3>📊 学習サマリー</h3>
+          <div class="progress-stat"><div class="num">${streak.streak || 0}</div><div class="lbl">連続日数🔥</div></div>
+          <div class="progress-stat"><div class="num">${totalSessions}</div><div class="lbl">総セッション</div></div>
+          <div class="progress-stat"><div class="num">${attempted.length}</div><div class="lbl">着手LO</div></div>
+          <div class="progress-stat"><div class="num">${mastered.length}</div><div class="lbl">定着LO</div></div>
+          ${lastPct !== null ? `<div class="progress-stat"><div class="num">${lastPct}%</div><div class="lbl">直近正答率</div></div>` : ''}
+          <div style="margin-left:auto;"><a href="quiz.html" class="btn btn-primary">演習を続ける →</a></div>
+        </div>`;
+    }
+
+    /* ===== LO BADGES ===== */
+    function renderLoBadges() {
+      const stats = load('ctgenai-lo-stats-v1', {});
+      const loIds = [
+        'GenAI-1.1.1','GenAI-1.1.2','GenAI-1.1.3','GenAI-1.1.4','GenAI-1.2.1','GenAI-1.2.2',
+        'GenAI-2.1.1','GenAI-2.1.2','GenAI-2.1.3','GenAI-2.2.1','GenAI-2.2.2','GenAI-2.2.3','GenAI-2.2.4','GenAI-2.2.5','GenAI-2.3.1','GenAI-2.3.2',
+        'GenAI-3.1.1','GenAI-3.1.2','GenAI-3.1.3','GenAI-3.1.4','GenAI-3.2.1','GenAI-3.2.2','GenAI-3.2.3','GenAI-3.3.1','GenAI-3.4.1',
+        'GenAI-4.1.1','GenAI-4.1.2','GenAI-4.1.3','GenAI-4.2.1','GenAI-4.2.2',
+        'GenAI-5.1.1','GenAI-5.1.2','GenAI-5.1.3','GenAI-5.1.4','GenAI-5.2.1','GenAI-5.2.2','GenAI-5.2.3'
+      ];
+      loIds.forEach(lo => {
+        const el = document.getElementById('lo-' + lo);
+        if (!el) return;
+        const s = stats[lo];
+        if (!s || s.total === 0) {
+          el.innerHTML = '<span class="lo-progress-badge lo-badge-new">未着手</span>';
+        } else {
+          const pct = Math.round(s.correct / s.total * 100);
+          if (pct >= 80 && s.total >= 3) {
+            el.innerHTML = `<span class="lo-progress-badge lo-badge-mastered">✓ ${pct}%</span>`;
+          } else {
+            el.innerHTML = `<span class="lo-progress-badge lo-badge-learning">${pct}%</span>`;
+          }
+        }
+      });
+    }
+
+    /* ===== INIT ===== */
+    renderExamCountdown();
+    renderProgressSummary();
+    renderLoBadges();
+  </script>
 </body>
 </html>
