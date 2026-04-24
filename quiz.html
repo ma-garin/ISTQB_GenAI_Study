@@ -164,6 +164,7 @@
     let currentIndex = 0;
     let score = 0;
     let answered = [];
+    let pendingAnswer = null; // 選択済みだが未確定の選択肢インデックス
     let activeMode = 'practice';
     let timerInterval = null;
     let timerSeconds = 0;
@@ -461,6 +462,7 @@
       currentIndex = 0;
       score = 0;
       answered = new Array(questions.length).fill(null);
+      pendingAnswer = null;
       sessionStartTime = Date.now();
       stopTimer();
       document.getElementById('quizStart').style.display = 'none';
@@ -481,12 +483,16 @@
       const bm = loadBookmarks();
       const isBookmarked = bm.has(q.id);
 
+      const isPending = !alreadyAnswered && pendingAnswer !== null;
+
       const optionsHtml = q.options.map((opt, i) => {
         let cls = '';
         if (alreadyAnswered) {
           if (i === q.answer) cls = 'reveal-correct';
           if (i === userAnswer && userAnswer !== q.answer) cls = 'incorrect';
           if (i === userAnswer && userAnswer === q.answer) cls = 'correct';
+        } else if (isPending && i === pendingAnswer) {
+          cls = 'selected';
         }
         return `<button class="option-btn ${cls}" onclick="selectAnswer(${i})" ${alreadyAnswered ? 'disabled' : ''}>
           <span class="option-label">${labels[i]}</span>
@@ -516,6 +522,9 @@
           </div>
           <div class="question-actions">
             <button class="btn btn-secondary" onclick="prevQuestion()" ${currentIndex === 0 ? 'disabled' : ''}>← 前へ</button>
+            ${isPending
+              ? `<button class="btn btn-primary" onclick="confirmAnswer()" style="margin-left:auto;">✓ 確定</button>`
+              : ''}
             ${alreadyAnswered && currentIndex < questions.length - 1
               ? `<button class="btn btn-primary" onclick="nextQuestion()">次へ →</button>`
               : ''}
@@ -523,7 +532,7 @@
               ? `<button class="btn btn-success" onclick="showResult()">結果を見る</button>`
               : ''}
             ${activeMode === 'exam' && !alreadyAnswered
-              ? `<button class="btn btn-secondary" onclick="showResult()" style="margin-left:auto;">⏹ 途中終了</button>`
+              ? `<button class="btn btn-secondary" onclick="showResult()">⏹ 途中終了</button>`
               : ''}
           </div>
         </div>
@@ -531,18 +540,29 @@
     }
 
     function selectAnswer(idx) {
-      if (answered[currentIndex] !== null) return;
-      answered[currentIndex] = idx;
-      const q = questions[currentIndex];
-      const isCorrect = idx === q.answer;
-      if (isCorrect) score++;
-      updateLoStats(q, isCorrect);
-      updateWrongIds(q.id, isCorrect);
+      if (answered[currentIndex] !== null) return; // 確定済みは変更不可
+      pendingAnswer = idx;
       renderQuestion();
     }
 
-    function nextQuestion() { if (currentIndex < questions.length - 1) { currentIndex++; renderQuestion(); } }
-    function prevQuestion() { if (currentIndex > 0) { currentIndex--; renderQuestion(); } }
+    function confirmAnswer() {
+      if (pendingAnswer === null || answered[currentIndex] !== null) return;
+      answered[currentIndex] = pendingAnswer;
+      const q = questions[currentIndex];
+      const isCorrect = pendingAnswer === q.answer;
+      if (isCorrect) score++;
+      updateLoStats(q, isCorrect);
+      updateWrongIds(q.id, isCorrect);
+      pendingAnswer = null;
+      renderQuestion();
+    }
+
+    function nextQuestion() {
+      if (currentIndex < questions.length - 1) { currentIndex++; pendingAnswer = null; renderQuestion(); }
+    }
+    function prevQuestion() {
+      if (currentIndex > 0) { currentIndex--; pendingAnswer = null; renderQuestion(); }
+    }
 
     function updateProgress() {
       const answeredCount = answered.filter(a => a !== null).length;
