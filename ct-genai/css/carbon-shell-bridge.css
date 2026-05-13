@@ -1,0 +1,85 @@
+/* CT-GenAI legacy pages: align the existing UI with the portal shell. */
+:root {
+  --primary: #2e86c1;
+  --primary-dark: #1a5276;
+  --header-bg: #d6eaf8;
+  --border-soft: #d4e6f1;
+  --surface-soft: #ebf5fb;
+}
+
+body {
+  background: var(--bg, #fdfefe);
+}
+
+body > header {
+  background: var(--header-bg);
+  border-bottom: 1px solid var(--border-soft);
+  box-shadow: none;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.header-inner {
+  min-height: 48px;
+}
+
+.logo {
+  color: var(--primary-dark);
+  font-weight: 700;
+}
+
+header nav a {
+  border-radius: 0;
+  color: #374151;
+  font-weight: 600;
+}
+
+header nav a:hover,
+header nav a.active {
+  background: rgba(46, 134, 193, 0.14);
+  color: var(--primary-dark);
+}
+
+main {
+  max-width: 1180px;
+}
+
+.card,
+.chapter-card,
+.quiz-controls,
+.question-card,
+.glossary-card,
+.slide-main,
+.slide-sidebar,
+.syllabus-section {
+  border: 1px solid var(--border-soft);
+  border-radius: 4px;
+  box-shadow: none;
+}
+
+.btn,
+.dark-toggle {
+  border-radius: 0;
+}
+
+.dark-mode {
+  --header-bg: #152534;
+  --border-soft: #294156;
+  --surface-soft: #101d29;
+}
+
+.dark-mode body,
+body.dark-mode {
+  background: #0f1720;
+}
+
+.dark-mode body > header,
+body.dark-mode > header {
+  background: var(--header-bg);
+}
+
+.dark-mode header nav a,
+body.dark-mode header nav a {
+  color: #d8e6f2;
+}

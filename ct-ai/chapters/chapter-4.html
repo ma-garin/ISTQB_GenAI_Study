@@ -4,9 +4,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>第4章: AIベースシステムのテスト — CT-AI v2.0</title>
-  <link rel="stylesheet" href="https://unpkg.com/carbon-components@10.58.0/css/carbon-components.min.css">
-  <link rel="stylesheet" href="../../shared/css/carbon-theme.css">
-  <link rel="stylesheet" href="../../shared/css/shell.css">
+  <link rel="stylesheet" href="https://unpkg.com/@carbon/styles/css/styles.css">
+  <link rel="stylesheet" href="../assets/css/carbon-overrides.css">
+  <link rel="stylesheet" href="../assets/css/app.css">
   <link rel="stylesheet" href="../css/ct-ai.css">
 </head>
 <body>
@@ -24,6 +24,8 @@
     <button class="bx--header__action header-theme-btn" data-theme-toggle data-theme-icon aria-label="ダークモードに切替">🌙</button>
   </div>
 </header>
+
+<div class="progress-bar" aria-hidden="true"><span data-progress-bar></span></div>
 
 <div id="sidebar-overlay" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.4);z-index:7800;"></div>
 
@@ -589,9 +591,6 @@
   <span>© 2026 · ISTQB®</span>
 </footer>
 
-<script src="../../shared/js/theme.js"></script>
-<script src="../../shared/js/shell.js"></script>
-<script src="../../shared/js/search.js"></script>
-<script src="../js/toc.js"></script>
+<script type="module" src="../assets/js/app.js"></script>
 </body>
 </html>

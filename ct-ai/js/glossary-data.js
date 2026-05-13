@@ -1,5 +1,9 @@
 /* CT-AI v2.0 — AI-Specific Glossary (Chapter 9) */
 const CT_AI_GLOSSARY = [
+  { term: "AI-based system", en: "A system that uses AI techniques as part of its functionality or decision-making behavior.", ja: "AIベースシステム。機能または意思決定の一部としてAI技術を使用するシステム。", chapter: 1 },
+  { term: "Explainability", en: "The extent to which the factors influencing an AI system output can be understood by stakeholders.", ja: "説明可能性。AIシステムの出力に影響を与えた要因を利害関係者が理解できる度合い。", chapter: 2 },
+  { term: "Drift", en: "A change over time in data, concepts, expectations, or operational conditions that can affect ML model performance.", ja: "ドリフト。データ、概念、期待、運用条件が時間とともに変化し、MLモデルの性能に影響する現象。", chapter: 6 },
+  { term: "Red Teaming", en: "A structured adversarial activity used to identify weaknesses, harmful behaviors, and misuse paths in AI or GenAI systems.", ja: "レッドチーミング。AIまたはGenAIシステムの弱点、有害な振る舞い、悪用経路を見つけるための体系的な敵対的活動。", chapter: 4 },
   { term: "bias", en: "The systematic difference in treatment of certain objects, people or groups in comparison to others.", ja: "特定のオブジェクト、人々、またはグループを他と比較して体系的に異なる扱いをすること。", source: "ISO/IEC TR 24027", chapter: 5 },
   { term: "big data", en: "Extensive datasets whose characteristics in terms of volume, variety, velocity and/or variability require specialized technologies and techniques to process.", ja: "ボリューム、多様性、速度および/または可変性の特性により、処理に特化した技術やテクニックを必要とする広大なデータセット。", chapter: 3 },
   { term: "bootstrap technique", en: "A resampling technique that repeatedly draws samples with replacement from a training dataset to estimate the ML functional performance criteria of an ML model.", ja: "MLモデルのML機能的性能基準を推定するために、訓練データセットから置換ありでサンプルを繰り返し抽出するリサンプリング技術。", chapter: 6 },
