@@ -1,7 +1,7 @@
 # ISTQB Multi-Cert Portal — 引き継ぎドキュメント
 
-**日付**: 2026-05-13  
-**ブランチ**: `claude/system-improvement-suggestions-GeoEV`  
+**日付**: 2026-05-13
+**ブランチ**: `claude/system-improvement-suggestions-GeoEV`
 **担当 AI**: Claude Sonnet 4.6 → Codex へ引き継ぎ
 
 ---
