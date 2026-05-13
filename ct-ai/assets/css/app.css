@@ -173,7 +173,7 @@
 
 .page-subtitle,
 .chapter-en-title {
-  color: var(--sky-muted);
+  color: var(--text-secondary);
   font-size: 1rem;
   margin: 0;
 }
@@ -261,13 +261,13 @@
 }
 
 .en-original {
-  background: rgba(235, 245, 251, 0.56);
+  background: var(--surface-soft);
   border: 1px solid var(--border-soft);
   padding: 1rem;
 }
 
 [data-carbon-theme="g100"] .en-original {
-  background: rgba(16, 29, 41, 0.68);
+  background: var(--surface-soft);
 }
 
 .en-original summary {
@@ -277,7 +277,7 @@
 }
 
 .en-text {
-  color: var(--sky-muted);
+  color: var(--text-secondary);
   font-size: 0.92rem;
   margin-top: 0.75rem;
 }
@@ -296,6 +296,7 @@
 
 .ja-column p,
 .ja-column li {
+  color: var(--text-secondary);
   line-height: 1.78;
 }
 
@@ -313,7 +314,7 @@
 .figure-card,
 .info-box,
 .lo-card {
-  background: rgba(255, 255, 255, 0.78);
+  background: var(--surface-bg);
   border: 1px solid var(--border-soft);
   padding: 1rem;
 }
@@ -324,7 +325,7 @@
 [data-carbon-theme="g100"] .figure-card,
 [data-carbon-theme="g100"] .info-box,
 [data-carbon-theme="g100"] .lo-card {
-  background: rgba(16, 29, 41, 0.72);
+  background: var(--surface-bg);
 }
 
 .lo-ref,
@@ -361,7 +362,23 @@
 
 [data-carbon-theme="g100"] .content-table th,
 [data-carbon-theme="g100"] .lo-table-compact th {
-  background: rgba(41, 65, 86, 0.78);
+  background: var(--surface-soft);
+}
+
+.chapter-index-card,
+.cert-card,
+.lo-summary-card,
+.stat-card {
+  color: var(--text-main);
+}
+
+.chapter-index-card p,
+.chapter-index-card .chap-en,
+.lo-summary-card .lo-desc,
+.stat-card-label,
+.content-table td,
+.lo-table-compact td {
+  color: var(--text-secondary);
 }
 
 .progress-bar {

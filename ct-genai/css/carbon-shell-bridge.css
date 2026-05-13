@@ -5,10 +5,17 @@
   --header-bg: #d6eaf8;
   --border-soft: #d4e6f1;
   --surface-soft: #ebf5fb;
+  --text-main: #1f2937;
+  --text-secondary: #374151;
+  --text-muted: #64748b;
+  --card: #ffffff;
+  --bg: #fdfefe;
 }
 
 body {
   background: var(--bg, #fdfefe);
+  color: var(--text-main);
+  font-family: "IBM Plex Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 }
 
 body > header {
@@ -31,7 +38,7 @@ body > header {
 
 header nav a {
   border-radius: 0;
-  color: #374151;
+  color: var(--text-secondary);
   font-weight: 600;
 }
 
@@ -53,9 +60,33 @@ main {
 .slide-main,
 .slide-sidebar,
 .syllabus-section {
+  background: var(--card);
   border: 1px solid var(--border-soft);
   border-radius: 4px;
+  color: var(--text-main);
   box-shadow: none;
+}
+
+.section-title,
+.chapter-card h3,
+.question-card h3,
+.glossary-card h3,
+.slide-main h2,
+.slide-sidebar h3,
+.syllabus-h2 {
+  color: var(--text-main);
+}
+
+p,
+li,
+.chapter-card,
+.question-card,
+.glossary-card,
+.slide-main,
+.syllabus-section,
+.en-line,
+.ja-line {
+  color: var(--text-secondary);
 }
 
 .btn,
@@ -63,23 +94,46 @@ main {
   border-radius: 0;
 }
 
-.dark-mode {
+.dark-mode,
+[data-carbon-theme="g100"] {
   --header-bg: #152534;
   --border-soft: #294156;
   --surface-soft: #101d29;
+  --bg: #0b1620;
+  --card: #111c26;
+  --text-main: #f7fbff;
+  --text-secondary: #d8e6f2;
+  --text-muted: #a9bdcf;
+  --primary: #8dccf1;
+  --primary-dark: #b8e3fb;
 }
 
+[data-carbon-theme="g100"] body,
 .dark-mode body,
 body.dark-mode {
   background: #0f1720;
 }
 
+[data-carbon-theme="g100"] body > header,
 .dark-mode body > header,
 body.dark-mode > header {
   background: var(--header-bg);
 }
 
+[data-carbon-theme="g100"] header nav a,
 .dark-mode header nav a,
 body.dark-mode header nav a {
   color: #d8e6f2;
+}
+
+[data-carbon-theme="g100"] .card,
+[data-carbon-theme="g100"] .chapter-card,
+[data-carbon-theme="g100"] .quiz-controls,
+[data-carbon-theme="g100"] .question-card,
+[data-carbon-theme="g100"] .glossary-card,
+[data-carbon-theme="g100"] .slide-main,
+[data-carbon-theme="g100"] .slide-sidebar,
+[data-carbon-theme="g100"] .syllabus-section {
+  background: var(--card);
+  color: var(--text-main);
 }
