@@ -82,7 +82,7 @@
 }
 
 .header-product-name {
-  color: var(--sky-muted);
+  color: var(--color-text-muted);
   font-weight: 500;
   margin-left: 0.35rem;
 }
@@ -98,9 +98,9 @@
 
 .header-search input {
   background: rgba(255, 255, 255, 0.72);
-  border: 1px solid var(--border-soft);
+  border: 1px solid var(--color-border);
   border-radius: 0;
-  color: var(--text-main);
+  color: var(--color-text-primary);
   font: inherit;
   height: 2rem;
   padding: 0 0.75rem;
@@ -115,7 +115,7 @@
   align-items: center;
   background: transparent;
   border: 0;
-  color: var(--text-main);
+  color: var(--color-text-primary);
   cursor: pointer;
   display: inline-flex;
   font: inherit;
@@ -131,7 +131,7 @@
 }
 
 .bx--content {
-  background: var(--content-bg);
+  background: var(--color-bg-page);
   margin-left: var(--app-sidebar-width);
   min-height: calc(100vh - var(--app-header-height));
   padding: 72px 32px 48px;
@@ -142,7 +142,7 @@
   background: linear-gradient(135deg, rgba(214, 234, 248, 0.95), rgba(235, 245, 251, 0.78));
   border: 1px solid var(--border-soft);
   border-radius: 0;
-  color: var(--text-main);
+  color: var(--color-text-primary);
   margin-bottom: 2rem;
   padding: 2rem;
 }
@@ -173,7 +173,7 @@
 
 .page-subtitle,
 .chapter-en-title {
-  color: var(--text-secondary);
+  color: var(--color-text-secondary);
   font-size: 1rem;
   margin: 0;
 }
@@ -190,8 +190,8 @@
 .lo-badge,
 .tag {
   background: rgba(93, 173, 226, 0.16);
-  border: 1px solid var(--border-soft);
-  color: var(--sky-deep);
+  border: 1px solid var(--color-border);
+  color: var(--color-link);
   display: inline-flex;
   font-size: 0.76rem;
   font-weight: 600;
@@ -207,7 +207,7 @@
 
 .toc-sidebar {
   align-self: start;
-  border-left: 1px solid var(--border-soft);
+  border-left: 1px solid var(--color-border);
   max-height: calc(100vh - 88px);
   overflow: auto;
   padding-left: 1rem;
@@ -216,7 +216,7 @@
 }
 
 .toc-sidebar h4 {
-  color: var(--sky-muted);
+  color: var(--color-text-muted);
   font-size: 0.72rem;
   letter-spacing: 0.08em;
   margin: 0 0 0.75rem;
@@ -230,7 +230,7 @@
 }
 
 .toc-list a {
-  color: var(--text-main);
+  color: var(--color-text-primary);
   display: block;
   font-size: 0.84rem;
   padding: 0.35rem 0.5rem;
@@ -239,12 +239,12 @@
 
 .toc-list a.is-active {
   background: rgba(46, 134, 193, 0.14);
-  color: var(--sky-deep);
+  color: var(--color-link);
   font-weight: 600;
 }
 
 .bilingual-section {
-  border-top: 1px solid var(--border-soft);
+  border-top: 1px solid var(--color-border);
   display: grid;
   gap: 1.5rem;
   grid-template-columns: minmax(240px, 0.9fr) minmax(0, 1.35fr);
@@ -261,23 +261,23 @@
 }
 
 .en-original {
-  background: var(--surface-soft);
-  border: 1px solid var(--border-soft);
+  background: var(--color-bg-surface-soft);
+  border: 1px solid var(--color-border);
   padding: 1rem;
 }
 
 [data-carbon-theme="g100"] .en-original {
-  background: var(--surface-soft);
+  background: var(--color-bg-surface-soft);
 }
 
 .en-original summary {
-  color: var(--sky-deep);
+  color: var(--color-link);
   cursor: pointer;
   font-weight: 600;
 }
 
 .en-text {
-  color: var(--text-secondary);
+  color: var(--color-text-secondary);
   font-size: 0.92rem;
   margin-top: 0.75rem;
 }
@@ -296,7 +296,7 @@
 
 .ja-column p,
 .ja-column li {
-  color: var(--text-secondary);
+  color: var(--color-text-secondary);
   line-height: 1.78;
 }
 
@@ -314,8 +314,8 @@
 .figure-card,
 .info-box,
 .lo-card {
-  background: var(--surface-bg);
-  border: 1px solid var(--border-soft);
+  background: var(--color-bg-surface);
+  border: 1px solid var(--color-border);
   padding: 1rem;
 }
 
@@ -325,12 +325,12 @@
 [data-carbon-theme="g100"] .figure-card,
 [data-carbon-theme="g100"] .info-box,
 [data-carbon-theme="g100"] .lo-card {
-  background: var(--surface-bg);
+  background: var(--color-bg-surface);
 }
 
 .lo-ref,
 .lo-id {
-  color: var(--sky-deep);
+  color: var(--color-link);
   font-family: "IBM Plex Mono", monospace;
   font-weight: 600;
 }
@@ -347,7 +347,7 @@
 .content-table td,
 .lo-table-compact th,
 .lo-table-compact td {
-  border: 1px solid var(--border-soft);
+  border: 1px solid var(--color-border);
   padding: 0.65rem 0.75rem;
   text-align: left;
   vertical-align: top;
@@ -356,20 +356,20 @@
 .content-table th,
 .lo-table-compact th {
   background: rgba(214, 234, 248, 0.78);
-  color: var(--sky-deep);
+  color: var(--color-link);
   font-weight: 600;
 }
 
 [data-carbon-theme="g100"] .content-table th,
 [data-carbon-theme="g100"] .lo-table-compact th {
-  background: var(--surface-soft);
+  background: var(--color-bg-surface-soft);
 }
 
 .chapter-index-card,
 .cert-card,
 .lo-summary-card,
 .stat-card {
-  color: var(--text-main);
+  color: var(--color-text-primary);
 }
 
 .chapter-index-card p,
@@ -378,7 +378,7 @@
 .stat-card-label,
 .content-table td,
 .lo-table-compact td {
-  color: var(--text-secondary);
+  color: var(--color-text-secondary);
 }
 
 .progress-bar {

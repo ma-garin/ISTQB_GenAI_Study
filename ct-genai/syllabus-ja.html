@@ -14,37 +14,37 @@
     .bilingual-block { margin-bottom: 20px; }
     .en-line {
       font-style: italic;
-      color: #1a6fa0;
-      border-left: 4px solid #2980b9;
+      color: var(--text-secondary);
+      border-left: 4px solid var(--primary);
       padding: 8px 14px;
       margin-bottom: 4px;
-      background: #f0f7fd;
+      background: var(--color-bg-surface-soft);
       border-radius: 0 6px 6px 0;
       line-height: 1.7;
       font-size: 0.92rem;
     }
     .ja-line {
-      color: #333;
-      border-left: 4px solid #e67e22;
+      color: var(--text-main);
+      border-left: 4px solid var(--border-soft);
       padding: 8px 14px;
-      background: #fdf6ee;
+      background: var(--card);
       border-radius: 0 6px 6px 0;
       line-height: 1.7;
       font-size: 0.92rem;
     }
-    .syllabus-section { background: var(--card); border-radius: 12px; padding: 24px; margin-bottom: 20px; border: 1px solid var(--border); }
-    .syllabus-h2 { font-size: 1.15rem; font-weight: 700; color: var(--primary); margin: 20px 0 12px; border-bottom: 2px solid var(--primary); padding-bottom: 6px; }
-    .syllabus-h3 { font-size: 1rem; font-weight: 700; color: #555; margin: 16px 0 10px; padding-left: 10px; border-left: 3px solid #aaa; }
-    .lo-badge { display:inline-block; background:#2980b9; color:white; font-size:0.72rem; font-weight:700; padding:2px 8px; border-radius:10px; margin-right:6px; vertical-align:middle; }
-    .chapter-banner { display:flex; align-items:center; gap:20px; border-radius:12px; padding:20px 28px; margin-bottom:20px; color:white; }
+    .syllabus-section { background: var(--card); border-radius: 6px; padding: 24px; margin-bottom: 20px; border: 1px solid var(--border); }
+    .syllabus-h2 { font-size: 1.15rem; font-weight: 700; color: var(--primary-dark); margin: 20px 0 12px; border-bottom: 2px solid var(--primary); padding-bottom: 6px; }
+    .syllabus-h3 { font-size: 1rem; font-weight: 700; color: var(--text-main); margin: 16px 0 10px; padding-left: 10px; border-left: 3px solid var(--border-soft); }
+    .lo-badge { display:inline-block; background:var(--primary-dark); color:var(--color-on-blue); font-size:0.72rem; font-weight:700; padding:2px 8px; border-radius:10px; margin-right:6px; vertical-align:middle; }
+    .chapter-banner { display:flex; align-items:center; gap:20px; border-radius:6px; padding:20px 28px; margin-bottom:20px; color:var(--color-on-blue); background:linear-gradient(135deg,var(--primary-dark),var(--primary)); }
     .chapter-banner .num { font-size:2.5rem; font-weight:900; opacity:.9; }
     .chapter-banner .info h2 { margin:0; font-size:1.2rem; }
     .chapter-banner .info .sub { font-size:0.85rem; opacity:.85; margin-top:4px; }
     table.syllabus-table { width:100%; border-collapse:collapse; font-size:0.85rem; margin:12px 0; }
-    table.syllabus-table th { background:#2980b9; color:white; padding:8px 10px; text-align:left; }
-    table.syllabus-table td { padding:8px 10px; border:1px solid var(--border); vertical-align:top; }
-    table.syllabus-table tr:nth-child(even) td { background:#f8f9fa; }
-    .info-box { background:#e8f4fd; border:1px solid #bee3f8; border-radius:8px; padding:14px 18px; margin:12px 0; font-size:0.88rem; color:#1a6fa0; }
+    table.syllabus-table th { background:var(--color-bg-surface-soft); color:var(--text-main); padding:8px 10px; text-align:left; border-bottom:2px solid var(--primary); }
+    table.syllabus-table td { padding:8px 10px; border:1px solid var(--border); vertical-align:top; color:var(--text-secondary); }
+    table.syllabus-table tr:nth-child(even) td { background:var(--color-bg-surface-soft); }
+    .info-box { background:var(--color-bg-surface-soft); border:1px solid var(--border-soft); border-radius:6px; padding:14px 18px; margin:12px 0; font-size:0.88rem; color:var(--text-secondary); }
   </style>
 </head>
 <body>
@@ -72,7 +72,7 @@
     </div>
 
     <!-- ===== 第1章 ===== -->
-    <div class="chapter-banner" style="background:linear-gradient(135deg,#1a6fa0,#2980b9);">
+    <div class="chapter-banner">
       <div class="num">1</div>
       <div class="info">
         <h2>Overview of Generative AI in Software Testing</h2>
@@ -289,7 +289,7 @@
     </div>
 
     <!-- ===== 第2章 ===== -->
-    <div class="chapter-banner" style="background:linear-gradient(135deg,#1a7a4a,#27ae60);">
+    <div class="chapter-banner">
       <div class="num">2</div>
       <div class="info">
         <h2>Applying 生成AI(GenAI) in Testing Activities</h2>
@@ -540,7 +540,7 @@
     </div>
 
     <!-- ===== 第3章 ===== -->
-    <div class="chapter-banner" style="background:linear-gradient(135deg,#8e2020,#c0392b);">
+    <div class="chapter-banner">
       <div class="num">3</div>
       <div class="info">
         <h2>Risks and Limitations of 生成AI(GenAI) in Testing</h2>
@@ -732,7 +732,7 @@
     </div>
 
     <!-- ===== 第4章 ===== -->
-    <div class="chapter-banner" style="background:linear-gradient(135deg,#6a1a8e,#8e44ad);">
+    <div class="chapter-banner">
       <div class="num">4</div>
       <div class="info">
         <h2>生成AI(GenAI) Tooling and Infrastructure for Testing</h2>
@@ -867,7 +867,7 @@
     </div>
 
     <!-- ===== 第5章 ===== -->
-    <div class="chapter-banner" style="background:linear-gradient(135deg,#a05a1a,#d35400);">
+    <div class="chapter-banner">
       <div class="num">5</div>
       <div class="info">
         <h2>生成AI(GenAI) in Test Organizations</h2>

@@ -3,6 +3,17 @@
 :root {
   --primary-sky: #5dade2;
   --primary-sky-dark: #2e86c1;
+  --color-text-primary: #1f2937;
+  --color-text-secondary: #334155;
+  --color-text-muted: #475569;
+  --color-bg-page: #fdfefe;
+  --color-bg-surface: #ffffff;
+  --color-bg-surface-soft: #f4f9fc;
+  --color-bg-header: #d6eaf8;
+  --color-bg-sidebar: #ebf5fb;
+  --color-border: #d4e6f1;
+  --color-link: #1a5276;
+  --color-on-blue: #ffffff;
   --header-bg: #d6eaf8;
   --sidebar-bg: #ebf5fb;
   --content-bg: #fdfefe;
@@ -22,6 +33,17 @@
 
 [data-carbon-theme="g100"] {
   --header-bg: #172838;
+  --color-text-primary: #f7fbff;
+  --color-text-secondary: #d8e6f2;
+  --color-text-muted: #b6ccdd;
+  --color-bg-page: #0b1620;
+  --color-bg-surface: #111c26;
+  --color-bg-surface-soft: #172838;
+  --color-bg-header: #172838;
+  --color-bg-sidebar: #101d29;
+  --color-border: #33506a;
+  --color-link: #b8e3fb;
+  --color-on-blue: #ffffff;
   --sidebar-bg: #101d29;
   --content-bg: #0b1620;
   --surface-bg: #111c26;
@@ -41,16 +63,16 @@ html {
 
 body {
   margin: 0;
-  background: var(--content-bg);
-  color: var(--text-main);
+  background: var(--color-bg-page);
+  color: var(--color-text-primary);
   font-family: var(--app-font);
 }
 
 .bx--header,
 .cds--header {
-  background: var(--header-bg) !important;
-  border-bottom: 1px solid var(--border-soft) !important;
-  color: var(--text-main) !important;
+  background: var(--color-bg-header) !important;
+  border-bottom: 1px solid var(--color-border) !important;
+  color: var(--color-text-primary) !important;
 }
 
 .bx--header__name,
@@ -73,12 +95,12 @@ body {
 
 .bx--side-nav,
 .cds--side-nav {
-  background: var(--sidebar-bg) !important;
-  border-right: 1px solid var(--border-soft) !important;
+  background: var(--color-bg-sidebar) !important;
+  border-right: 1px solid var(--color-border) !important;
 }
 
 .bx--side-nav__header {
-  color: var(--text-muted);
+  color: var(--color-text-muted);
   font-size: 0.72rem;
   font-weight: 600;
   letter-spacing: 0.08em;
@@ -88,7 +110,7 @@ body {
 
 .bx--side-nav__link,
 .cds--side-nav__link {
-  color: var(--text-main) !important;
+  color: var(--color-text-primary) !important;
 }
 
 .bx--side-nav__link:hover,
