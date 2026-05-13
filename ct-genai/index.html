@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="ja" data-carbon-theme="white">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CT-GenAI v1.0 — ISTQB Study Portal</title>
+  <link rel="manifest" href="../manifest.json">
+  <meta name="theme-color" content="#d6eaf8">
+  <link rel="stylesheet" href="https://unpkg.com/@carbon/styles/css/styles.css">
+  <link rel="stylesheet" href="../ct-ai/assets/css/carbon-overrides.css">
+  <link rel="stylesheet" href="../ct-ai/assets/css/app.css">
+  <link rel="stylesheet" href="css/ct-genai.css">
+</head>
+<body>
+<header class="bx--header" role="banner" aria-label="ISTQB Study Portal">
+  <button class="bx--header__menu-trigger bx--header__action" data-sidebar-trigger aria-label="メニュー" aria-expanded="false">&#9776;</button>
+  <a class="bx--header__name" href="../index.html">
+    <span>ISTQB Study Portal</span>
+    <span class="header-product-name">/ CT-GenAI v1.0</span>
+  </a>
+  <div class="bx--header__global">
+    <a href="../index.html" class="bx--header__action" style="font-size:0.75rem;width:auto;padding:0 12px;" title="ポータルに戻る">← ポータル</a>
+    <button class="bx--header__action header-theme-btn" data-theme-toggle aria-label="ダークモードに切替">Dark</button>
+  </div>
+</header>
+
+<div class="progress-bar" aria-hidden="true"><span data-progress-bar></span></div>
+<div id="sidebar-overlay" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.4);z-index:7800;"></div>
+
+<nav class="bx--side-nav" aria-label="CT-GenAI ナビゲーション">
+  <ul class="bx--side-nav__nav" role="list">
+    <li class="bx--side-nav__header">ポータル</li>
+    <li class="bx--side-nav__item"><a href="../index.html" class="bx--side-nav__link"><span class="bx--side-nav__link-text">← ポータルに戻る</span></a></li>
+    <li class="bx--side-nav__header">CT-GenAI v1.0</li>
+    <li class="bx--side-nav__item"><a href="index.html" class="bx--side-nav__link bx--side-nav__link--current"><span class="bx--side-nav__link-text">ホーム</span></a></li>
+    <li class="bx--side-nav__item"><a href="study.html" class="bx--side-nav__link"><span class="bx--side-nav__link-text">学習コンテンツ</span></a></li>
+    <li class="bx--side-nav__item"><a href="quiz.html" class="bx--side-nav__link"><span class="bx--side-nav__link-text">問題演習</span></a></li>
+    <li class="bx--side-nav__item"><a href="slides.html" class="bx--side-nav__link"><span class="bx--side-nav__link-text">学習スライド</span></a></li>
+    <li class="bx--side-nav__item"><a href="glossary.html" class="bx--side-nav__link"><span class="bx--side-nav__link-text">用語集</span></a></li>
+    <li class="bx--side-nav__item"><a href="syllabus-ja.html" class="bx--side-nav__link"><span class="bx--side-nav__link-text">シラバス対訳</span></a></li>
+  </ul>
+</nav>
+
+<main class="bx--content">
+  <div class="page-header">
+    <p class="page-eyebrow">ISTQB® Certified Tester</p>
+    <h1>CT-GenAI — Testing with Generative AI</h1>
+    <p class="page-subtitle">Version 1.0 | 生成AI・LLMテストに特化した日本語学習教材</p>
+  </div>
+
+  <div class="chapter-index-list">
+    <a class="chapter-index-card" href="study.html">
+      <div class="chapter-index-card-body">
+        <div class="chap-num">Study</div>
+        <h3>学習コンテンツ</h3>
+        <p class="chap-en">5章構成のシラバス要点と日本語解説。</p>
+      </div>
+    </a>
+    <a class="chapter-index-card" href="quiz.html">
+      <div class="chapter-index-card-body">
+        <div class="chap-num">Quiz</div>
+        <h3>問題演習</h3>
+        <p class="chap-en">K1〜K3の練習問題で理解度を確認。</p>
+      </div>
+    </a>
+    <a class="chapter-index-card" href="slides.html">
+      <div class="chapter-index-card-body">
+        <div class="chap-num">Slides</div>
+        <h3>学習スライド</h3>
+        <p class="chap-en">短時間の復習向けスライド形式教材。</p>
+      </div>
+    </a>
+    <a class="chapter-index-card" href="glossary.html">
+      <div class="chapter-index-card-body">
+        <div class="chap-num">Glossary</div>
+        <h3>用語集</h3>
+        <p class="chap-en">生成AI・LLM・プロンプト関連用語を検索。</p>
+      </div>
+    </a>
+    <a class="chapter-index-card" href="syllabus-ja.html">
+      <div class="chapter-index-card-body">
+        <div class="chap-num">Syllabus</div>
+        <h3>シラバス対訳</h3>
+        <p class="chap-en">CT-GenAI v1.0 の日本語対訳。</p>
+      </div>
+    </a>
+  </div>
+</main>
+
+<footer class="app-footer">
+  <span>CT-GenAI v1.0 — ISTQB Study Portal</span>
+  <span><a href="../index.html">ポータル</a> · <a href="../ct-ai/index.html">CT-AI v2.0</a></span>
+  <span>© 2026 · ISTQB® is a registered trademark of ISTQB</span>
+</footer>
+
+<script type="module" src="../ct-ai/assets/js/app.js"></script>
+</body>
+</html>

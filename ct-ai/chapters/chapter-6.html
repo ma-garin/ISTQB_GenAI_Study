@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="ja" data-carbon-theme="white">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>第6章: モデルテスト — CT-AI v2.0</title>
+  <link rel="stylesheet" href="https://unpkg.com/@carbon/styles/css/styles.css">
+  <link rel="stylesheet" href="../assets/css/carbon-overrides.css">
+  <link rel="stylesheet" href="../assets/css/app.css">
+  <link rel="stylesheet" href="../css/ct-ai.css">
+</head>
+<body>
+<header class="bx--header" role="banner">
+  <button class="bx--header__menu-trigger bx--header__action" data-sidebar-trigger aria-label="メニュー" aria-expanded="false">&#9776;</button>
+  <a class="bx--header__name" href="../../index.html">
+    <span>ISTQB Study Portal</span>
+    <span class="header-product-name">/ CT-AI v2.0</span>
+  </a>
+  <div class="bx--header__global">
+    <a href="../../index.html" class="bx--header__action" style="font-size:0.75rem;width:auto;padding:0 12px;" title="ポータルに戻る">← ポータル</a>
+    <label class="header-search" aria-label="サイト内検索"><input data-header-search type="search" placeholder="検索" autocomplete="off"></label>
+    <button class="header-toggle" type="button" data-english-toggle aria-pressed="true">English ON</button>
+    <button class="bx--header__action header-search-btn" data-search-open aria-label="検索" title="検索 (Ctrl+K)">&#128269;</button>
+    <button class="bx--header__action header-theme-btn" data-theme-toggle aria-label="ダークモードに切替">Dark</button>
+  </div>
+</header>
+
+<div class="progress-bar" aria-hidden="true"><span data-progress-bar></span></div>
+<div id="sidebar-overlay" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.4);z-index:7800;"></div>
+
+<nav class="bx--side-nav" aria-label="CT-AI ナビゲーション">
+  <ul class="bx--side-nav__nav" role="list">
+    <li class="bx--side-nav__header">ポータル</li>
+    <li class="bx--side-nav__item"><a href="../../index.html" class="bx--side-nav__link"><span class="bx--side-nav__link-text">← ポータルに戻る</span></a></li>
+    <li class="bx--side-nav__item"><a href="../index.html" class="bx--side-nav__link"><span class="bx--side-nav__link-text">CT-AI ホーム</span></a></li>
+    <li class="bx--side-nav__header">CT-AI v2.0 章</li>
+    <li class="bx--side-nav__item"><a href="chapter-0.html" class="bx--side-nav__link"><span class="bx--side-nav__link-text">第0章 序文</span></a></li>
+    <li class="bx--side-nav__item"><a href="chapter-1.html" class="bx--side-nav__link"><span class="bx--side-nav__link-text">第1章 AI入門</span></a></li>
+    <li class="bx--side-nav__item"><a href="chapter-2.html" class="bx--side-nav__link"><span class="bx--side-nav__link-text">第2章 品質特性</span></a></li>
+    <li class="bx--side-nav__item"><a href="chapter-3.html" class="bx--side-nav__link"><span class="bx--side-nav__link-text">第3章 機械学習</span></a></li>
+    <li class="bx--side-nav__item"><a href="chapter-4.html" class="bx--side-nav__link"><span class="bx--side-nav__link-text">第4章 AIテスト</span></a></li>
+    <li class="bx--side-nav__item"><a href="chapter-5.html" class="bx--side-nav__link"><span class="bx--side-nav__link-text">第5章 入力データ</span></a></li>
+    <li class="bx--side-nav__item"><a href="chapter-6.html" class="bx--side-nav__link bx--side-nav__link--current"><span class="bx--side-nav__link-text">第6章 モデルテスト</span><span class="side-nav-chapter-badge ch6">225分</span></a></li>
+    <li class="bx--side-nav__item"><a href="chapter-7.html" class="bx--side-nav__link"><span class="bx--side-nav__link-text">第7章 ML開発</span></a></li>
+    <li class="bx--side-nav__header">補足資料</li>
+    <li class="bx--side-nav__item"><a href="glossary.html" class="bx--side-nav__link"><span class="bx--side-nav__link-text">用語集</span></a></li>
+    <li class="bx--side-nav__item"><a href="references.html" class="bx--side-nav__link"><span class="bx--side-nav__link-text">参考文献</span></a></li>
+    <li class="bx--side-nav__item"><a href="appendices.html" class="bx--side-nav__link"><span class="bx--side-nav__link-text">付録（BO/LO）</span></a></li>
+  </ul>
+</nav>
+
+<div id="search-dialog" hidden role="dialog" aria-modal="true" aria-label="検索">
+  <div class="search-modal">
+    <div class="search-input-wrap"><span>&#128269;</span><input id="search-input" type="search" placeholder="キーワードで検索..." autocomplete="off"></div>
+    <div id="search-results" class="search-results"></div>
+  </div>
+</div>
+
+<main class="bx--content">
+  <div class="chapter-hero ch6">
+    <div class="chapter-num">第6章 — Model Testing for Machine Learning Systems</div>
+    <h1>モデルテスト</h1>
+    <p class="chapter-en-title">MLモデルのリスク、性能、堅牢性、運用時変化を検証する</p>
+    <div class="chapter-meta">
+      <span class="meta-item">225分</span>
+      <span class="meta-item">10 LO + 1 HO</span>
+      <span class="meta-item">K2-K3</span>
+    </div>
+  </div>
+
+  <div class="lo-summary-grid" aria-label="Learning Objectives">
+    <div class="lo-summary-card"><div class="lo-ref">AI-6.1.1 <span class="lo-badge k2">K2</span></div><div class="lo-desc">MLモデルリスクを軽減するテストアプローチの例を挙げる。</div></div>
+    <div class="lo-summary-card"><div class="lo-ref">AI-6.1.2 <span class="lo-badge k2">K2</span></div><div class="lo-desc">MLモデル文書レビューの目的と焦点を説明する。</div></div>
+    <div class="lo-summary-card"><div class="lo-ref">AI-6.1.3 <span class="lo-badge k2">K2</span></div><div class="lo-desc">確率的MLシステムの機能性能テストを説明する。</div></div>
+    <div class="lo-summary-card"><div class="lo-ref">AI-6.1.4 <span class="lo-badge k2">K2</span></div><div class="lo-desc">敵対的テスト（Adversarial Testing）を要約する。</div></div>
+    <div class="lo-summary-card"><div class="lo-ref">AI-6.1.5 <span class="lo-badge k3">K3</span></div><div class="lo-desc">メタモルフィックテストでテストケースを導出する。</div></div>
+    <div class="lo-summary-card"><div class="lo-ref">AI-6.1.7 <span class="lo-badge k2">K2</span></div><div class="lo-desc">運用中MLシステムでのドリフトテストを説明する。</div></div>
+    <div class="lo-summary-card"><div class="lo-ref">AI-6.1.8 <span class="lo-badge k2">K2</span></div><div class="lo-desc">過学習と学習不足の検出方法を説明する。</div></div>
+    <div class="lo-summary-card"><div class="lo-ref">AI-6.1.9 <span class="lo-badge k2">K2</span></div><div class="lo-desc">A/Bテストの使い方を説明する。</div></div>
+    <div class="lo-summary-card"><div class="lo-ref">AI-6.1.10 <span class="lo-badge k2">K2</span></div><div class="lo-desc">バックツーバックテストの使い方を説明する。</div></div>
+  </div>
+
+  <div class="content-layout">
+    <article>
+      <section class="bilingual-section" id="sec-6-1">
+        <div class="en-column">
+          <details class="en-original" open>
+            <summary>Original English</summary>
+            <div class="en-text">
+              <p>Model testing focuses on the ML model itself. It evaluates whether model behavior is acceptable for intended use, whether the model is robust against unusual or hostile inputs, and whether it continues to perform after deployment.</p>
+            </div>
+          </details>
+        </div>
+        <div class="ja-column">
+          <h2 id="model-risk">6.1 MLモデルリスクとテスト観点</h2>
+          <p>モデルテストは、MLワークフローの成果物であるモデルそのものを対象にします。入力データテストが「モデルへ入るデータ」を扱うのに対し、モデルテストは「学習済みモデルが意図した用途に対して許容できる振る舞いをするか」を検証します。</p>
+          <p>主な観点は、機能性能、堅牢性、公平性、説明可能性、ドリフト、過学習（Overfitting）・学習不足（Underfitting）、運用中の性能劣化です。単一の正解だけで判定できない場合が多いため、統計的評価、しきい値、許容範囲、リスクベースの優先順位付けが重要になります。</p>
+          <div class="info-box tip"><span class="box-title">試験のポイント</span> モデルテストでは「評価データで性能を見る」だけでなく、敵対的入力、データ分布の変化、運用環境での比較、モデル文書レビューまで含めて考える。</div>
+        </div>
+      </section>
+
+      <section class="bilingual-section" id="sec-6-2">
+        <div class="en-column">
+          <details class="en-original">
+            <summary>Original English</summary>
+            <div class="en-text">
+              <p>Model documentation review examines intended use, assumptions, training data, known limitations, evaluation results, ethical considerations, and operational monitoring requirements.</p>
+            </div>
+          </details>
+        </div>
+        <div class="ja-column">
+          <h2 id="documentation-review">6.2 モデル文書レビュー</h2>
+          <p>MLモデルの文書レビューでは、モデルカード、データシート、実験記録、評価レポート、リスク評価、変更履歴などを確認します。レビューの目的は、モデルがどの前提で作られ、どの用途に適し、どの条件では使うべきでないかを明確にすることです。</p>
+          <table class="content-table">
+            <thead><tr><th>レビュー観点</th><th>確認内容</th></tr></thead>
+            <tbody>
+              <tr><td>意図した用途</td><td>対象ユーザー、対象ドメイン、許容される入力、禁止用途。</td></tr>
+              <tr><td>データ</td><td>学習・検証・テストデータの由来、代表性、バイアス、ラベル品質。</td></tr>
+              <tr><td>評価</td><td>使用したメトリクス、しきい値、評価データ、信頼区間。</td></tr>
+              <tr><td>制約</td><td>既知の弱点、外れ値、敵対的入力、説明可能性の限界。</td></tr>
+              <tr><td>運用</td><td>監視項目、ドリフト検出、再学習条件、ロールバック基準。</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="bilingual-section" id="sec-6-3">
+        <div class="en-column">
+          <details class="en-original">
+            <summary>Original English</summary>
+            <div class="en-text">
+              <p>Functional performance testing for probabilistic ML systems uses metrics and acceptance thresholds rather than exact expected outputs. Results should be interpreted statistically.</p>
+            </div>
+          </details>
+        </div>
+        <div class="ja-column">
+          <h2 id="performance-testing">6.3 機能性能テスト</h2>
+          <p>確率的なMLシステムでは、各入力に対して厳密な期待出力を1つだけ定義できない場合があります。そのため、精度、適合率、再現率、F1スコア、ROC-AUC、平均絶対誤差などのメトリクスと合格しきい値で判断します。</p>
+          <p>評価では、データ分割、クラス不均衡、信頼区間、ランダムシード、データリークの有無を確認します。特に安全関連や高リスク用途では、単純な平均性能だけでは不十分で、重要なサブグループごとの性能確認が必要です。</p>
+        </div>
+      </section>
+
+      <section class="bilingual-section" id="sec-6-4">
+        <div class="en-column">
+          <details class="en-original">
+            <summary>Original English</summary>
+            <div class="en-text">
+              <p>Adversarial testing explores how models behave under intentionally crafted inputs. Metamorphic testing checks expected relations between multiple inputs and outputs when an exact oracle is unavailable.</p>
+            </div>
+          </details>
+        </div>
+        <div class="ja-column">
+          <h2 id="robustness-testing">6.4 敵対的テストとメタモルフィックテスト</h2>
+          <p><strong>敵対的テスト（Adversarial Testing）</strong>は、モデルを誤動作させる目的で作られた入力や、自然には少ないが現実に起こりうる入力に対する堅牢性を検証します。画像分類での微小な摂動、テキスト分類での言い換え、LLMでのプロンプトインジェクションなどが例です。</p>
+          <p><strong>メタモルフィックテスト（Metamorphic Testing）</strong>は、正解が一意に決めにくい場合に、入力と出力の間に成り立つべき関係を使ってテストします。たとえば、画像の明るさを少し変えても分類結果は変わらない、同義語に置換しても意図分類は変わらない、といった関係です。</p>
+        </div>
+      </section>
+
+      <section class="bilingual-section" id="sec-6-5">
+        <div class="en-column">
+          <details class="en-original">
+            <summary>Original English</summary>
+            <div class="en-text">
+              <p>Operational testing includes drift testing, overfitting and underfitting detection, A/B testing, and back-to-back testing between model versions.</p>
+            </div>
+          </details>
+        </div>
+        <div class="ja-column">
+          <h2 id="operational-testing">6.5 運用時モデルテスト</h2>
+          <p><strong>ドリフト（Drift）</strong>は、入力データや目的変数の分布、または両者の関係が時間とともに変化する現象です。運用中のMLシステムでは、学習時の性能が維持されているとは限らないため、データドリフト・コンセプトドリフト・性能ドリフトを監視します。</p>
+          <p><strong>過学習（Overfitting）</strong>は学習データに過度に適合して未知データで性能が落ちる状態、<strong>学習不足（Underfitting）</strong>はモデルが十分なパターンを学習できていない状態です。学習曲線、検証性能、テスト性能、エラー分析を組み合わせて判断します。</p>
+          <p><strong>A/Bテスト</strong>は、現行モデルと候補モデルを実運用トラフィックで比較する方法です。<strong>バックツーバックテスト</strong>は、同じ入力セットを複数モデルに与え、出力差分と性能差を比較します。どちらもモデル更新時の回帰リスクを下げるために有効です。</p>
+        </div>
+      </section>
+    </article>
+
+    <aside class="toc-sidebar" aria-label="章内目次">
+      <h4>On This Page</h4>
+      <ul class="toc-list">
+        <li><a href="#model-risk">モデルリスク</a></li>
+        <li><a href="#documentation-review">文書レビュー</a></li>
+        <li><a href="#performance-testing">機能性能</a></li>
+        <li><a href="#robustness-testing">堅牢性</a></li>
+        <li><a href="#operational-testing">運用時テスト</a></li>
+      </ul>
+    </aside>
+  </div>
+</main>
+
+<footer class="app-footer">
+  <span><a href="../index.html">CT-AI v2.0</a></span>
+  <span><a href="chapter-5.html">← 第5章 入力データ</a> · <a href="chapter-7.html">第7章 ML開発 →</a></span>
+  <span>© 2026 · ISTQB® is a registered trademark of ISTQB</span>
+</footer>
+
+<script type="module" src="../assets/js/app.js"></script>
+</body>
+</html>

@@ -1,12 +1,12 @@
 {
-  "name": "ISTQB CT-GenAI 学習アプリ",
-  "short_name": "CT-GenAI",
-  "description": "ISTQB CT-GenAI v1.0 シラバスベースの学習・問題演習ツール",
+  "name": "ISTQB Study Portal",
+  "short_name": "ISTQB Study",
+  "description": "ISTQB CT-GenAI / CT-AI 日本語学習ポータル",
   "start_url": "./index.html",
   "display": "standalone",
   "orientation": "portrait-primary",
   "background_color": "#ffffff",
-  "theme_color": "#2980b9",
+  "theme_color": "#d6eaf8",
   "lang": "ja",
   "icons": [
     {
@@ -24,14 +24,14 @@
   ],
   "shortcuts": [
     {
-      "name": "問題演習",
-      "url": "./quiz.html",
-      "description": "問題演習を開始する"
+      "name": "CT-AI",
+      "url": "./ct-ai/index.html",
+      "description": "CT-AI v2.0 日本語対訳教材を開く"
     },
     {
-      "name": "用語集",
-      "url": "./glossary.html",
-      "description": "用語集を開く"
+      "name": "CT-GenAI",
+      "url": "./ct-genai/index.html",
+      "description": "CT-GenAI v1.0 教材を開く"
     }
   ]
 }

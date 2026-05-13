@@ -1,49 +1,110 @@
-# ISTQB CT-GenAI 学習アプリ
+# ISTQB AI Testing 日本語対訳教材サイト
 
-ISTQB Certified Tester Specialist Level – Testing with Generative AI (CT-GenAI) v1.0 シラバスをベースにした日本語学習ツールです。
+ISTQB が提供するシラバス・サンプル試験を、静的ホスティングで読める日本語対訳教材として再構築する学習サイトです。
 
-🔗 **公開URL**: https://ma-garin.github.io/ISTQB_GenAI_Study/
+公開 URL: https://ma-garin.github.io/ISTQB_GenAI_Study/
 
-## 機能
+## 構成
 
-| ページ | 内容 |
+現在は以下の2資格を分けて配置しています。
+
+| パス | 内容 |
 |---|---|
-| ホーム | 章構成・学習目標一覧 |
-| 学習コンテンツ | 5章・英日バイリンガル解説・試験Tips |
-| 問題演習 | 60問（K1〜K3）・章別・ランダム出題 |
-| 学習スライド | 章別スライド学習（Foundation Seminar 2023 参考） |
-| 用語集 | 50+件・カテゴリ絞り込み・検索 |
-| 日本語対訳 | シラバス全文の日本語訳（英語用語付記） |
+| `/` | 資格ポータル |
+| `/ct-genai/` | CT-GenAI v1.0 教材 |
+| `/ct-ai/` | CT-AI v2.0 日本語対訳教材 |
 
-## 対象シラバス
+今後、ISTQB の他シラバスを追加する場合も、資格ごとに同じ粒度のディレクトリを追加します。
 
-- **資格**: ISTQB CT-GenAI（Certified Tester – Testing with Generative AI）
-- **バージョン**: v1.0
-- **章構成**: 全5章 / 735分 / 36学習目標（K1〜K3）
-
-## PWA対応
-
-スマートフォンのブラウザで開き「ホーム画面に追加」するとアプリとして使用できます。オフラインでも動作します。
-
-## ファイル構成
-
+```text
+.
+├── index.html
+├── shared/
+│   ├── css/
+│   └── js/
+├── ct-ai/
+│   ├── index.html
+│   ├── chapters/
+│   │   ├── chapter-0.html
+│   │   ├── chapter-1.html
+│   │   ├── chapter-2.html
+│   │   ├── chapter-3.html
+│   │   ├── chapter-4.html
+│   │   ├── chapter-5.html
+│   │   ├── chapter-6.html
+│   │   ├── chapter-7.html
+│   │   ├── glossary.html
+│   │   ├── references.html
+│   │   └── appendices.html
+│   ├── assets/
+│   │   ├── css/
+│   │   │   ├── app.css
+│   │   │   └── carbon-overrides.css
+│   │   ├── js/
+│   │   │   ├── app.js
+│   │   │   └── theme.js
+│   │   └── img/
+│   ├── css/
+│   └── js/
+└── ct-genai/
 ```
-├── index.html          # トップページ
-├── study.html          # 学習コンテンツ
-├── quiz.html           # 問題演習
-├── slides.html         # 学習スライド
-├── glossary.html       # 用語集
-├── syllabus-ja.html    # シラバス日本語対訳
-├── css/style.css       # スタイルシート
-├── js/
-│   ├── quiz-data.js    # 問題データ（60問）
-│   ├── slides-data.js  # スライドデータ
-│   └── glossary-data.js# 用語データ
-├── manifest.json       # PWAマニフェスト
-├── sw.js               # Service Worker
-└── icons/              # PWAアイコン
+
+## セットアップ
+
+npm やビルド工程は不要です。ローカル確認は任意の静的 HTTP サーバーで行います。
+
+```bash
+python3 -m http.server 8123
 ```
+
+ブラウザで `http://127.0.0.1:8123/` を開きます。GitHub Pages ではリポジトリ直下をそのまま公開できます。
+
+## GitHub Pages 配置
+
+1. GitHub のリポジトリ設定で Pages を開く
+2. Source を `Deploy from a branch` にする
+3. Branch を `main`、Folder を `/ (root)` にする
+4. 保存後、`https://ma-garin.github.io/ISTQB_GenAI_Study/` で確認する
+
+## Carbon Design System 採用理由
+
+Carbon Design System は、学習教材に必要な可読性・情報密度・アクセシビリティを両立しやすいエンタープライズ向けデザインシステムです。このサイトでは以下を重視しています。
+
+- 固定ヘッダーと左サイドナビによる安定した移動
+- IBM Plex Sans による長文の読みやすさ
+- DataTable / Tag / UI Shell 相当の構造
+- 落ち着いた空色テーマ
+- `prefers-color-scheme` に対応したダークモード
+
+## CT-AI の教材仕様
+
+- 章ごとの HTML 分割
+- 左カラムに英語原文、右カラムに日本語訳
+- 英文表示 ON/OFF
+- 用語検索
+- 章内スクロール進捗バー
+- sticky TOC と現在セクション同期
+- 表・図のカード UI 化
+- GitHub Pages でそのまま配信可能
+
+## カスタマイズ
+
+色は `ct-ai/assets/css/carbon-overrides.css` のトークンを変更します。
+
+```css
+:root {
+  --primary-sky: #5dade2;
+  --primary-sky-dark: #2e86c1;
+  --header-bg: #d6eaf8;
+  --sidebar-bg: #ebf5fb;
+  --content-bg: #fdfefe;
+  --border-soft: #d4e6f1;
+  --text-main: #1f2937;
+}
+```
+
+章ページの共通挙動は `ct-ai/assets/js/app.js`、テーマ切替は `ct-ai/assets/js/theme.js` にあります。
 
 ## 免責事項
 
-本アプリはISTQB公式コンテンツではなく、個人学習目的で作成したものです。試験の合格を保証するものではありません。原文シラバル（英語）は [ISTQB公式サイト](https://www.istqb.org/) を参照してください。
+本サイトは ISTQB 公式サイトではありません。ISTQB® は ISTQB の登録商標です。試験範囲・出題形式・受験要件は変更される可能性があるため、受験前に ISTQB / JSTQB の公式情報を確認してください。
