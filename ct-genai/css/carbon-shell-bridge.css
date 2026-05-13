@@ -2,14 +2,25 @@
 :root {
   --primary: #2e86c1;
   --primary-dark: #1a5276;
+  --color-text-primary: #1f2937;
+  --color-text-secondary: #334155;
+  --color-text-muted: #475569;
+  --color-bg-page: #fdfefe;
+  --color-bg-surface: #ffffff;
+  --color-bg-surface-soft: #f4f9fc;
+  --color-bg-header: #d6eaf8;
+  --color-bg-sidebar: #ebf5fb;
+  --color-border: #d4e6f1;
+  --color-link: #1a5276;
+  --color-on-blue: #ffffff;
   --header-bg: #d6eaf8;
   --border-soft: #d4e6f1;
   --surface-soft: #ebf5fb;
-  --text-main: #1f2937;
-  --text-secondary: #374151;
-  --text-muted: #64748b;
-  --card: #ffffff;
-  --bg: #fdfefe;
+  --text-main: var(--color-text-primary);
+  --text-secondary: var(--color-text-secondary);
+  --text-muted: var(--color-text-muted);
+  --card: var(--color-bg-surface);
+  --bg: var(--color-bg-page);
 }
 
 body {
@@ -96,6 +107,17 @@ li,
 
 .dark-mode,
 [data-carbon-theme="g100"] {
+  --color-text-primary: #f7fbff;
+  --color-text-secondary: #d8e6f2;
+  --color-text-muted: #b6ccdd;
+  --color-bg-page: #0b1620;
+  --color-bg-surface: #111c26;
+  --color-bg-surface-soft: #172838;
+  --color-bg-header: #172838;
+  --color-bg-sidebar: #101d29;
+  --color-border: #33506a;
+  --color-link: #b8e3fb;
+  --color-on-blue: #ffffff;
   --header-bg: #152534;
   --border-soft: #294156;
   --surface-soft: #101d29;
@@ -106,6 +128,53 @@ li,
   --text-muted: #a9bdcf;
   --primary: #8dccf1;
   --primary-dark: #b8e3fb;
+}
+
+/* Final contrast pass for legacy inline and page-specific styles. */
+.en-line,
+.ja-line,
+.info-box,
+.exam-tip,
+.chapter-summary,
+.lo-desc,
+.slide-card,
+.glossary-item,
+.bilingual-table td,
+table.syllabus-table td,
+.chapter-card p,
+.question-card p,
+.result-excerpt,
+small {
+  color: var(--text-secondary) !important;
+}
+
+.chapter-banner,
+.exam-countdown,
+.achievement-panel {
+  color: var(--color-on-blue) !important;
+}
+
+.chapter-banner *,
+.exam-countdown *,
+.achievement-panel * {
+  color: var(--color-on-blue) !important;
+}
+
+.en-line,
+.bilingual-table td:first-child,
+.chapter-summary,
+.info-box {
+  background: var(--color-bg-surface-soft) !important;
+  border-color: var(--color-border) !important;
+}
+
+.ja-line,
+table.syllabus-table tr:nth-child(even) td {
+  background: var(--color-bg-surface) !important;
+}
+
+a {
+  color: var(--color-link);
 }
 
 [data-carbon-theme="g100"] body,

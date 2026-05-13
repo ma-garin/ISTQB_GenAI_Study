@@ -57,6 +57,17 @@
   --cds-disabled-03: #8d8d8d;
 
   /* App-specific tokens */
+  --color-text-primary: #1f2937;
+  --color-text-secondary: #334155;
+  --color-text-muted: #475569;
+  --color-bg-page: #fdfefe;
+  --color-bg-surface: #ffffff;
+  --color-bg-surface-soft: #f4f9fc;
+  --color-bg-header: #d6eaf8;
+  --color-bg-sidebar: #ebf5fb;
+  --color-border: #d4e6f1;
+  --color-link: #1a5276;
+  --color-on-blue: #ffffff;
   --sky-primary: #5dade2;
   --sky-dark: #2e86c1;
   --sky-darker: #1a5276;
@@ -75,6 +86,17 @@
 
 /* ── Dark Mode (g100) ─────────────────────────────────────── */
 [data-carbon-theme="g100"] {
+  --color-text-primary: #f7fbff;
+  --color-text-secondary: #d8e6f2;
+  --color-text-muted: #b6ccdd;
+  --color-bg-page: #0b1620;
+  --color-bg-surface: #111c26;
+  --color-bg-surface-soft: #172838;
+  --color-bg-header: #172838;
+  --color-bg-sidebar: #101d29;
+  --color-border: #33506a;
+  --color-link: #b8e3fb;
+  --color-on-blue: #ffffff;
   --cds-ui-background: #0b1620;
   --cds-ui-01: #111c26;
   --cds-ui-02: #172838;
@@ -116,8 +138,8 @@ html {
 
 body {
   font-family: var(--font-family);
-  background: var(--cds-ui-background);
-  color: var(--cds-text-01);
+  background: var(--color-bg-page);
+  color: var(--color-text-primary);
   margin: 0;
   padding: 0;
   line-height: 1.5;
@@ -125,12 +147,12 @@ body {
 
 /* ── Carbon Overrides ────────────────────────────────────── */
 .bx--header {
-  background-color: var(--sky-header) !important;
-  border-bottom: 1px solid var(--sky-border) !important;
+  background-color: var(--color-bg-header) !important;
+  border-bottom: 1px solid var(--color-border) !important;
 }
 
 .bx--header__name {
-  color: var(--sky-darker) !important;
+  color: var(--color-link) !important;
   font-weight: 600;
 }
 
@@ -140,7 +162,7 @@ body {
 }
 
 .bx--header__action {
-  color: var(--cds-text-02) !important;
+  color: var(--color-text-primary) !important;
 }
 
 .bx--header__action:hover,
@@ -150,12 +172,13 @@ body {
 }
 
 .bx--side-nav {
-  background-color: var(--sky-sidebar) !important;
-  border-right: 1px solid var(--sky-border) !important;
+  background-color: var(--color-bg-sidebar) !important;
+  border-right: 1px solid var(--color-border) !important;
+  color: var(--color-text-primary) !important;
 }
 
 .bx--side-nav__link {
-  color: var(--cds-text-01) !important;
+  color: var(--color-text-primary) !important;
 }
 
 .bx--side-nav__link:hover,
