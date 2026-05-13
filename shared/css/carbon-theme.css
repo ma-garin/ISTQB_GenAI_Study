@@ -75,15 +75,15 @@
 
 /* ── Dark Mode (g100) ─────────────────────────────────────── */
 [data-carbon-theme="g100"] {
-  --cds-ui-background: #0f1a24;
-  --cds-ui-01: #161616;
-  --cds-ui-02: #1c2a38;
-  --cds-ui-03: #213142;
-  --cds-ui-04: #2d4153;
+  --cds-ui-background: #0b1620;
+  --cds-ui-01: #111c26;
+  --cds-ui-02: #172838;
+  --cds-ui-03: #20364a;
+  --cds-ui-04: #33506a;
   --cds-ui-05: #f4f4f4;
-  --cds-text-01: #f4f4f4;
-  --cds-text-02: #c6c6c6;
-  --cds-text-03: #8d8d8d;
+  --cds-text-01: #f7fbff;
+  --cds-text-02: #d8e6f2;
+  --cds-text-03: #a9bdcf;
   --cds-text-04: #ffffff;
   --cds-text-05: #5dade2;
   --cds-link-01: #5dade2;
@@ -91,17 +91,19 @@
   --cds-interactive-01: #5dade2;
   --cds-interactive-02: #78b9e6;
   --cds-interactive-03: #2e86c1;
-  --cds-hover-ui: #1c2a38;
-  --cds-hover-row: #1c2a38;
-  --cds-selected-ui: #213142;
-  --cds-hover-selected-ui: #2d4153;
+  --cds-hover-ui: #20364a;
+  --cds-hover-row: #20364a;
+  --cds-selected-ui: #20364a;
+  --cds-hover-selected-ui: #33506a;
   --cds-focus: #5dade2;
   --cds-highlight: #1a3a54;
   --cds-skeleton-01: #1c2a38;
   --cds-skeleton-02: #213142;
-  --sky-header: #213142;
-  --sky-sidebar: #1c2a38;
-  --sky-border: #2d4153;
+  --sky-header: #172838;
+  --sky-sidebar: #101d29;
+  --sky-border: #33506a;
+  --sky-dark: #8dccf1;
+  --sky-darker: #b8e3fb;
 }
 
 /* ── Base Reset / Typography ─────────────────────────────── */
@@ -153,7 +155,7 @@ body {
 }
 
 .bx--side-nav__link {
-  color: var(--cds-text-02) !important;
+  color: var(--cds-text-01) !important;
 }
 
 .bx--side-nav__link:hover,
@@ -167,6 +169,16 @@ body {
   background-color: var(--sky-border) !important;
   color: var(--sky-darker) !important;
   font-weight: 600;
+}
+
+[data-carbon-theme="g100"] .bx--header__name,
+[data-carbon-theme="g100"] .bx--header__action,
+[data-carbon-theme="g100"] .bx--side-nav__header,
+[data-carbon-theme="g100"] .bx--side-nav__link,
+[data-carbon-theme="g100"] .cert-card,
+[data-carbon-theme="g100"] .cert-card-body p,
+[data-carbon-theme="g100"] .cert-stat-label {
+  opacity: 1;
 }
 
 .bx--side-nav__link--current::before,

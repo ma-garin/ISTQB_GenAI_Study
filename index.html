@@ -111,12 +111,22 @@
       border-radius: 10px;
     }
 
-    .cert-genai .cert-icon { background: #eaf4fb; color: #2e86c1; }
-    .cert-genai .cert-card-header { border-top: 3px solid #2e86c1; }
-    .cert-ai    .cert-icon { background: #e8f5e9; color: #2e7d32; }
-    .cert-ai    .cert-card-header { border-top: 3px solid #2e7d32; }
-    .cert-tae   .cert-icon { background: #fce4ec; color: #c62828; }
-    .cert-tae   .cert-card-header { border-top: 3px solid #c62828; }
+    .cert-genai .cert-icon,
+    .cert-ai .cert-icon {
+      background: #eaf4fb;
+      color: #2e86c1;
+    }
+    .cert-genai .cert-card-header,
+    .cert-ai .cert-card-header {
+      border-top: 3px solid #5dade2;
+    }
+    .cert-tae .cert-icon {
+      background: #eef2f6;
+      color: #64748b;
+    }
+    .cert-tae .cert-card-header {
+      border-top: 3px solid #94a3b8;
+    }
 
     @media (max-width: 1055px) {
       .portal-content { margin-left: 0 !important; }
@@ -292,7 +302,7 @@
         <div class="cert-icon">🧠</div>
         <div>
           <div style="font-size:0.75rem;font-weight:600;color:var(--cds-text-03);">ISTQB® Certified Tester</div>
-          <div style="font-size:0.875rem;color:#2e7d32;font-weight:600;">CT-AI</div>
+          <div style="font-size:0.875rem;color:var(--sky-darker);font-weight:600;">CT-AI</div>
         </div>
       </div>
       <div class="cert-card-body">
@@ -318,7 +328,7 @@
         <div class="cert-icon">⚙️</div>
         <div>
           <div style="font-size:0.75rem;font-weight:600;color:var(--cds-text-03);">ISTQB® Certified Tester</div>
-          <div style="font-size:0.875rem;color:#c62828;font-weight:600;">CT-TAE</div>
+          <div style="font-size:0.875rem;color:var(--cds-text-02);font-weight:600;">CT-TAE</div>
         </div>
         <span class="cert-coming-badge" style="margin-left:auto;">近日公開</span>
       </div>
