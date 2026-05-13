@@ -1,0 +1,947 @@
+<!DOCTYPE html>
+<html lang="ja" data-carbon-theme="white">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>第3章 機械学習の基礎 — CT-AI v2.0</title>
+  <link rel="stylesheet" href="https://unpkg.com/carbon-components@10.58.0/css/carbon-components.min.css">
+  <link rel="stylesheet" href="../../shared/css/carbon-theme.css">
+  <link rel="stylesheet" href="../../shared/css/shell.css">
+  <link rel="stylesheet" href="../css/ct-ai.css">
+  <style>
+    /* Chapter 3 layout: main + TOC */
+    .ch3-layout {
+      display: grid;
+      grid-template-columns: 1fr 210px;
+      gap: 32px;
+      align-items: start;
+    }
+    @media (max-width: 1280px) {
+      .ch3-layout { grid-template-columns: 1fr; }
+      .toc-sidebar { display: none; }
+    }
+
+    /* Keyword chips */
+    .keyword-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin: 0 0 32px;
+    }
+    .keyword-chip {
+      background: var(--cds-ui-02);
+      border: 1px solid var(--sky-border);
+      border-radius: 12px;
+      padding: 3px 10px;
+      font-size: 0.75rem;
+      color: var(--sky-darker);
+      font-style: italic;
+    }
+
+    /* Chapter navigation */
+    .chapter-nav-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px 0 0;
+      border-top: 1px solid var(--sky-border);
+      margin-top: 40px;
+      gap: 12px;
+    }
+    .chapter-nav-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 16px;
+      background: var(--cds-ui-02);
+      border: 1px solid var(--sky-border);
+      border-radius: 4px;
+      color: var(--sky-dark);
+      text-decoration: none;
+      font-size: 0.875rem;
+      transition: background 0.15s;
+    }
+    .chapter-nav-btn:hover { background: var(--sky-border); color: var(--sky-darker); }
+
+    /* Section anchor */
+    .section-anchor { scroll-margin-top: calc(var(--header-height) + 20px); }
+
+    /* ML Workflow diagram */
+    .ml-workflow {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0;
+      margin: 16px 0;
+      font-size: 0.8125rem;
+    }
+    .ml-step {
+      background: var(--cds-ui-02);
+      border: 1px solid var(--sky-border);
+      border-radius: 4px;
+      padding: 8px 12px;
+      text-align: center;
+      min-width: 100px;
+      font-size: 0.8125rem;
+      color: var(--cds-text-01);
+      line-height: 1.3;
+    }
+    .ml-step strong { display: block; font-size: 0.75rem; color: var(--sky-darker); margin-bottom: 2px; }
+    .ml-arrow {
+      padding: 0 4px;
+      color: var(--sky-dark);
+      font-size: 1rem;
+      flex-shrink: 0;
+    }
+    @media (max-width: 800px) {
+      .ml-workflow { flex-direction: column; align-items: flex-start; gap: 4px; }
+      .ml-arrow { transform: rotate(90deg); margin-left: 44px; }
+    }
+
+    /* NN diagram */
+    .nn-diagram {
+      display: flex;
+      gap: 24px;
+      align-items: center;
+      margin: 16px 0;
+      overflow-x: auto;
+      padding: 12px;
+      background: var(--cds-ui-02);
+      border: 1px solid var(--sky-border);
+      border-radius: 4px;
+    }
+    .nn-layer {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      align-items: center;
+    }
+    .nn-layer-label {
+      font-size: 0.6875rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      color: var(--cds-text-03);
+      letter-spacing: 0.06em;
+      margin-bottom: 4px;
+    }
+    .nn-neuron {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      border: 2px solid var(--sky-dark);
+      background: var(--cds-ui-01);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.65rem;
+      color: var(--sky-darker);
+      font-weight: 600;
+    }
+    .nn-arrow-col {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.25rem;
+      color: var(--sky-border);
+    }
+
+    /* Worked example box */
+    .worked-example {
+      background: var(--cds-ui-01);
+      border: 2px solid var(--ch3-color, #2e7d32);
+      border-radius: 6px;
+      padding: 20px;
+      margin: 16px 0;
+    }
+    .worked-example h4 {
+      margin: 0 0 12px;
+      color: var(--ch3-color, #2e7d32);
+      font-size: 1rem;
+      font-weight: 600;
+    }
+    .metric-result {
+      display: flex;
+      align-items: baseline;
+      gap: 8px;
+      padding: 6px 0;
+      border-bottom: 1px solid var(--sky-border);
+      font-size: 0.875rem;
+    }
+    .metric-result:last-child { border-bottom: none; }
+    .metric-name { font-weight: 600; color: var(--cds-text-01); min-width: 140px; }
+    .metric-calc { color: var(--cds-text-03); font-family: 'IBM Plex Mono', monospace; font-size: 0.8rem; flex: 1; }
+    .metric-value { font-weight: 700; color: var(--sky-darker); font-family: 'IBM Plex Mono', monospace; }
+  </style>
+</head>
+<body>
+
+<!-- ── Header ───────────────────────────────────────────────── -->
+<header class="bx--header" role="banner">
+  <button class="bx--header__menu-trigger bx--header__action" data-sidebar-trigger aria-label="メニュー" aria-expanded="false">&#9776;</button>
+  <a class="bx--header__name" href="../../index.html">
+    <svg class="header-logo-svg" viewBox="0 0 24 24" fill="none"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" stroke="#2e86c1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    <span>ISTQB Study Portal</span>
+    <span class="header-product-name">/ CT-AI v2.0</span>
+  </a>
+  <div class="bx--header__global">
+    <a href="../../index.html" class="bx--header__action" style="font-size:0.75rem;width:auto;padding:0 12px;">← ポータル</a>
+    <button class="bx--header__action header-search-btn" data-search-open aria-label="検索">&#128269;</button>
+    <button class="bx--header__action header-theme-btn" data-theme-toggle data-theme-icon aria-label="ダークモードに切替">🌙</button>
+  </div>
+</header>
+
+<!-- ── Sidebar overlay (mobile) ─────────────────────────────── -->
+<div id="sidebar-overlay" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.4);z-index:7800;"></div>
+
+<!-- ── Side Nav ─────────────────────────────────────────────── -->
+<nav class="bx--side-nav" aria-label="CT-AI ナビゲーション">
+  <ul class="bx--side-nav__nav" role="list">
+    <li class="bx--side-nav__header">ポータル</li>
+    <li class="bx--side-nav__item"><a href="../../index.html" class="bx--side-nav__link"><span class="bx--side-nav__link-text">← ポータルに戻る</span></a></li>
+    <li class="bx--side-nav__item"><a href="../index.html" class="bx--side-nav__link"><span class="bx--side-nav__link-text">CT-AI ホーム</span></a></li>
+    <li class="bx--side-nav__header">CT-AI v2.0 章</li>
+    <li class="bx--side-nav__item"><a href="chapter-0.html" class="bx--side-nav__link"><span class="bx--side-nav__link-text">第0章 序文</span></a></li>
+    <li class="bx--side-nav__item"><a href="chapter-1.html" class="bx--side-nav__link"><span class="bx--side-nav__link-text">第1章 AI入門</span><span class="side-nav-chapter-badge ch1">120分</span></a></li>
+    <li class="bx--side-nav__item"><a href="chapter-2.html" class="bx--side-nav__link"><span class="bx--side-nav__link-text">第2章 品質特性</span><span class="side-nav-chapter-badge ch2">45分</span></a></li>
+    <li class="bx--side-nav__item"><a href="chapter-3.html" class="bx--side-nav__link bx--side-nav__link--current"><span class="bx--side-nav__link-text">第3章 機械学習</span><span class="side-nav-chapter-badge ch3">375分</span></a></li>
+    <li class="bx--side-nav__item"><a href="chapter-4.html" class="bx--side-nav__link"><span class="bx--side-nav__link-text">第4章 AIテスト</span><span class="side-nav-chapter-badge ch4">195分</span></a></li>
+    <li class="bx--side-nav__item"><a href="chapter-5.html" class="bx--side-nav__link"><span class="bx--side-nav__link-text">第5章 入力データ</span><span class="side-nav-chapter-badge ch5">180分</span></a></li>
+    <li class="bx--side-nav__item"><a href="chapter-6.html" class="bx--side-nav__link"><span class="bx--side-nav__link-text">第6章 モデルテスト</span><span class="side-nav-chapter-badge ch6">225分</span></a></li>
+    <li class="bx--side-nav__item"><a href="chapter-7.html" class="bx--side-nav__link"><span class="bx--side-nav__link-text">第7章 ML開発</span><span class="side-nav-chapter-badge ch7">30分</span></a></li>
+    <li class="bx--side-nav__header">補足資料</li>
+    <li class="bx--side-nav__item"><a href="glossary.html" class="bx--side-nav__link"><span class="bx--side-nav__link-text">用語集</span></a></li>
+    <li class="bx--side-nav__item"><a href="references.html" class="bx--side-nav__link"><span class="bx--side-nav__link-text">参考文献</span></a></li>
+    <li class="bx--side-nav__item"><a href="appendices.html" class="bx--side-nav__link"><span class="bx--side-nav__link-text">付録（BO/LO）</span></a></li>
+  </ul>
+</nav>
+
+<!-- ── Search Dialog ────────────────────────────────────────── -->
+<div id="search-dialog" hidden role="dialog" aria-modal="true" aria-label="検索">
+  <div class="search-modal">
+    <div class="search-input-wrap"><span>&#128269;</span><input id="search-input" type="search" placeholder="キーワードで検索…" autocomplete="off"></div>
+    <div id="search-results" class="search-results"></div>
+  </div>
+</div>
+
+<!-- ── Main Content ──────────────────────────────────────────── -->
+<main class="bx--content">
+
+  <!-- Chapter Hero -->
+  <div class="chapter-hero ch3">
+    <p class="chapter-num">第3章</p>
+    <h1>機械学習の基礎</h1>
+    <p class="chapter-en-title">Machine Learning Fundamentals</p>
+    <div class="chapter-meta">
+      <span class="meta-item">⏱ 375分</span>
+      <span class="meta-item">🎯 8 LO + 4 HO</span>
+      <span class="meta-item">🔑 K2 / K3</span>
+    </div>
+  </div>
+
+  <!-- LO Summary Cards -->
+  <div class="lo-summary-grid">
+    <div class="lo-summary-card">
+      <div class="lo-ref">AI-3.1.1 · K2</div>
+      <div class="lo-desc">MLの異なる形式を区別できる</div>
+    </div>
+    <div class="lo-summary-card">
+      <div class="lo-ref">AI-3.1.2 · K2</div>
+      <div class="lo-desc">MLワークフローを要約できる</div>
+    </div>
+    <div class="lo-summary-card">
+      <div class="lo-ref">AI-3.1.4 · K2</div>
+      <div class="lo-desc">事前学習済みモデル・ファインチューニング・RAGの利用を要約できる</div>
+    </div>
+    <div class="lo-summary-card">
+      <div class="lo-ref">AI-3.2.1 · K2</div>
+      <div class="lo-desc">データ準備に関する活動を説明できる</div>
+    </div>
+    <div class="lo-summary-card">
+      <div class="lo-ref">AI-3.2.3 · K2</div>
+      <div class="lo-desc">訓練・検証・テストデータセットの用途を対比できる</div>
+    </div>
+    <div class="lo-summary-card" style="border-color:#f57f17;">
+      <div class="lo-ref" style="color:#f57f17;">AI-3.3.1 · K3 ⭐</div>
+      <div class="lo-desc">混同行列からMLの機能的性能指標を計算できる</div>
+    </div>
+    <div class="lo-summary-card">
+      <div class="lo-ref">AI-3.4.1 · K2</div>
+      <div class="lo-desc">深層ニューラルネットワークの構造と動作を説明できる</div>
+    </div>
+    <div class="lo-summary-card">
+      <div class="lo-ref">AI-3.4.3 · K2</div>
+      <div class="lo-desc">ニューラルネットワークのカバレッジ測定を説明できる</div>
+    </div>
+  </div>
+
+  <!-- Keyword chips -->
+  <div class="keyword-chips">
+    <span class="keyword-chip">supervised learning</span>
+    <span class="keyword-chip">unsupervised learning</span>
+    <span class="keyword-chip">reinforcement learning</span>
+    <span class="keyword-chip">ML workflow</span>
+    <span class="keyword-chip">training dataset</span>
+    <span class="keyword-chip">validation dataset</span>
+    <span class="keyword-chip">test dataset</span>
+    <span class="keyword-chip">data preparation</span>
+    <span class="keyword-chip">data acquisition</span>
+    <span class="keyword-chip">data preprocessing</span>
+    <span class="keyword-chip">feature engineering</span>
+    <span class="keyword-chip">confusion matrix</span>
+    <span class="keyword-chip">precision</span>
+    <span class="keyword-chip">recall</span>
+    <span class="keyword-chip">F1-score</span>
+    <span class="keyword-chip">accuracy</span>
+    <span class="keyword-chip">neural network</span>
+    <span class="keyword-chip">deep neural network</span>
+    <span class="keyword-chip">activation function</span>
+    <span class="keyword-chip">backpropagation</span>
+    <span class="keyword-chip">overfitting</span>
+    <span class="keyword-chip">hyperparameter</span>
+    <span class="keyword-chip">pretrained model</span>
+    <span class="keyword-chip">fine-tuning</span>
+    <span class="keyword-chip">RAG</span>
+    <span class="keyword-chip">neuron coverage</span>
+  </div>
+
+  <!-- Two-column layout: content + TOC -->
+  <div class="ch3-layout">
+
+    <!-- Main content column -->
+    <div>
+
+      <!-- ══════════════════════════════════════════════════════
+           SECTION 3.1.1 — Different Forms of Machine Learning
+           ══════════════════════════════════════════════════════ -->
+      <div class="bilingual-section section-anchor" id="s311">
+        <div class="en-column">
+          <details class="en-original">
+            <summary>Original English ▸</summary>
+            <div class="en-text">
+              <p>Machine learning is a subset of artificial intelligence in which systems learn from data to improve their performance on a task without being explicitly programmed. The three primary paradigms are supervised learning, unsupervised learning, and reinforcement learning.</p>
+              <p>In supervised learning, a model is trained on labeled data — each training example consists of an input and a corresponding correct output (label). The model learns to map inputs to outputs, and is evaluated on unseen data. Common applications include spam detection, image classification, and credit scoring. Key algorithms include linear regression, decision trees, support vector machines (SVM), and random forests.</p>
+              <p>In unsupervised learning, no labels are provided. The model discovers structure, patterns, or groupings within the data autonomously. Clustering (k-means, hierarchical clustering) groups similar data points, while dimensionality reduction (PCA) compresses the feature space.</p>
+              <p>In reinforcement learning, an agent learns by interacting with an environment and receiving reward signals. The agent maximizes cumulative reward over time. Applications include game playing, robotics control, and recommendation systems.</p>
+              <p>Deep learning is a subset of ML using multi-layer neural networks, capable of learning hierarchical representations from raw data such as images and text.</p>
+            </div>
+          </details>
+        </div>
+        <div class="ja-column">
+          <div class="lo-card"><span class="lo-id">AI-3.1.1</span><span class="lo-badge k2">K2</span><span>MLの異なる形式を区別できる</span></div>
+          <h2>3.1.1 機械学習の主要パラダイム</h2>
+          <p>機械学習（ML）は人工知能の一分野であり、明示的なプログラミングなしにデータから学習してタスクの性能を向上させるシステムです。主要なパラダイムは<strong>教師あり学習</strong>・<strong>教師なし学習</strong>・<strong>強化学習</strong>の3種類です。</p>
+
+          <h3>教師あり学習（Supervised Learning）</h3>
+          <p><strong>ラベル付きデータ</strong>（入力と正解ペア）を用いてモデルを訓練します。未知データへの予測・分類を目的とします。</p>
+          <ul>
+            <li><strong>応用例：</strong> スパムメール検出、画像分類、信用スコアリング、医療診断</li>
+            <li><strong>主なアルゴリズム：</strong> 線形回帰、決定木、サポートベクターマシン（SVM）、ランダムフォレスト</li>
+            <li><strong>評価指標：</strong> 精度・適合率・再現率・F1スコア（→ 3.3.1節参照）</li>
+          </ul>
+
+          <h3>教師なし学習（Unsupervised Learning）</h3>
+          <p><strong>ラベルなしデータ</strong>から構造・パターン・グループを自律的に発見します。</p>
+          <ul>
+            <li><strong>クラスタリング：</strong> k-means（データを k 個のクラスタに分割）、階層的クラスタリング（デンドログラムで可視化）</li>
+            <li><strong>次元削減：</strong> 主成分分析（PCA）— 高次元データを低次元で表現。可視化・前処理に有用</li>
+            <li><strong>応用例：</strong> 顧客セグメンテーション、異常検知、推薦システム</li>
+          </ul>
+
+          <h3>強化学習（Reinforcement Learning）</h3>
+          <p><strong>エージェント</strong>が環境と相互作用し、<strong>報酬シグナル</strong>を受け取りながら累積報酬を最大化する行動方策を学習します。</p>
+          <ul>
+            <li><strong>構成要素：</strong> エージェント、環境、状態（State）、行動（Action）、報酬（Reward）、方策（Policy）</li>
+            <li><strong>応用例：</strong> ゲームプレイ（AlphaGo）、ロボット制御、推薦システム</li>
+          </ul>
+
+          <h3>比較表</h3>
+          <table class="content-table">
+            <thead>
+              <tr><th>パラダイム</th><th>学習データ</th><th>目標</th><th>主な応用</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>教師あり学習</td><td>ラベル付き（入力＋正解）</td><td>入力→出力の写像を学習</td><td>分類・回帰</td></tr>
+              <tr><td>教師なし学習</td><td>ラベルなし</td><td>データの構造発見</td><td>クラスタリング・次元削減</td></tr>
+              <tr><td>強化学習</td><td>報酬シグナル</td><td>累積報酬の最大化</td><td>制御・ゲーム</td></tr>
+              <tr><td>深層学習</td><td>大量データ（通常ラベル付き）</td><td>階層的表現の学習</td><td>画像・音声・NLP</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- ══════════════════════════════════════════════════════
+           SECTION 3.1.2 — Machine Learning Workflow
+           ══════════════════════════════════════════════════════ -->
+      <div class="bilingual-section section-anchor" id="s312">
+        <div class="en-column">
+          <details class="en-original">
+            <summary>Original English ▸</summary>
+            <div class="en-text">
+              <p>The ML workflow is an iterative, multi-phase process. Phases include: (1) Problem Definition — clarify the business problem and define success criteria; (2) Data Preparation — acquire, clean, and preprocess data; (3) Model Selection — choose an appropriate algorithm and architecture; (4) Model Training — fit the model on training data; (5) Model Evaluation — assess performance on validation and test data; (6) Model Deployment — integrate into production systems; (7) Model Monitoring — track performance and detect drift.</p>
+              <p>The workflow is not strictly linear. Poor evaluation results trigger a return to data preparation or model selection. Detected drift in production triggers retraining. The train/validation/test split ensures that the final evaluation is performed on data the model has never seen.</p>
+            </div>
+          </details>
+        </div>
+        <div class="ja-column">
+          <div class="lo-card"><span class="lo-id">AI-3.1.2</span><span class="lo-badge k2">K2</span><span>MLワークフローを要約できる</span></div>
+          <h2>3.1.2 機械学習ワークフロー</h2>
+          <p>MLの開発は、線形ではなく<strong>反復的</strong>なワークフローで行われます。評価結果が不十分な場合は前のフェーズに戻り、再調整します。</p>
+
+          <!-- Workflow Diagram -->
+          <div class="ml-workflow" role="img" aria-label="MLワークフローの流れ図">
+            <div class="ml-step"><strong>1</strong>問題定義</div>
+            <div class="ml-arrow">→</div>
+            <div class="ml-step"><strong>2</strong>データ準備</div>
+            <div class="ml-arrow">→</div>
+            <div class="ml-step"><strong>3</strong>モデル選択</div>
+            <div class="ml-arrow">→</div>
+            <div class="ml-step"><strong>4</strong>モデル訓練</div>
+            <div class="ml-arrow">→</div>
+            <div class="ml-step"><strong>5</strong>モデル評価</div>
+            <div class="ml-arrow">→</div>
+            <div class="ml-step"><strong>6</strong>デプロイ</div>
+            <div class="ml-arrow">→</div>
+            <div class="ml-step"><strong>7</strong>監視・運用</div>
+          </div>
+
+          <h3>各フェーズの詳細</h3>
+          <table class="content-table">
+            <thead>
+              <tr><th>フェーズ</th><th>主な活動</th><th>成果物</th></tr>
+            </thead>
+            <tbody>
+              <tr><td><strong>1. 問題定義</strong></td><td>ビジネス課題の明確化、成功基準・品質特性の定義、データ要件の特定</td><td>問題記述書、受け入れ基準</td></tr>
+              <tr><td><strong>2. データ準備</strong></td><td>データ収集・クリーニング・前処理・特徴量エンジニアリング（→ 3.2.1節）</td><td>クリーンデータセット</td></tr>
+              <tr><td><strong>3. モデル選択</strong></td><td>アルゴリズム候補の評価、ベースライン設定、アーキテクチャ検討</td><td>モデルアーキテクチャ仕様</td></tr>
+              <tr><td><strong>4. モデル訓練</strong></td><td>訓練データでパラメータを最適化、ハイパーパラメータ探索</td><td>訓練済みモデル</td></tr>
+              <tr><td><strong>5. モデル評価</strong></td><td>検証・テストデータで性能評価（→ 3.3.1節）、過学習チェック</td><td>評価レポート</td></tr>
+              <tr><td><strong>6. デプロイ</strong></td><td>本番環境への統合、A/Bテスト、段階的ロールアウト</td><td>本番稼働モデル</td></tr>
+              <tr><td><strong>7. 監視・運用</strong></td><td>性能ドリフト監視、データドリフト検出、再訓練トリガー</td><td>監視ダッシュボード、アラート</td></tr>
+            </tbody>
+          </table>
+
+          <div class="info-box note">
+            <span class="box-title">反復性の重要さ</span>
+            モデル評価（フェーズ5）で性能が受け入れ基準を下回った場合、通常はデータ準備（フェーズ2）またはモデル選択（フェーズ3）に戻ります。本番環境でのドリフト検出（フェーズ7）はフェーズ2〜4の再実行を引き起こすこともあります。
+          </div>
+        </div>
+      </div>
+
+      <!-- ══════════════════════════════════════════════════════
+           SECTION 3.1.4 — Pretrained Models, Fine-Tuning, RAG
+           ══════════════════════════════════════════════════════ -->
+      <div class="bilingual-section section-anchor" id="s314">
+        <div class="en-column">
+          <details class="en-original">
+            <summary>Original English ▸</summary>
+            <div class="en-text">
+              <p>Pretrained models are models trained on large datasets (often billions of parameters) for general tasks. They encode substantial world knowledge and can serve as a reusable base for downstream applications, reducing training time and data requirements significantly.</p>
+              <p>Transfer learning adapts a pretrained model for a specific task. Fine-tuning continues training on a smaller, task-specific dataset, updating some or all model weights. Parameter-Efficient Fine-Tuning (PEFT) methods, such as LoRA (Low-Rank Adaptation), freeze most weights and train only small adapter layers, reducing computational cost.</p>
+              <p>Retrieval-Augmented Generation (RAG) combines a retrieval system (searching a knowledge base) with a generative model. At inference time, relevant documents are retrieved and concatenated with the prompt, enabling the model to produce factually accurate, up-to-date responses without retraining. RAG reduces hallucination and keeps information current.</p>
+            </div>
+          </details>
+        </div>
+        <div class="ja-column">
+          <div class="lo-card"><span class="lo-id">AI-3.1.4</span><span class="lo-badge k2">K2</span><span>事前学習済みモデル・ファインチューニング・RAGを要約できる</span></div>
+          <h2>3.1.4 事前学習済みモデル・ファインチューニング・RAG</h2>
+
+          <h3>事前学習済みモデル（Pretrained Model）</h3>
+          <p>大規模データセット（数十億パラメータ規模）で汎用タスクを対象に学習されたモデルです。世界の広汎な知識を符号化しており、下流タスクの再利用可能なベースとして活用できます。GPT・BERT・LLaMA などが代表例です。</p>
+
+          <h3>転移学習とファインチューニング（Transfer Learning / Fine-Tuning）</h3>
+          <p>事前学習済みモデルを特定タスクに適応させる手法です。タスク固有の小規模データセットで追加訓練し、モデルのウェイト一部または全部を更新します。</p>
+          <ul>
+            <li><strong>フルファインチューニング：</strong> 全ウェイトを更新。精度は高いが計算コストが大きい</li>
+            <li><strong>PEFT / LoRA（Low-Rank Adaptation）：</strong> 大部分のウェイトを固定し、小さなアダプタ層のみを訓練。計算効率が高く、パラメータ数が少ない</li>
+          </ul>
+
+          <h3>RAG（検索拡張生成 — Retrieval-Augmented Generation）</h3>
+          <p>検索システムと生成モデルを組み合わせたアーキテクチャです。推論時に関連文書をナレッジベースから検索し、プロンプトに連結して生成します。</p>
+          <ul>
+            <li><strong>利点：</strong> ハルシネーション（幻覚）の削減、知識の最新性の維持、再訓練不要で情報更新が可能</li>
+            <li><strong>主な用途：</strong> 企業内文書の Q&amp;A、カスタマーサポート、医療情報検索</li>
+          </ul>
+
+          <h3>比較表</h3>
+          <table class="content-table">
+            <thead>
+              <tr><th>アプローチ</th><th>学習の要否</th><th>知識の更新</th><th>主な利点</th><th>主な限界</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>事前学習済みモデル（ゼロショット）</td><td>不要</td><td>学習時点で固定</td><td>即時利用可能</td><td>タスク特化性能が低い</td></tr>
+              <tr><td>ファインチューニング</td><td>必要（少量データ）</td><td>再訓練が必要</td><td>高い精度・タスク特化</td><td>データ準備コスト</td></tr>
+              <tr><td>PEFT / LoRA</td><td>必要（少量パラメータ）</td><td>再訓練が必要</td><td>計算効率が高い</td><td>アダプタ管理の複雑さ</td></tr>
+              <tr><td>RAG</td><td>不要（検索インデックス更新のみ）</td><td>インデックス更新で即時反映</td><td>最新性・透明性</td><td>検索精度に依存</td></tr>
+            </tbody>
+          </table>
+
+          <div class="info-box hands-on">
+            <span class="box-title">ハンズオン演習 HO-3.1.3（H1）</span>
+            事前学習済みモデルをファインチューニングするミニ実習。HO-3.1.3 では、実際に小規模データセットを使ってモデルを特定タスクに適応させる手順を体験します。
+          </div>
+        </div>
+      </div>
+
+      <!-- ══════════════════════════════════════════════════════
+           SECTION 3.2.1 — Data Preparation Activities
+           ══════════════════════════════════════════════════════ -->
+      <div class="bilingual-section section-anchor" id="s321">
+        <div class="en-column">
+          <details class="en-original">
+            <summary>Original English ▸</summary>
+            <div class="en-text">
+              <p>Data preparation is one of the most time-consuming phases of the ML workflow, often consuming 60–80% of the total project effort. It encompasses data acquisition, preprocessing, feature engineering, and data labeling.</p>
+              <p>Data acquisition involves collecting data from structured sources (databases, CSV), unstructured sources (text, images, audio), and synthetic data generation (when real data is scarce or privacy-restricted).</p>
+              <p>Data preprocessing includes: cleaning (handling missing values by imputation or deletion, removing duplicates, treating outliers), transformation (normalization to [0,1] or standardization to zero mean/unit variance, categorical encoding via one-hot or label encoding), and augmentation (for images: rotation, flipping, cropping; for text: paraphrasing, synonym substitution).</p>
+              <p>Feature engineering selects, transforms, or creates input features that improve model performance. Sampling strategies include stratified sampling (preserves class proportions), random sampling, oversampling (SMOTE for minority classes), and undersampling.</p>
+              <p>Data labeling and annotation is the process of assigning ground-truth labels to raw data, often performed by human annotators for supervised learning. Annotation quality directly affects model quality.</p>
+            </div>
+          </details>
+        </div>
+        <div class="ja-column">
+          <div class="lo-card"><span class="lo-id">AI-3.2.1</span><span class="lo-badge k2">K2</span><span>データ準備に関する活動を説明できる</span></div>
+          <h2>3.2.1 データ準備の活動</h2>
+          <p>データ準備は MLワークフロー中最も時間を要するフェーズであり、プロジェクト全工数の<strong>60〜80%</strong>を占めることがあります。大きく4つの活動から構成されます。</p>
+
+          <h3>1. データ収集（Data Acquisition）</h3>
+          <ul>
+            <li><strong>構造化データ：</strong> データベース、CSV、スプレッドシート</li>
+            <li><strong>非構造化データ：</strong> テキスト、画像、音声、動画</li>
+            <li><strong>合成データ：</strong> GAN・シミュレーションによる人工データ生成（実データが希少または個人情報規制がある場合）</li>
+          </ul>
+
+          <h3>2. データ前処理（Data Preprocessing）</h3>
+          <ul>
+            <li><strong>クリーニング：</strong>
+              <ul>
+                <li>欠損値処理 — 平均/中央値補完（imputation）または削除</li>
+                <li>重複レコードの除去</li>
+                <li>外れ値の特定と処理（IQR法・Zスコア法）</li>
+              </ul>
+            </li>
+            <li><strong>変換（Transformation）：</strong>
+              <ul>
+                <li>正規化（Normalization）— 値を [0, 1] の範囲にスケーリング</li>
+                <li>標準化（Standardization）— 平均0・分散1に変換（Z スコア）</li>
+                <li>カテゴリ変数のエンコーディング — One-Hot エンコーディング、ラベルエンコーディング</li>
+              </ul>
+            </li>
+            <li><strong>拡張（Augmentation）：</strong>
+              <ul>
+                <li>画像：回転、反転、クロッピング、色調変換</li>
+                <li>テキスト：パラフレーズ、同義語置換、逆翻訳</li>
+              </ul>
+            </li>
+            <li><strong>サンプリング（Sampling）：</strong>
+              <ul>
+                <li>層化サンプリング（Stratified Sampling）— クラス比率を維持</li>
+                <li>オーバーサンプリング — SMOTE（少数クラスの合成サンプル生成）</li>
+                <li>アンダーサンプリング — 多数クラスを削減してバランスを取る</li>
+              </ul>
+            </li>
+          </ul>
+
+          <h3>3. 特徴量エンジニアリング（Feature Engineering）</h3>
+          <p>モデル性能を向上させるために、入力特徴量を選択・変換・作成するプロセスです。ドメイン知識に基づいて有効な特徴量を設計します。</p>
+          <ul>
+            <li><strong>特徴量選択：</strong> 相関分析、重要度スコアによる冗長特徴の除去</li>
+            <li><strong>特徴量作成：</strong> 既存の特徴量を組み合わせた新特徴量の生成（例：年齢×収入の積）</li>
+          </ul>
+
+          <h3>4. データラベリング・アノテーション</h3>
+          <p>教師あり学習では、生データに正解ラベルを付与する作業が必要です。ラベリング品質がモデル品質に直結するため、アノテーターの訓練・品質管理プロセスが重要です。</p>
+
+          <div class="info-box hands-on">
+            <span class="box-title">ハンズオン演習 HO-3.2.2（H1）</span>
+            実際のデータセットでデータクリーニングと前処理を体験する演習です。欠損値補完・外れ値処理・特徴量エンコーディングの手順を実施します。
+          </div>
+        </div>
+      </div>
+
+      <!-- ══════════════════════════════════════════════════════
+           SECTION 3.2.3 — Training, Validation, and Test Datasets
+           ══════════════════════════════════════════════════════ -->
+      <div class="bilingual-section section-anchor" id="s323">
+        <div class="en-column">
+          <details class="en-original">
+            <summary>Original English ▸</summary>
+            <div class="en-text">
+              <p>The dataset is split into three non-overlapping partitions to enable unbiased model evaluation. The training dataset is used to fit model parameters through optimization. The validation dataset is used during training to tune hyperparameters (learning rate, depth, regularization) and to detect overfitting through early stopping. The test dataset is held out entirely until final evaluation, providing an unbiased estimate of generalization performance.</p>
+              <p>Common split ratios are 70/15/15 or 80/10/10. For small datasets, k-fold cross-validation is preferred: the data is split into k folds, and the model is trained k times, each time using a different fold as the validation set.</p>
+              <p>Data leakage occurs when information from the validation or test set inadvertently flows into training, producing optimistically biased results that do not reflect real-world performance. Common causes include feature scaling on the full dataset before splitting, and time-series data not split chronologically.</p>
+            </div>
+          </details>
+        </div>
+        <div class="ja-column">
+          <div class="lo-card"><span class="lo-id">AI-3.2.3</span><span class="lo-badge k2">K2</span><span>訓練・検証・テストデータセットの用途を対比できる</span></div>
+          <h2>3.2.3 訓練・検証・テストデータセット</h2>
+          <p>公正なモデル評価のため、データセットは重複のない3つのパーティションに分割します。</p>
+
+          <table class="content-table">
+            <thead>
+              <tr><th>データセット</th><th>用途</th><th>タイミング</th><th>典型的な割合</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>訓練データセット</strong><br>(Training)</td>
+                <td>モデルパラメータの最適化（損失関数の最小化）</td>
+                <td>訓練フェーズ全体</td>
+                <td>70〜80%</td>
+              </tr>
+              <tr>
+                <td><strong>検証データセット</strong><br>(Validation)</td>
+                <td>ハイパーパラメータの調整・早期停止（Early Stopping）・過学習の検出</td>
+                <td>訓練中（各エポック後）</td>
+                <td>10〜15%</td>
+              </tr>
+              <tr>
+                <td><strong>テストデータセット</strong><br>(Test)</td>
+                <td>最終的な汎化性能の評価（未知データへの性能推定）</td>
+                <td>開発完了後、1回のみ使用</td>
+                <td>10〜15%</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <h3>交差検証（Cross-Validation）</h3>
+          <p>データ量が少ない場合は <strong>k-fold 交差検証</strong>が有効です。データを k 個のフォールドに分割し、k 回訓練を繰り返します。毎回異なるフォールドを検証に使用し、k 回の結果を平均します。</p>
+
+          <h3>データリーケージ（Data Leakage）のリスク</h3>
+          <p>検証・テストセットの情報が訓練に流出する「データリーケージ」は、楽観的に偏った評価結果を引き起こし、実運用で性能が大幅に低下する原因となります。</p>
+          <ul>
+            <li><strong>よくある原因1：</strong> データ分割前に全データセットでスケーリング（正規化）を行う → 分割後に実施すべき</li>
+            <li><strong>よくある原因2：</strong> 時系列データを時刻順に分割しない → 未来のデータで過去を予測する形になる</li>
+          </ul>
+
+          <div class="info-box tip">
+            <span class="box-title">試験ポイント — 3つのデータセットの役割</span>
+            「検証データセットはモデル選択（ハイパーパラメータ調整）に使い、テストデータセットは最終評価に使う」という区別は頻出です。テストデータセットを複数回使用すると、それは実質的に検証データセットになってしまいます。
+          </div>
+        </div>
+      </div>
+
+      <!-- ══════════════════════════════════════════════════════
+           SECTION 3.3.1 — ML Functional Performance Metrics (K3)
+           ══════════════════════════════════════════════════════ -->
+      <div class="bilingual-section section-anchor" id="s331">
+        <div class="en-column">
+          <details class="en-original">
+            <summary>Original English ▸</summary>
+            <div class="en-text">
+              <p>A confusion matrix summarizes classification model performance by tabulating the counts of actual vs. predicted class labels: True Positive (TP), False Positive (FP), False Negative (FN), True Negative (TN).</p>
+              <p>From the confusion matrix, key metrics are derived: Accuracy = (TP+TN)/(TP+FP+FN+TN); Precision = TP/(TP+FP); Recall = TP/(TP+FN); F1-Score = 2×(Precision×Recall)/(Precision+Recall); Specificity = TN/(TN+FP).</p>
+              <p>The ROC (Receiver Operating Characteristic) curve plots True Positive Rate (Recall) vs. False Positive Rate across different classification thresholds. The AUC (Area Under the Curve) summarizes the overall discriminative ability of the model; AUC = 1.0 is perfect, AUC = 0.5 is no better than random.</p>
+            </div>
+          </details>
+        </div>
+        <div class="ja-column">
+          <div class="lo-card"><span class="lo-id">AI-3.3.1</span><span class="lo-badge k3">K3</span><span>混同行列からML性能指標を計算できる ⭐ 重要</span></div>
+          <h2>3.3.1 ML機能的性能指標</h2>
+          <p>分類モデルの性能評価の基礎となる<strong>混同行列（Confusion Matrix）</strong>と、そこから導出される各種指標を理解します。K3 レベルのため、<em>実際に数値を計算できること</em>が求められます。</p>
+
+          <h3>混同行列の構造</h3>
+          <p>2値分類（陽性 / 陰性）の場合、予測と実際の組み合わせにより4つのセルが生じます：</p>
+
+          <div class="confusion-matrix" role="table" aria-label="混同行列">
+            <div class="cm-header"></div>
+            <div class="cm-header">予測：陽性</div>
+            <div class="cm-header">予測：陰性</div>
+            <div class="cm-header" style="writing-mode:vertical-rl;text-align:center;font-size:0.75rem;padding:0 4px;">実際：陽性</div>
+            <div class="cm-cell cm-tp">TP<br><small>真陽性</small><br><strong>80</strong></div>
+            <div class="cm-cell cm-fn">FN<br><small>偽陰性</small><br><strong>10</strong></div>
+            <div class="cm-header" style="writing-mode:vertical-rl;text-align:center;font-size:0.75rem;padding:0 4px;">実際：陰性</div>
+            <div class="cm-cell cm-fp">FP<br><small>偽陽性</small><br><strong>20</strong></div>
+            <div class="cm-cell cm-tn">TN<br><small>真陰性</small><br><strong>90</strong></div>
+          </div>
+
+          <h3>各セルの定義</h3>
+          <ul>
+            <li><strong>TP（真陽性）：</strong> 実際に陽性で、陽性と予測 → 正解</li>
+            <li><strong>TN（真陰性）：</strong> 実際に陰性で、陰性と予測 → 正解</li>
+            <li><strong>FP（偽陽性）：</strong> 実際は陰性なのに、陽性と予測 → 誤り（Type I Error）</li>
+            <li><strong>FN（偽陰性）：</strong> 実際は陽性なのに、陰性と予測 → 誤り（Type II Error）</li>
+          </ul>
+
+          <h3>性能指標の公式</h3>
+          <div class="formula-box">精度（Accuracy） = (TP + TN) / (TP + FP + FN + TN)</div>
+          <div class="formula-box">適合率（Precision） = TP / (TP + FP)　　　← 陽性予測の信頼度</div>
+          <div class="formula-box">再現率（Recall / Sensitivity） = TP / (TP + FN)　← 実陽性の検出率</div>
+          <div class="formula-box">F1スコア = 2 × (Precision × Recall) / (Precision + Recall)</div>
+          <div class="formula-box">特異度（Specificity） = TN / (TN + FP)　← 実陰性の正検出率</div>
+
+          <!-- Worked Example -->
+          <div class="worked-example">
+            <h4>計算例：TP=80, FP=20, FN=10, TN=90</h4>
+            <p style="font-size:0.875rem;color:var(--cds-text-02);margin-bottom:12px;">合計サンプル数 = 80 + 20 + 10 + 90 = <strong>200</strong></p>
+
+            <div class="metric-result">
+              <span class="metric-name">精度（Accuracy）</span>
+              <span class="metric-calc">= (80 + 90) / 200 = 170 / 200</span>
+              <span class="metric-value">= 0.850 (85.0%)</span>
+            </div>
+            <div class="metric-result">
+              <span class="metric-name">適合率（Precision）</span>
+              <span class="metric-calc">= 80 / (80 + 20) = 80 / 100</span>
+              <span class="metric-value">= 0.800 (80.0%)</span>
+            </div>
+            <div class="metric-result">
+              <span class="metric-name">再現率（Recall）</span>
+              <span class="metric-calc">= 80 / (80 + 10) = 80 / 90</span>
+              <span class="metric-value">≈ 0.889 (88.9%)</span>
+            </div>
+            <div class="metric-result">
+              <span class="metric-name">F1スコア</span>
+              <span class="metric-calc">= 2 × (0.800 × 0.889) / (0.800 + 0.889)<br>= 2 × 0.711 / 1.689</span>
+              <span class="metric-value">≈ 0.842</span>
+            </div>
+            <div class="metric-result">
+              <span class="metric-name">特異度（Specificity）</span>
+              <span class="metric-calc">= 90 / (90 + 20) = 90 / 110</span>
+              <span class="metric-value">≈ 0.818 (81.8%)</span>
+            </div>
+          </div>
+
+          <h3>ROC曲線とAUC</h3>
+          <p><strong>ROC曲線（受信者操作特性曲線）</strong>は、分類閾値を変化させたときの真陽性率（Recall）と偽陽性率（1 - Specificity）のトレードオフを視覚化したものです。</p>
+          <ul>
+            <li><strong>AUC（曲線下面積）= 1.0：</strong> 完全なモデル</li>
+            <li><strong>AUC = 0.5：</strong> ランダム予測と同等（無意味なモデル）</li>
+            <li><strong>AUC &gt; 0.9：</strong> 優れた判別能力（目安）</li>
+          </ul>
+
+          <div class="info-box tip">
+            <span class="box-title">Precision vs. Recall のトレードオフ</span>
+            <ul style="margin:4px 0 0;padding-left:20px;">
+              <li>医療診断（がん検出）→ <strong>再現率（Recall）</strong>を最優先（見逃しを最小化）</li>
+              <li>スパムフィルタ → <strong>適合率（Precision）</strong>を重視（正常メールの誤検出を防ぐ）</li>
+              <li>F1スコアは両者のバランスを取る指標</li>
+            </ul>
+          </div>
+
+          <div class="info-box hands-on">
+            <span class="box-title">ハンズオン演習 HO-3.3.2 / HO-3.3.3（H1）</span>
+            HO-3.3.2：混同行列から各指標を手計算する演習。HO-3.3.3：ROC曲線を描画し AUC を解釈する演習。K3レベルの本 LO は試験でも計算問題として出題されます。
+          </div>
+        </div>
+      </div>
+
+      <!-- ══════════════════════════════════════════════════════
+           SECTION 3.4.1 — Structure and Working of a Deep Neural Network
+           ══════════════════════════════════════════════════════ -->
+      <div class="bilingual-section section-anchor" id="s341">
+        <div class="en-column">
+          <details class="en-original">
+            <summary>Original English ▸</summary>
+            <div class="en-text">
+              <p>A neural network consists of artificial neurons (perceptrons) organized in layers. Each neuron computes a weighted sum of its inputs, adds a bias term, and applies a non-linear activation function to produce an output. Common activation functions include ReLU (Rectified Linear Unit: max(0,x)), sigmoid (outputs between 0 and 1), and softmax (multi-class probability distribution).</p>
+              <p>A deep neural network (DNN) has an input layer, multiple hidden layers, and an output layer. Forward propagation passes data from input through hidden layers to output. Backpropagation computes the gradient of the loss function with respect to each weight using the chain rule, and gradient descent updates weights to minimize loss.</p>
+              <p>Key hyperparameters include learning rate (step size for gradient descent), batch size (number of training samples per weight update), and epochs (number of full passes over training data). Overfitting occurs when the model performs well on training data but poorly on unseen data; it is mitigated by dropout, L1/L2 regularization, and early stopping.</p>
+              <p>Specialized architectures: CNNs (Convolutional Neural Networks) use local filters for image processing; RNNs (Recurrent Neural Networks) process sequential data via feedback connections; Transformers use self-attention mechanisms and dominate NLP and multimodal tasks.</p>
+            </div>
+          </details>
+        </div>
+        <div class="ja-column">
+          <div class="lo-card"><span class="lo-id">AI-3.4.1</span><span class="lo-badge k2">K2</span><span>深層ニューラルネットワークの構造と動作を説明できる</span></div>
+          <h2>3.4.1 深層ニューラルネットワークの構造と動作</h2>
+
+          <h3>ニューロン（パーセプトロン）の動作</h3>
+          <p>人工ニューロンは、複数の入力値を受け取り、重み付き和にバイアスを加え、<strong>活性化関数</strong>を通じた出力を生成します。</p>
+          <div class="formula-box">出力 = activation( Σ(wᵢ × xᵢ) + b )<br><span style="font-size:0.8rem;opacity:0.7;">wᵢ：重み、xᵢ：入力、b：バイアス</span></div>
+
+          <h3>主な活性化関数</h3>
+          <table class="content-table">
+            <thead><tr><th>活性化関数</th><th>式</th><th>用途</th></tr></thead>
+            <tbody>
+              <tr><td><strong>ReLU</strong></td><td>max(0, x)</td><td>隠れ層の標準（勾配消失を軽減）</td></tr>
+              <tr><td><strong>Sigmoid</strong></td><td>1 / (1 + e⁻ˣ)</td><td>2値分類の出力層（0〜1の確率）</td></tr>
+              <tr><td><strong>Softmax</strong></td><td>eˣⁱ / Σeˣʲ</td><td>多クラス分類の出力層（確率分布）</td></tr>
+              <tr><td><strong>tanh</strong></td><td>(eˣ − e⁻ˣ)/(eˣ + e⁻ˣ)</td><td>RNN 系のモデル（-1〜1）</td></tr>
+            </tbody>
+          </table>
+
+          <h3>ネットワーク構造</h3>
+          <!-- Simple NN Diagram -->
+          <div class="nn-diagram" role="img" aria-label="深層ニューラルネットワーク構造図">
+            <div class="nn-layer">
+              <div class="nn-layer-label">入力層</div>
+              <div class="nn-neuron">x₁</div>
+              <div class="nn-neuron">x₂</div>
+              <div class="nn-neuron">x₃</div>
+            </div>
+            <div class="nn-arrow-col">→<br>→<br>→</div>
+            <div class="nn-layer">
+              <div class="nn-layer-label">隠れ層1</div>
+              <div class="nn-neuron">h</div>
+              <div class="nn-neuron">h</div>
+              <div class="nn-neuron">h</div>
+              <div class="nn-neuron">h</div>
+            </div>
+            <div class="nn-arrow-col">→<br>→<br>→<br>→</div>
+            <div class="nn-layer">
+              <div class="nn-layer-label">隠れ層2</div>
+              <div class="nn-neuron">h</div>
+              <div class="nn-neuron">h</div>
+              <div class="nn-neuron">h</div>
+            </div>
+            <div class="nn-arrow-col">→<br>→<br>→</div>
+            <div class="nn-layer">
+              <div class="nn-layer-label">出力層</div>
+              <div class="nn-neuron">ŷ₁</div>
+              <div class="nn-neuron">ŷ₂</div>
+            </div>
+          </div>
+
+          <h3>順伝播（Forward Propagation）と誤差逆伝播（Backpropagation）</h3>
+          <ul>
+            <li><strong>順伝播：</strong> データが入力層から隠れ層を経て出力層まで流れ、予測値を生成</li>
+            <li><strong>損失計算：</strong> 予測値と正解ラベルの差を損失関数（MSE・交差エントロピー等）で定量化</li>
+            <li><strong>誤差逆伝播：</strong> 連鎖律（Chain Rule）を用いて各重みに対する損失の勾配を計算</li>
+            <li><strong>勾配降下法：</strong> 勾配の方向に各重みを更新し、損失を最小化</li>
+          </ul>
+
+          <h3>主要なハイパーパラメータ</h3>
+          <table class="content-table">
+            <thead><tr><th>ハイパーパラメータ</th><th>説明</th><th>調整の影響</th></tr></thead>
+            <tbody>
+              <tr><td><strong>学習率（Learning Rate）</strong></td><td>勾配降下のステップサイズ</td><td>大きすぎると発散、小さすぎると収束が遅い</td></tr>
+              <tr><td><strong>バッチサイズ（Batch Size）</strong></td><td>1回の重み更新に使うサンプル数</td><td>小さいと汎化しやすいが遅い</td></tr>
+              <tr><td><strong>エポック数（Epochs）</strong></td><td>訓練データ全体を何回繰り返すか</td><td>多すぎると過学習のリスク</td></tr>
+            </tbody>
+          </table>
+
+          <h3>過学習（Overfitting）と対策</h3>
+          <p>過学習とは、訓練データには高精度でも未知データに対して性能が大幅に低下する現象です。対策：</p>
+          <ul>
+            <li><strong>ドロップアウト（Dropout）：</strong> 訓練中にランダムにニューロンを無効化</li>
+            <li><strong>L1/L2正則化：</strong> 損失関数に重みのペナルティ項を追加</li>
+            <li><strong>早期停止（Early Stopping）：</strong> 検証損失が悪化したら訓練を停止</li>
+          </ul>
+
+          <h3>特化型アーキテクチャ</h3>
+          <ul>
+            <li><strong>CNN（畳み込みニューラルネットワーク）：</strong> 局所フィルタで画像の空間パターンを抽出。画像分類・物体検出</li>
+            <li><strong>RNN（再帰型ニューラルネットワーク）：</strong> フィードバック接続で時系列データを処理。LSTM・GRU が実用的</li>
+            <li><strong>Transformer：</strong> 自己注意機構（Self-Attention）により長距離依存関係を捉える。GPT・BERT などの基盤</li>
+          </ul>
+
+          <div class="info-box hands-on">
+            <span class="box-title">ハンズオン演習 HO-3.4.2（H1）</span>
+            簡単なニューラルネットワークを実装し、順伝播・逆伝播の動作を確認する演習です。
+          </div>
+        </div>
+      </div>
+
+      <!-- ══════════════════════════════════════════════════════
+           SECTION 3.4.3 — Coverage Measures for Neural Networks
+           ══════════════════════════════════════════════════════ -->
+      <div class="bilingual-section section-anchor" id="s343">
+        <div class="en-column">
+          <details class="en-original">
+            <summary>Original English ▸</summary>
+            <div class="en-text">
+              <p>Traditional code coverage metrics (statement, branch, path) are defined on source code control flow and are not directly applicable to neural networks, which lack explicit branching logic and instead perform continuous numeric computations.</p>
+              <p>Neuron coverage (NC) measures the percentage of neurons activated (output above a threshold) by at least one test input. Higher neuron coverage means more neurons have been "exercised." However, simple neuron coverage is easy to achieve and may not correlate with defect detection.</p>
+              <p>More advanced measures include: k-multisection neuron coverage (KMNC), which divides each neuron's activation range into k sections and measures how many sections are covered; strong neuron activation coverage (SNAC), which focuses on neurons activated beyond their observed training range; and layer boundary coverage (LBC), which considers interactions between consecutive layer neurons.</p>
+              <p>These coverage measures help guide test case generation for neural network testing, analogous to how code coverage guides traditional testing.</p>
+            </div>
+          </details>
+        </div>
+        <div class="ja-column">
+          <div class="lo-card"><span class="lo-id">AI-3.4.3</span><span class="lo-badge k2">K2</span><span>ニューラルネットワークのカバレッジ測定を説明できる</span></div>
+          <h2>3.4.3 ニューラルネットワークのカバレッジ測定</h2>
+
+          <h3>従来コードカバレッジの限界</h3>
+          <p>ステートメントカバレッジ・分岐カバレッジ・パスカバレッジなどの従来のカバレッジ指標は、<strong>ソースコードの制御フロー</strong>を基準としています。しかしニューラルネットワークには明示的な分岐ロジックが存在せず、連続数値演算を行うため、これらの指標は直接適用できません。</p>
+
+          <h3>ニューロンカバレッジ（Neuron Coverage: NC）</h3>
+          <p>最も基本的なNN向けカバレッジ指標です。テスト入力集合によって少なくとも1回活性化（出力値が閾値以上）されたニューロンの割合を測定します。</p>
+          <div class="formula-box">ニューロンカバレッジ = 活性化されたニューロン数 / 全ニューロン数 × 100%</div>
+          <p style="font-size:0.875rem;color:var(--cds-text-03);margin-top:8px;">限界：単純な NC は達成が容易で、欠陥検出能力との相関が低い場合がある</p>
+
+          <h3>高度なカバレッジ指標</h3>
+          <table class="content-table">
+            <thead>
+              <tr><th>指標</th><th>概要</th><th>特徴</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>k-multisection ニューロンカバレッジ（KMNC）</strong></td>
+                <td>各ニューロンの訓練時の活性化範囲を k 個のセクションに分割し、テストがどれだけのセクションをカバーするかを測定</td>
+                <td>ニューロンの「動作範囲の多様性」を評価</td>
+              </tr>
+              <tr>
+                <td><strong>強ニューロン活性化カバレッジ（SNAC）</strong></td>
+                <td>訓練時に観測された活性化範囲を<em>超えて</em>活性化したニューロンに着目</td>
+                <td>境界ケース・分布外入力のテスト促進</td>
+              </tr>
+              <tr>
+                <td><strong>層境界カバレッジ（LBC）</strong></td>
+                <td>隣接する層のニューロン間の相互作用パターンを測定</td>
+                <td>層間の複雑な相互依存関係を考慮</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <h3>従来カバレッジとの比較</h3>
+          <table class="content-table">
+            <thead>
+              <tr><th>観点</th><th>従来コードカバレッジ</th><th>NNカバレッジ</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>対象</td><td>ソースコードの分岐・文</td><td>ニューロンの活性化状態</td></tr>
+              <tr><td>測定対象</td><td>制御フローの網羅度</td><td>ニューロン動作の多様性</td></tr>
+              <tr><td>確定性</td><td>同一入力→同一パス</td><td>確率的（ドロップアウト等）</td></tr>
+              <tr><td>テスト設計への応用</td><td>未実行コードへのテスト追加</td><td>未活性化ニューロンを活性化する入力生成</td></tr>
+            </tbody>
+          </table>
+
+          <div class="info-box note">
+            <span class="box-title">研究の現状と実務への適用</span>
+            NN カバレッジ指標は活発に研究されており、どの指標が欠陥検出に最も有効かはまだ確立されていません。実務では、カバレッジ指標を<em>単独</em>で使うのではなく、多様なテスト入力生成のガイドラインとして活用することが推奨されます。
+          </div>
+        </div>
+      </div>
+
+      <!-- ── Chapter Navigation ─────────────────────────────── -->
+      <div class="chapter-nav-bar">
+        <a href="chapter-2.html" class="chapter-nav-btn">← 第2章 品質特性</a>
+        <a href="../index.html" class="chapter-nav-btn" style="color:var(--cds-text-02);">CT-AI ホーム</a>
+        <a href="chapter-4.html" class="chapter-nav-btn">第4章 AIテスト →</a>
+      </div>
+
+    </div><!-- /main content -->
+
+    <!-- TOC sidebar -->
+    <aside class="toc-sidebar">
+      <h4>このページの内容</h4>
+      <ul class="toc-list" id="toc-list">
+        <li><a href="#s311"><span class="toc-dot"></span>3.1.1 MLの主要パラダイム</a></li>
+        <li><a href="#s312"><span class="toc-dot"></span>3.1.2 MLワークフロー</a></li>
+        <li><a href="#s314"><span class="toc-dot"></span>3.1.4 事前学習・FT・RAG</a></li>
+        <li><a href="#s321"><span class="toc-dot"></span>3.2.1 データ準備</a></li>
+        <li><a href="#s323"><span class="toc-dot"></span>3.2.3 データセット分割</a></li>
+        <li><a href="#s331"><span class="toc-dot"></span>3.3.1 性能指標 ⭐ K3</a></li>
+        <li><a href="#s341"><span class="toc-dot"></span>3.4.1 深層NN の構造</a></li>
+        <li><a href="#s343"><span class="toc-dot"></span>3.4.3 NNカバレッジ</a></li>
+      </ul>
+    </aside>
+
+  </div><!-- /ch3-layout -->
+
+</main>
+
+<!-- ── Footer ────────────────────────────────────────────────── -->
+<footer class="app-footer">
+  <span><a href="../index.html">CT-AI v2.0</a></span>
+  <span><a href="chapter-2.html">← 第2章</a> · <a href="chapter-4.html">第4章 →</a></span>
+  <span>© 2026 · ISTQB®</span>
+</footer>
+
+<script src="../../shared/js/theme.js"></script>
+<script src="../../shared/js/shell.js"></script>
+<script src="../../shared/js/search.js"></script>
+<script src="../js/toc.js"></script>
+</body>
+</html>

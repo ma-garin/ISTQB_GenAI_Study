@@ -1,0 +1,734 @@
+<!DOCTYPE html>
+<html lang="ja" data-carbon-theme="white">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>第1章: AIの概要（Introduction to Artificial Intelligence） — CT-AI v2.0</title>
+  <link rel="stylesheet" href="https://unpkg.com/carbon-components@10.58.0/css/carbon-components.min.css">
+  <link rel="stylesheet" href="../../shared/css/carbon-theme.css">
+  <link rel="stylesheet" href="../../shared/css/shell.css">
+  <link rel="stylesheet" href="../css/ct-ai.css">
+</head>
+<body>
+
+<header class="bx--header" role="banner">
+  <button class="bx--header__menu-trigger bx--header__action" data-sidebar-trigger aria-label="メニュー" aria-expanded="false">&#9776;</button>
+  <a class="bx--header__name" href="../../index.html">
+    <svg class="header-logo-svg" viewBox="0 0 24 24" fill="none"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" stroke="#2e86c1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    <span>ISTQB Study Portal</span>
+    <span class="header-product-name">/ CT-AI v2.0</span>
+  </a>
+  <div class="bx--header__global">
+    <a href="../../index.html" class="bx--header__action" style="font-size:0.75rem;width:auto;padding:0 12px;" title="ポータルに戻る">← ポータル</a>
+    <button class="bx--header__action header-search-btn" data-search-open aria-label="検索" title="検索 (Ctrl+K)">&#128269;</button>
+    <button class="bx--header__action header-theme-btn" data-theme-toggle data-theme-icon aria-label="ダークモードに切替">🌙</button>
+  </div>
+</header>
+
+<div id="sidebar-overlay" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.4);z-index:7800;"></div>
+
+<nav class="bx--side-nav" aria-label="CT-AI ナビゲーション">
+  <ul class="bx--side-nav__nav" role="list">
+    <li class="bx--side-nav__header">ポータル</li>
+    <li class="bx--side-nav__item"><a href="../../index.html" class="bx--side-nav__link"><span class="bx--side-nav__link-text">← ポータルに戻る</span></a></li>
+    <li class="bx--side-nav__item"><a href="../index.html" class="bx--side-nav__link"><span class="bx--side-nav__link-text">CT-AI ホーム</span></a></li>
+    <li class="bx--side-nav__header">CT-AI v2.0 章</li>
+    <li class="bx--side-nav__item"><a href="chapter-0.html" class="bx--side-nav__link"><span class="bx--side-nav__link-text">第0章 序文</span></a></li>
+    <li class="bx--side-nav__item"><a href="chapter-1.html" class="bx--side-nav__link bx--side-nav__link--current"><span class="bx--side-nav__link-text">第1章 AI入門</span><span class="side-nav-chapter-badge ch1">120分</span></a></li>
+    <li class="bx--side-nav__item"><a href="chapter-2.html" class="bx--side-nav__link"><span class="bx--side-nav__link-text">第2章 品質特性</span><span class="side-nav-chapter-badge ch2">45分</span></a></li>
+    <li class="bx--side-nav__item"><a href="chapter-3.html" class="bx--side-nav__link"><span class="bx--side-nav__link-text">第3章 機械学習</span><span class="side-nav-chapter-badge ch3">375分</span></a></li>
+    <li class="bx--side-nav__item"><a href="chapter-4.html" class="bx--side-nav__link"><span class="bx--side-nav__link-text">第4章 AIテスト</span><span class="side-nav-chapter-badge ch4">195分</span></a></li>
+    <li class="bx--side-nav__item"><a href="chapter-5.html" class="bx--side-nav__link"><span class="bx--side-nav__link-text">第5章 入力データ</span><span class="side-nav-chapter-badge ch5">180分</span></a></li>
+    <li class="bx--side-nav__item"><a href="chapter-6.html" class="bx--side-nav__link"><span class="bx--side-nav__link-text">第6章 モデルテスト</span><span class="side-nav-chapter-badge ch6">225分</span></a></li>
+    <li class="bx--side-nav__item"><a href="chapter-7.html" class="bx--side-nav__link"><span class="bx--side-nav__link-text">第7章 ML開発</span><span class="side-nav-chapter-badge ch7">30分</span></a></li>
+    <li class="bx--side-nav__header">補足資料</li>
+    <li class="bx--side-nav__item"><a href="glossary.html" class="bx--side-nav__link"><span class="bx--side-nav__link-text">用語集</span></a></li>
+    <li class="bx--side-nav__item"><a href="references.html" class="bx--side-nav__link"><span class="bx--side-nav__link-text">参考文献</span></a></li>
+    <li class="bx--side-nav__item"><a href="appendices.html" class="bx--side-nav__link"><span class="bx--side-nav__link-text">付録（BO/LO）</span></a></li>
+  </ul>
+</nav>
+
+<div id="search-dialog" hidden role="dialog" aria-modal="true" aria-label="検索">
+  <div class="search-modal">
+    <div class="search-input-wrap"><span>&#128269;</span><input id="search-input" type="search" placeholder="キーワードで検索…" autocomplete="off"></div>
+    <div id="search-results" class="search-results"></div>
+  </div>
+</div>
+
+<main class="bx--content">
+
+  <!-- Chapter Hero -->
+  <div class="chapter-hero ch1">
+    <div class="chapter-num">第1章 — Introduction to Artificial Intelligence</div>
+    <h1>AIの概要</h1>
+    <div class="chapter-en-title">Introduction to Artificial Intelligence</div>
+    <div class="chapter-meta">
+      <span class="meta-item">⏱ 120分</span>
+      <span class="meta-item">🎯 8 LO（AI-1.1.1〜AI-1.1.8）</span>
+      <span class="meta-item">🔑 全 K2</span>
+      <span class="meta-item">BO1・BO2 関連</span>
+    </div>
+  </div>
+
+  <!-- LO Summary Grid -->
+  <div class="lo-summary-grid">
+    <div class="lo-summary-card">
+      <div class="lo-ref">AI-1.1.1 <span class="lo-badge k2">K2</span></div>
+      <div class="lo-desc">AIベースのシステムと従来のシステムの違いを区別する</div>
+    </div>
+    <div class="lo-summary-card">
+      <div class="lo-ref">AI-1.1.2 <span class="lo-badge k2">K2</span></div>
+      <div class="lo-desc">ナローAI・ジェネラルAI・スーパーAIを区別する</div>
+    </div>
+    <div class="lo-summary-card">
+      <div class="lo-ref">AI-1.1.3 <span class="lo-badge k2">K2</span></div>
+      <div class="lo-desc">AIテクノロジーの種類を説明する</div>
+    </div>
+    <div class="lo-summary-card">
+      <div class="lo-ref">AI-1.1.4 <span class="lo-badge k2">K2</span></div>
+      <div class="lo-desc">生成AIを説明する</div>
+    </div>
+    <div class="lo-summary-card">
+      <div class="lo-ref">AI-1.1.5 <span class="lo-badge k2">K2</span></div>
+      <div class="lo-desc">MLシステムのハードウェア選択を比較する</div>
+    </div>
+    <div class="lo-summary-card">
+      <div class="lo-ref">AI-1.1.6 <span class="lo-badge k2">K2</span></div>
+      <div class="lo-desc">AIモデルの開発・ホスティングの選択肢を比較する</div>
+    </div>
+    <div class="lo-summary-card">
+      <div class="lo-ref">AI-1.1.7 <span class="lo-badge k2">K2</span></div>
+      <div class="lo-desc">ML開発フレームワークが提供する機能を要約する</div>
+    </div>
+    <div class="lo-summary-card">
+      <div class="lo-ref">AI-1.1.8 <span class="lo-badge k2">K2</span></div>
+      <div class="lo-desc">規制と標準がAIの開発とテストに与える影響を説明する</div>
+    </div>
+  </div>
+
+  <!-- Keywords -->
+  <div class="info-box note" style="margin-bottom:32px;">
+    <span class="box-title">第1章 キーワード</span>
+    AI-based system, conventional system, narrow AI, general AI, super AI, frontier AI, supervised learning, unsupervised learning, reinforcement learning, deep learning, NLP, computer vision, generative AI, LLM, foundation model, GPU, TPU, neuromorphic processor, ML development framework, EU AI Act, ISO/IEC 22989, ISO/IEC 25059
+  </div>
+
+  <!-- =========================================================
+       1.1.1 AI-Based and Conventional Systems
+       ========================================================= -->
+  <div class="bilingual-section" id="sec-1-1-1">
+    <div class="en-column">
+      <details class="en-original">
+        <summary>Original English ▸</summary>
+        <div class="en-text">
+          <p><strong>AI-1.1.1 (K2):</strong> Differentiate between AI-based systems and conventional systems.</p>
+          <p>Conventional systems (also called rule-based or imperative systems) are built using explicit, human-written instructions. They operate deterministically: for any given input, the output is always the same. The logic is transparent and fully explicable because every rule was deliberately crafted by a developer.</p>
+          <p>AI-based systems, by contrast, learn their behavior from data. Instead of following hard-coded rules, they discover patterns and relationships in training data and use these to make predictions or decisions at inference time. Their behavior is probabilistic — the same input may yield slightly different outputs under different conditions or model versions.</p>
+          <p>Key differences include: explainability (conventional = transparent; AI = often a black box), adaptability (conventional = requires manual code changes; AI = can retrain on new data), and the nature of problem-solving (conventional = explicit logic; AI = learned patterns). Testing implications are substantial: AI systems may need statistical sampling, metamorphic testing, and dedicated test oracles because there is often no single correct output to verify against.</p>
+        </div>
+      </details>
+    </div>
+    <div class="ja-column">
+      <div class="lo-card">
+        <span class="lo-id">AI-1.1.1</span>
+        <span class="lo-badge k2">K2</span>
+        <span>AIベースのシステムと従来のシステムの違いを区別する</span>
+      </div>
+      <h2>1.1.1 AIベースのシステムと従来のシステム</h2>
+      <p><strong>従来型システム（Conventional Systems）</strong>は、人間が明示的に記述したルールや命令（命令型プログラミング）に基づいて動作します。同じ入力に対して常に同じ出力を返す<strong>決定論的（Deterministic）</strong>な動作が特徴です。ロジックは完全に透明であり、すべてのルールは開発者が意図的に設計したものです。</p>
+      <p><strong>AIベースのシステム（AI-based Systems）</strong>は、データからその動作を学習します。ハードコードされたルールに従うのではなく、トレーニングデータからパターンや関係性を発見し、推論時にそれを使って予測や意思決定を行います。同じ入力に対しても、モデルのバージョンや条件によって異なる出力が返ることがある<strong>確率論的（Probabilistic）</strong>な動作をします。</p>
+
+      <h3>主な違いの比較</h3>
+      <table class="content-table">
+        <thead>
+          <tr>
+            <th>観点</th>
+            <th>従来型システム</th>
+            <th>AIベースのシステム</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>動作原理</td>
+            <td>明示的なルール（命令型）</td>
+            <td>データから学習したパターン</td>
+          </tr>
+          <tr>
+            <td>決定性</td>
+            <td>決定論的（同一入力→同一出力）</td>
+            <td>確率論的（同一入力→異なる出力の可能性）</td>
+          </tr>
+          <tr>
+            <td>説明可能性</td>
+            <td>高い（ロジックが透明）</td>
+            <td>低い場合が多い（ブラックボックス問題）</td>
+          </tr>
+          <tr>
+            <td>適応性</td>
+            <td>低い（変更にはコード修正が必要）</td>
+            <td>高い（新データで再学習可能）</td>
+          </tr>
+          <tr>
+            <td>問題解決アプローチ</td>
+            <td>明示的なロジック</td>
+            <td>学習されたパターン</td>
+          </tr>
+          <tr>
+            <td>テスト上の課題</td>
+            <td>テストオラクルが明確</td>
+            <td>統計的アプローチ・メタモルフィックテストが必要</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <p>テストの観点では、AIシステムには<strong>テストオラクルの問題</strong>が存在します。従来型システムでは期待出力が明確ですが、AIシステムでは「正解」が一意でない場合があり、統計的サンプリング・メタモルフィックテスト・専用テストオラクルの活用が必要になります。</p>
+
+      <div class="info-box tip">
+        <span class="box-title">試験のポイント（AI-1.1.1）</span>
+        「決定論的 vs 確率論的」と「ブラックボックス問題（説明可能性の欠如）」は頻出の比較軸です。また、AIシステムのテストが従来型よりも複雑になる理由（テストオラクルの問題）も押さえておきましょう。
+      </div>
+    </div>
+  </div>
+
+  <!-- =========================================================
+       1.1.2 Narrow AI, General AI, Super AI
+       ========================================================= -->
+  <div class="bilingual-section" id="sec-1-1-2">
+    <div class="en-column">
+      <details class="en-original">
+        <summary>Original English ▸</summary>
+        <div class="en-text">
+          <p><strong>AI-1.1.2 (K2):</strong> Distinguish between narrow AI, general AI, and super AI.</p>
+          <p><strong>Narrow AI (weak AI):</strong> All AI systems deployed in practice today are narrow AI. They excel at specific, well-defined tasks (e.g., image recognition, language translation, chess-playing) but cannot transfer their skills to other domains. Frontier AI refers to the most capable narrow AI systems at the current leading edge of performance — models such as large language models that approach or match human performance on many tasks within a defined scope.</p>
+          <p><strong>General AI (strong AI, AGI — Artificial General Intelligence):</strong> A hypothetical AI that would match or exceed human cognitive ability across a broad range of tasks without task-specific training. AGI does not currently exist. It would be able to reason, plan, learn, and solve problems across domains as a human can.</p>
+          <p><strong>Super AI (Artificial Super Intelligence, ASI):</strong> A hypothetical AI that exceeds human intelligence in every measurable dimension. The concept of technological singularity refers to a point at which ASI triggers runaway technological growth beyond human comprehension or control.</p>
+        </div>
+      </details>
+    </div>
+    <div class="ja-column">
+      <div class="lo-card">
+        <span class="lo-id">AI-1.1.2</span>
+        <span class="lo-badge k2">K2</span>
+        <span>ナローAI・ジェネラルAI・スーパーAIを区別する</span>
+      </div>
+      <h2>1.1.2 ナローAI・ジェネラルAI・スーパーAI</h2>
+
+      <h3>ナローAI（Narrow AI / 弱いAI）</h3>
+      <p>現在実際に展開されているすべてのAIシステムは<strong>ナローAI</strong>（Narrow AI、または弱いAI / Weak AI）です。画像認識・言語翻訳・チェスのような特定の明確なタスクに優れていますが、そのスキルを他のドメインに転用することはできません。</p>
+      <p><strong>フロンティアAI（Frontier AI）</strong>はナローAIの中でも現時点で最先端の性能を持つシステムを指します。大規模言語モデル（LLM）のように、定義されたスコープ内で多くのタスクにおいて人間の性能に匹敵・接近するモデルが該当します。</p>
+
+      <h3>ジェネラルAI（General AI / 強いAI / AGI）</h3>
+      <p><strong>人工汎用知能（AGI: Artificial General Intelligence）</strong>は、タスク固有のトレーニングなしに広範なタスクにわたって人間の認知能力に匹敵・凌駕する仮説上のAIです。現時点では存在しません。人間のように複数のドメインをまたいで推論・計画立案・学習・問題解決できる能力を持つとされています。</p>
+
+      <h3>スーパーAI（Super AI / ASI）</h3>
+      <p><strong>人工超知能（ASI: Artificial Super Intelligence）</strong>は、測定可能なあらゆる次元において人間の知性を超える仮説上のAIです。<strong>技術的特異点（Technological Singularity）</strong>とは、ASIが人間の理解や制御を超えた急速な技術成長を引き起こす時点の概念を指します。</p>
+
+      <table class="content-table">
+        <thead>
+          <tr>
+            <th>種類</th>
+            <th>能力の範囲</th>
+            <th>現実世界での存在</th>
+            <th>例</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>ナローAI</strong></td>
+            <td>特定タスクに特化</td>
+            <td>存在する（現在のすべてのAI）</td>
+            <td>ChatGPT, AlphaGo, 顔認識システム</td>
+          </tr>
+          <tr>
+            <td><strong>ジェネラルAI</strong></td>
+            <td>人間レベルの汎用認知</td>
+            <td>仮説上のみ（現時点で存在しない）</td>
+            <td>SF映画のAIキャラクターなど</td>
+          </tr>
+          <tr>
+            <td><strong>スーパーAI</strong></td>
+            <td>あらゆる次元で人間を超える</td>
+            <td>仮説上のみ（技術的特異点後）</td>
+            <td>理論上の概念</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="info-box tip">
+        <span class="box-title">試験のポイント（AI-1.1.2）</span>
+        「現在存在するのはナローAIのみ」という点が頻出です。フロンティアAIとナローAIの関係（フロンティアAIはナローAIのサブセット）、AGI/ASI が現時点で仮説に過ぎないことを明確に区別できるようにしましょう。
+      </div>
+    </div>
+  </div>
+
+  <!-- =========================================================
+       1.1.3 Types of AI Technologies
+       ========================================================= -->
+  <div class="bilingual-section" id="sec-1-1-3">
+    <div class="en-column">
+      <details class="en-original">
+        <summary>Original English ▸</summary>
+        <div class="en-text">
+          <p><strong>AI-1.1.3 (K2):</strong> Explain the different types of AI technologies.</p>
+          <p><strong>Machine Learning (ML):</strong> The dominant AI paradigm. Systems learn from data without explicit programming. Three main types: (1) Supervised learning — learns from labeled examples (e.g., spam detection); (2) Unsupervised learning — finds hidden structure in unlabeled data (e.g., customer segmentation); (3) Reinforcement learning — learns through trial and error via reward signals (e.g., game-playing agents).</p>
+          <p><strong>Deep Learning (DL):</strong> A subset of ML using multi-layer artificial neural networks (deep neural networks). Architectures include CNN (Convolutional Neural Networks, used in image processing), RNN (Recurrent Neural Networks, used for sequences), and Transformers (used in LLMs). DL excels at discovering features automatically from raw data.</p>
+          <p><strong>Natural Language Processing (NLP):</strong> AI techniques for understanding and generating human language. Applications include sentiment analysis, machine translation, question answering, and text summarization.</p>
+          <p><strong>Computer Vision:</strong> AI techniques for interpreting visual information from images and video. Applications include facial recognition, autonomous driving, and industrial inspection.</p>
+          <p><strong>Expert Systems:</strong> Rule-based systems encoding domain expertise in IF-THEN rules. Older paradigm, now largely superseded by ML, but still in use in narrow domains.</p>
+          <p><strong>Fuzzy Logic:</strong> Handles uncertainty by allowing degrees of truth between 0 and 1, rather than strict true/false values. Used in control systems and approximate reasoning.</p>
+          <p><strong>Generative AI:</strong> AI systems that produce new content. LLMs combine deep neural networks with NLP to generate coherent text. Other generative models produce images (diffusion models, GANs), audio, or video.</p>
+        </div>
+      </details>
+    </div>
+    <div class="ja-column">
+      <div class="lo-card">
+        <span class="lo-id">AI-1.1.3</span>
+        <span class="lo-badge k2">K2</span>
+        <span>AIテクノロジーの種類を説明する</span>
+      </div>
+      <h2>1.1.3 AIテクノロジーの種類</h2>
+
+      <h3>機械学習（Machine Learning / ML）</h3>
+      <p>現在最も主流のAIパラダイムです。明示的なプログラミングなしにデータから学習します。3つの主要タイプがあります。</p>
+      <ul>
+        <li><strong>教師あり学習（Supervised Learning）</strong> — ラベル付きサンプルから学習（例：スパム検出、画像分類）</li>
+        <li><strong>教師なし学習（Unsupervised Learning）</strong> — ラベルなしデータから隠れた構造を発見（例：顧客セグメンテーション、クラスタリング）</li>
+        <li><strong>強化学習（Reinforcement Learning）</strong> — 報酬シグナルを通じた試行錯誤から学習（例：ゲームプレイAI、ロボット制御）</li>
+      </ul>
+
+      <h3>深層学習（Deep Learning / DL）</h3>
+      <p>MLのサブセットで、多層の人工ニューラルネットワーク（ディープニューラルネットワーク）を使用します。主なアーキテクチャ：</p>
+      <ul>
+        <li><strong>CNN（Convolutional Neural Networks）</strong> — 画像処理に特化</li>
+        <li><strong>RNN（Recurrent Neural Networks）</strong> — 時系列・シーケンスデータに使用</li>
+        <li><strong>Transformer</strong> — LLMに使用される革新的アーキテクチャ（自己注意機構）</li>
+      </ul>
+
+      <h3>自然言語処理（NLP: Natural Language Processing）</h3>
+      <p>人間の言語を理解・生成するAI技術です。主な応用：感情分析・機械翻訳・質問応答・テキスト要約。</p>
+
+      <h3>コンピュータビジョン（Computer Vision）</h3>
+      <p>画像・動画から視覚情報を解釈するAI技術です。主な応用：顔認識・自動運転・産業検査・医用画像診断。</p>
+
+      <h3>エキスパートシステム（Expert Systems）</h3>
+      <p>ドメイン専門知識をIF-THENルールとして符号化したルールベースのシステムです。古いパラダイムですが、狭い領域では現在も利用されています。MLに多くの場合取って代わられています。</p>
+
+      <h3>ファジーロジック（Fuzzy Logic）</h3>
+      <p>厳密なtrue/falseの代わりに0〜1の間の「真実の度合い」を扱うことで不確実性を処理します。制御システムや近似推論に使用されます。</p>
+
+      <h3>生成AI（Generative AI）</h3>
+      <p>新しいコンテンツを生成するAIシステムです。LLMはディープニューラルネットワークとNLPを組み合わせて一貫したテキストを生成します。拡散モデルやGANは画像・音声・動画を生成します。</p>
+
+      <div class="info-box tip">
+        <span class="box-title">試験のポイント（AI-1.1.3）</span>
+        教師あり/教師なし/強化学習の違いは必須知識です。また「深層学習はMLのサブセット」「生成AIはDLとNLPの組み合わせ」という階層関係を整理しておきましょう。TransformerがLLMの基盤となっているアーキテクチャであることも重要です。
+      </div>
+    </div>
+  </div>
+
+  <!-- =========================================================
+       1.1.4 Generative AI
+       ========================================================= -->
+  <div class="bilingual-section" id="sec-1-1-4">
+    <div class="en-column">
+      <details class="en-original">
+        <summary>Original English ▸</summary>
+        <div class="en-text">
+          <p><strong>AI-1.1.4 (K2):</strong> Explain generative AI.</p>
+          <p>Generative AI refers to AI systems capable of creating new content — text, images, audio, video, code, or combinations thereof — that is similar to, but not directly copied from, training data.</p>
+          <p><strong>Large Language Models (LLMs)</strong> are trained on massive text corpora and learn statistical relationships between tokens (words, sub-words). At inference time, given a prompt, they predict the most likely next tokens to produce coherent output. Examples: GPT-4, Claude, Gemini, Llama.</p>
+          <p><strong>Foundation models</strong> are large models trained on broad data that can be adapted to many downstream tasks. Fine-tuning adjusts a pre-trained foundation model on a smaller, task-specific dataset to specialize its behavior without training from scratch.</p>
+          <p>The <strong>temperature parameter</strong> controls the randomness of token selection. At temperature=0, the model always selects the highest-probability token (deterministic, consistent). At higher temperatures, less-probable tokens are selected more often, increasing diversity and creativity but also the risk of incoherence.</p>
+          <p><strong>RAG (Retrieval-Augmented Generation)</strong> is a technique that enhances LLM outputs by retrieving relevant documents from an external knowledge base at inference time and providing them as additional context in the prompt. This reduces hallucinations and allows the model to reference up-to-date or proprietary information not present in its training data.</p>
+        </div>
+      </details>
+    </div>
+    <div class="ja-column">
+      <div class="lo-card">
+        <span class="lo-id">AI-1.1.4</span>
+        <span class="lo-badge k2">K2</span>
+        <span>生成AIを説明する</span>
+      </div>
+      <h2>1.1.4 生成AI（Generative AI）</h2>
+      <p><strong>生成AI</strong>とは、テキスト・画像・音声・動画・コードなどの新しいコンテンツを作成できるAIシステムを指します。生成されたコンテンツは学習データに類似していますが、直接コピーされたものではありません。</p>
+
+      <h3>大規模言語モデル（LLM: Large Language Model）</h3>
+      <p>LLMは大規模なテキストコーパスで学習し、トークン（単語・サブワード）間の統計的関係性を習得します。推論時には、プロンプトが与えられると、一貫した出力を生成するために最も確率の高い次のトークンを予測します。</p>
+      <p>代表例：GPT-4（OpenAI）、Claude（Anthropic）、Gemini（Google）、Llama（Meta）</p>
+
+      <h3>ファウンデーションモデル（Foundation Model）</h3>
+      <p>幅広いデータで学習された大規模モデルで、多くの下流タスクに適応できます。<strong>ファインチューニング（Fine-tuning）</strong>は、事前学習済みのファウンデーションモデルを、より小さいタスク固有のデータセットで調整し、ゼロから学習せずに動作を特化させる手法です。</p>
+
+      <h3>温度パラメータ（Temperature）</h3>
+      <table class="content-table">
+        <thead>
+          <tr><th>温度設定</th><th>動作</th><th>用途</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>temperature = 0</td>
+            <td>常に最高確率のトークンを選択（決定論的・一貫性あり）</td>
+            <td>コード生成・事実確認など正確さが求められる用途</td>
+          </tr>
+          <tr>
+            <td>temperature 低（0.1〜0.5）</td>
+            <td>高確率トークンを優先、予測可能</td>
+            <td>要約・翻訳</td>
+          </tr>
+          <tr>
+            <td>temperature 高（0.8〜2.0）</td>
+            <td>低確率トークンも選択、多様性・創造性が高まる</td>
+            <td>創作・ブレインストーミング（ただし不整合リスクあり）</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h3>RAG（Retrieval-Augmented Generation）</h3>
+      <p>RAGは、推論時に外部知識ベースから関連ドキュメントを検索し、それを追加コンテキストとしてプロンプトに含めることでLLMの出力を強化する技術です。</p>
+      <ul>
+        <li>ハルシネーション（幻覚）の削減に有効</li>
+        <li>学習データに含まれない最新情報や独自情報を参照可能</li>
+        <li>モデルの再学習なしに知識を更新できる</li>
+      </ul>
+
+      <div class="info-box tip">
+        <span class="box-title">試験のポイント（AI-1.1.4）</span>
+        温度パラメータの高低と出力への影響は頻出です。「温度が高い = 多様性・創造性↑ かつ 一貫性↓」という関係を覚えましょう。RAGは「モデル再学習なしに外部知識を活用する」技術である点と、ハルシネーション対策になる点も重要です。ファウンデーションモデルとファインチューニングの関係も整理しておきましょう。
+      </div>
+    </div>
+  </div>
+
+  <!-- =========================================================
+       1.1.5 Hardware for ML Systems
+       ========================================================= -->
+  <div class="bilingual-section" id="sec-1-1-5">
+    <div class="en-column">
+      <details class="en-original">
+        <summary>Original English ▸</summary>
+        <div class="en-text">
+          <p><strong>AI-1.1.5 (K2):</strong> Compare hardware choices for ML systems.</p>
+          <p><strong>CPU (Central Processing Unit):</strong> General-purpose processor. Good for tasks with complex branching logic and serial computation, but not optimized for the massive parallel matrix multiplications required by deep learning training.</p>
+          <p><strong>GPU (Graphics Processing Unit):</strong> Contains thousands of smaller cores designed for parallel processing. Originally designed for rendering graphics, GPUs are ideal for the matrix and tensor operations that dominate neural network computations. NVIDIA CUDA ecosystem is the dominant platform for ML workloads.</p>
+          <p><strong>TPU (Tensor Processing Unit):</strong> Google's custom ASIC designed specifically for neural network computations. Optimized for matrix multiplication at scale. Available via Google Cloud; used internally to train models like Gemini.</p>
+          <p><strong>Neuromorphic processors:</strong> Chips inspired by the architecture of biological brains, using artificial spiking neurons. Highly energy-efficient. Examples: Intel Loihi. Primarily research-stage but promising for edge AI applications.</p>
+          <p><strong>Edge AI / Edge computing:</strong> Running AI inference at or near the data source (on-device) rather than sending data to a central cloud. Benefits: lower latency, privacy preservation, offline operation. Constraints: limited compute, memory, and power.</p>
+          <p>Trade-offs: Cloud offers scalable compute for training. Edge/on-premise offer privacy, latency, and data sovereignty. The choice depends on model size, data sensitivity, latency requirements, and cost.</p>
+        </div>
+      </details>
+    </div>
+    <div class="ja-column">
+      <div class="lo-card">
+        <span class="lo-id">AI-1.1.5</span>
+        <span class="lo-badge k2">K2</span>
+        <span>MLシステムのハードウェア選択を比較する</span>
+      </div>
+      <h2>1.1.5 MLシステムのハードウェア</h2>
+
+      <h3>CPU（Central Processing Unit）</h3>
+      <p>汎用プロセッサです。複雑な分岐ロジックやシリアル計算に優れていますが、ディープラーニングの学習に必要な大規模な並列行列演算には最適化されていません。</p>
+
+      <h3>GPU（Graphics Processing Unit）</h3>
+      <p>並列処理向けに設計された数千の小型コアを持つプロセッサです。元々グラフィックスレンダリング用でしたが、ニューラルネットワーク計算を支配する行列・テンソル演算に理想的です。NVIDIA の CUDA エコシステムが ML ワークロードの支配的プラットフォームです。</p>
+
+      <h3>TPU（Tensor Processing Unit）</h3>
+      <p>Googleがニューラルネットワーク計算のために設計したカスタムASICです。大規模な行列乗算に最適化されており、Google Cloud で利用可能です。Gemini などのモデルの学習に内部的に使用されています。</p>
+
+      <h3>ニューロモルフィックプロセッサ（Neuromorphic Processors）</h3>
+      <p>生物学的な脳のアーキテクチャにインスパイアされた、スパイキングニューロンを使用したチップです。エネルギー効率が非常に高いのが特徴です。例：Intel Loihi。現在は主に研究段階ですが、エッジAIへの応用が期待されています。</p>
+
+      <h3>エッジAI（Edge AI）とエッジコンピューティング</h3>
+      <p>データをクラウドに送信せず、データソースの近く（デバイス上）でAI推論を実行します。</p>
+      <ul>
+        <li>メリット：低レイテンシ、プライバシー保護、オフライン動作</li>
+        <li>制約：計算量・メモリ・電力が限られる</li>
+      </ul>
+
+      <h3>ハードウェア選択のトレードオフ</h3>
+      <table class="content-table">
+        <thead>
+          <tr><th>ハードウェア</th><th>主用途</th><th>特徴</th><th>コスト</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>CPU</td><td>一般処理・小規模ML</td><td>汎用・シリアル処理</td><td>低〜中</td></tr>
+          <tr><td>GPU</td><td>DLトレーニング・推論</td><td>大規模並列処理</td><td>中〜高</td></tr>
+          <tr><td>TPU</td><td>大規模DLトレーニング</td><td>テンソル演算特化</td><td>高（クラウド課金）</td></tr>
+          <tr><td>ニューロモルフィック</td><td>研究・エッジAI</td><td>超低消費電力</td><td>専門的</td></tr>
+          <tr><td>エッジデバイス</td><td>推論・リアルタイム処理</td><td>低レイテンシ・オフライン</td><td>低〜中（デバイス依存）</td></tr>
+        </tbody>
+      </table>
+
+      <div class="info-box tip">
+        <span class="box-title">試験のポイント（AI-1.1.5）</span>
+        GPU が ML/DL の主要ハードウェアである理由（並列行列演算）、TPU が Google 専用設計の ASIC であること、エッジ AI の利点（低レイテンシ・プライバシー）と制約（リソース制限）を比較できるようにしましょう。
+      </div>
+    </div>
+  </div>
+
+  <!-- =========================================================
+       1.1.6 Development and Hosting of AI Models
+       ========================================================= -->
+  <div class="bilingual-section" id="sec-1-1-6">
+    <div class="en-column">
+      <details class="en-original">
+        <summary>Original English ▸</summary>
+        <div class="en-text">
+          <p><strong>AI-1.1.6 (K2):</strong> Compare options for development and hosting of AI models.</p>
+          <p><strong>Cloud platforms</strong> (e.g., AWS SageMaker, Google Vertex AI, Azure Machine Learning) offer managed ML services: data storage, training compute, model registry, serving endpoints, and MLOps pipelines. Benefits: scalability, no hardware maintenance, pay-as-you-go. Drawbacks: ongoing cost, data privacy concerns, vendor lock-in, latency for real-time applications.</p>
+          <p><strong>On-premise deployment</strong> involves running AI workloads on organization-owned hardware. Benefits: full data control, compliance with data residency laws, potentially lower long-term cost for constant workloads. Drawbacks: high upfront capital expense, operational complexity, scaling limitations.</p>
+          <p><strong>Edge deployment</strong> runs the model on the end device (smartphone, IoT sensor, autonomous vehicle ECU). Benefits: real-time inference, offline capability, reduced data transmission. Drawbacks: limited compute and power, model must be compressed (quantization, pruning).</p>
+          <p><strong>Open-source models</strong> (e.g., Llama, Mistral, BERT) can be downloaded and run on own infrastructure, allowing full customization and data privacy. <strong>Proprietary models</strong> are accessed via API (e.g., OpenAI, Anthropic); the model weights are not accessible, but development effort is minimal.</p>
+        </div>
+      </details>
+    </div>
+    <div class="ja-column">
+      <div class="lo-card">
+        <span class="lo-id">AI-1.1.6</span>
+        <span class="lo-badge k2">K2</span>
+        <span>AIモデルの開発・ホスティングの選択肢を比較する</span>
+      </div>
+      <h2>1.1.6 AIモデルの開発とホスティング</h2>
+
+      <h3>クラウドプラットフォーム</h3>
+      <p>主要プラットフォームには AWS SageMaker、Google Vertex AI、Azure Machine Learning があります。データストレージ・学習コンピュート・モデルレジストリ・サービングエンドポイント・MLOps パイプラインなどの管理サービスを提供します。</p>
+      <ul>
+        <li><strong>メリット</strong>：スケーラビリティ、ハードウェア保守不要、従量課金</li>
+        <li><strong>デメリット</strong>：継続コスト、データプライバシーの懸念、ベンダーロックイン、リアルタイム用途でのレイテンシ</li>
+      </ul>
+
+      <h3>オンプレミスデプロイメント</h3>
+      <p>組織が所有するハードウェアでAIワークロードを実行します。</p>
+      <ul>
+        <li><strong>メリット</strong>：完全なデータ制御、データ居住法令への準拠、一定ワークロードでの長期コスト低減</li>
+        <li><strong>デメリット</strong>：初期設備投資が高額、運用複雑性、スケーリング制限</li>
+      </ul>
+
+      <h3>エッジデプロイメント</h3>
+      <p>エンドデバイス（スマートフォン・IoTセンサー・自動運転車ECU）でモデルを実行します。</p>
+      <ul>
+        <li><strong>メリット</strong>：リアルタイム推論、オフライン動作、データ転送量の削減</li>
+        <li><strong>デメリット</strong>：計算・電力リソース制限、モデル圧縮（量子化・プルーニング）が必要</li>
+      </ul>
+
+      <h3>オープンソース vs プロプライエタリモデル</h3>
+      <table class="content-table">
+        <thead>
+          <tr><th>観点</th><th>オープンソース（例: Llama, Mistral）</th><th>プロプライエタリ（例: GPT-4, Claude）</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>モデルの重みへのアクセス</td><td>可能（ダウンロード可）</td><td>不可（API経由のみ）</td></tr>
+          <tr><td>カスタマイズ性</td><td>高い（ファインチューニング自由）</td><td>制限あり</td></tr>
+          <tr><td>データプライバシー</td><td>自社インフラで完全制御可</td><td>API経由でデータを送信</td></tr>
+          <tr><td>開発・運用の工数</td><td>高い（自社で運用管理）</td><td>低い（API呼び出しのみ）</td></tr>
+          <tr><td>コスト</td><td>インフラコスト</td><td>API使用料</td></tr>
+        </tbody>
+      </table>
+
+      <div class="info-box tip">
+        <span class="box-title">試験のポイント（AI-1.1.6）</span>
+        各デプロイ方式（クラウド/オンプレ/エッジ）のメリット・デメリットのトレードオフを把握しましょう。特にデータプライバシー要件が高い場合はオンプレ/エッジ、スケーラビリティが重要な場合はクラウドが有利です。オープンソース vs プロプライエタリの違い（重みへのアクセス可否）も重要です。
+      </div>
+    </div>
+  </div>
+
+  <!-- =========================================================
+       1.1.7 Machine Learning Development Frameworks
+       ========================================================= -->
+  <div class="bilingual-section" id="sec-1-1-7">
+    <div class="en-column">
+      <details class="en-original">
+        <summary>Original English ▸</summary>
+        <div class="en-text">
+          <p><strong>AI-1.1.7 (K2):</strong> Summarize functionality provided by ML development frameworks.</p>
+          <p><strong>TensorFlow</strong> (Google): Open-source framework for building and deploying ML models. Provides high- and low-level APIs. TensorFlow Serving handles production deployment. TensorFlow Lite targets mobile/edge devices.</p>
+          <p><strong>PyTorch</strong> (Meta/Facebook): Open-source framework favored in research for its dynamic computation graph (eager execution). Torchvision, Torchaudio provide domain-specific extensions. PyTorch dominates academic research and is growing in production use.</p>
+          <p><strong>scikit-learn</strong>: Python library for classical ML algorithms (not deep learning). Provides preprocessing, classification, regression, clustering, dimensionality reduction, and model evaluation tools. Ideal for structured/tabular data.</p>
+          <p><strong>Keras</strong>: High-level API, originally a wrapper over TensorFlow (now integrated as tf.keras). Simplifies model building with a user-friendly interface.</p>
+          <p><strong>AutoML</strong>: Tools that automate the selection and tuning of ML models and hyperparameters (e.g., Google AutoML, H2O AutoML, AutoKeras). Reduces the need for ML expertise to build baseline models.</p>
+          <p><strong>MLflow</strong>: Open-source platform for the ML lifecycle: experiment tracking (logging parameters, metrics, artifacts), model registry (versioning), and model deployment. Enables reproducibility and team collaboration.</p>
+          <p>From a testing perspective, frameworks also provide evaluation metrics, testing utilities, and integration with CI/CD pipelines for ML systems.</p>
+        </div>
+      </details>
+    </div>
+    <div class="ja-column">
+      <div class="lo-card">
+        <span class="lo-id">AI-1.1.7</span>
+        <span class="lo-badge k2">K2</span>
+        <span>ML開発フレームワークが提供する機能を要約する</span>
+      </div>
+      <h2>1.1.7 ML開発フレームワーク</h2>
+
+      <h3>主要フレームワーク</h3>
+      <table class="content-table">
+        <thead>
+          <tr><th>フレームワーク</th><th>開発元</th><th>特徴・用途</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>TensorFlow</strong></td>
+            <td>Google</td>
+            <td>大規模MLモデルの構築・デプロイ。TensorFlow Serving（本番向け）、TensorFlow Lite（モバイル/エッジ向け）を含む</td>
+          </tr>
+          <tr>
+            <td><strong>PyTorch</strong></td>
+            <td>Meta（旧Facebook）</td>
+            <td>動的計算グラフ（Eager Execution）で研究者に人気。Torchvision・Torchaudioなどの拡張あり。学術研究で主流</td>
+          </tr>
+          <tr>
+            <td><strong>scikit-learn</strong></td>
+            <td>コミュニティ</td>
+            <td>古典的MLアルゴリズム（深層学習を除く）。前処理・分類・回帰・クラスタリング・次元削減・モデル評価を提供。構造化/表形式データに最適</td>
+          </tr>
+          <tr>
+            <td><strong>Keras</strong></td>
+            <td>（TensorFlow統合）</td>
+            <td>TensorFlowの高レベルAPI（tf.keras）。ユーザーフレンドリーなインターフェースでモデル構築を簡素化</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h3>AutoML（自動機械学習）</h3>
+      <p>MLモデルの選択とハイパーパラメータの調整を自動化するツールです（例: Google AutoML、H2O AutoML、AutoKeras）。ベースラインモデルの構築に必要なML専門知識を低減します。</p>
+
+      <h3>MLflow — 実験管理・ライフサイクル管理</h3>
+      <p>MLライフサイクル全体を管理するオープンソースプラットフォームです。</p>
+      <ul>
+        <li><strong>実験追跡（Experiment Tracking）</strong> — パラメータ・メトリクス・アーティファクト（モデルファイル等）のロギング</li>
+        <li><strong>モデルレジストリ（Model Registry）</strong> — モデルのバージョン管理と本番への昇格管理</li>
+        <li><strong>デプロイメント</strong> — 登録済みモデルのサービング</li>
+      </ul>
+      <p>MLflowはMLシステムの再現性とチームコラボレーションを可能にし、CI/CDパイプラインとの統合によるテスト自動化を支援します。</p>
+
+      <div class="info-box tip">
+        <span class="box-title">試験のポイント（AI-1.1.7）</span>
+        各フレームワークの位置づけを把握しましょう。「TensorFlow = 本番・大規模」「PyTorch = 研究・動的グラフ」「scikit-learn = 古典的ML・構造化データ」が基本的な使い分けです。MLflow の「実験追跡」機能はMLテストの再現性確保に直結する重要概念です。
+      </div>
+    </div>
+  </div>
+
+  <!-- =========================================================
+       1.1.8 Regulations and Standards for AI
+       ========================================================= -->
+  <div class="bilingual-section" id="sec-1-1-8">
+    <div class="en-column">
+      <details class="en-original">
+        <summary>Original English ▸</summary>
+        <div class="en-text">
+          <p><strong>AI-1.1.8 (K2):</strong> Explain how regulations and standards affect AI development and testing.</p>
+          <p><strong>EU AI Act:</strong> The world's first comprehensive AI regulation (enacted 2024, phased implementation). Uses a risk-based classification: (1) Unacceptable risk — prohibited AI (e.g., social scoring, subliminal manipulation); (2) High risk — heavily regulated, mandatory conformity assessment, documentation, and human oversight (e.g., AI in medical devices, recruitment, critical infrastructure); (3) Limited risk — transparency obligations only (e.g., chatbots must disclose they are AI); (4) Minimal risk — no restrictions (most applications). The EU AI Act directly affects what tests must be performed and what documentation is required before market entry.</p>
+          <p><strong>ISO/IEC 22989</strong> (AI Concepts and Terminology): Defines standard vocabulary and concepts for AI. Provides a common language for AI practitioners, reducing ambiguity in test specifications.</p>
+          <p><strong>ISO/IEC 25059</strong> (Quality Model for AI Systems): Extends ISO/IEC 25010 (SQuaRE) quality model with AI-specific characteristics including: accuracy, robustness, bias, explainability, autonomy, and transparency. Directly referenced in Chapter 2 of this syllabus.</p>
+          <p><strong>ISO/IEC TR 29119-11</strong>: Technical report on testing of AI-based systems. Provides guidance on test strategies, test levels, and test techniques specific to AI.</p>
+          <p><strong>OECD AI Principles</strong>: Non-binding principles adopted by OECD member countries promoting trustworthy AI: inclusive growth, human-centered values, transparency, robustness/security/safety, accountability.</p>
+          <p><strong>UN AI Governance:</strong> The UN has established the AI Advisory Body and issued the "Governing AI for Humanity" report, calling for international AI governance frameworks.</p>
+        </div>
+      </details>
+    </div>
+    <div class="ja-column">
+      <div class="lo-card">
+        <span class="lo-id">AI-1.1.8</span>
+        <span class="lo-badge k2">K2</span>
+        <span>規制と標準がAIの開発とテストに与える影響を説明する</span>
+      </div>
+      <h2>1.1.8 AIの規制と標準</h2>
+
+      <h3>EU AI Act（EU人工知能規則）</h3>
+      <p>世界初の包括的AI規制法です（2024年成立、段階的施行）。<strong>リスクベース分類</strong>を採用しています。</p>
+      <table class="content-table">
+        <thead>
+          <tr><th>リスク区分</th><th>内容</th><th>規制内容</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>容認できないリスク</strong><br>（Unacceptable）</td>
+            <td>社会信用スコアリング、サブリミナル操作など</td>
+            <td><strong>禁止</strong>（使用・販売不可）</td>
+          </tr>
+          <tr>
+            <td><strong>高リスク</strong><br>（High Risk）</td>
+            <td>医療機器AI・採用選考AI・重要インフラAIなど</td>
+            <td>義務的適合性評価・文書化・人間監視が必要</td>
+          </tr>
+          <tr>
+            <td><strong>限定的リスク</strong><br>（Limited Risk）</td>
+            <td>チャットボット・ディープフェイク生成AIなど</td>
+            <td>透明性義務のみ（「AIである」旨を開示）</td>
+          </tr>
+          <tr>
+            <td><strong>最小リスク</strong><br>（Minimal Risk）</td>
+            <td>スパムフィルター・AIゲームなど</td>
+            <td>制限なし（大多数のアプリケーション）</td>
+          </tr>
+        </tbody>
+      </table>
+      <p>EU AI Act はどのようなテストを実施すべきか、また市場投入前にどのような文書化が必要かに直接影響します。</p>
+
+      <h3>主要な国際標準</h3>
+      <table class="content-table">
+        <thead>
+          <tr><th>規格・標準</th><th>内容</th><th>テストへの影響</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>ISO/IEC 22989</strong></td>
+            <td>AI概念と用語の定義（共通語彙）</td>
+            <td>テスト仕様での曖昧さを排除し、共通言語を提供</td>
+          </tr>
+          <tr>
+            <td><strong>ISO/IEC 25059</strong></td>
+            <td>AIシステムの品質モデル（SQuaRE拡張）<br>精度・堅牢性・バイアス・説明可能性・自律性・透明性を含む</td>
+            <td>AI品質特性に基づくテスト設計の基盤（第2章で詳述）</td>
+          </tr>
+          <tr>
+            <td><strong>ISO/IEC TR 29119-11</strong></td>
+            <td>AIベースシステムのテストに関するテクニカルレポート</td>
+            <td>AI固有のテスト戦略・テストレベル・テスト技法のガイダンス</td>
+          </tr>
+          <tr>
+            <td><strong>OECD AI 原則</strong></td>
+            <td>信頼できるAIのための非拘束的原則<br>（包括的成長・人間中心・透明性・堅牢性/安全性・説明責任）</td>
+            <td>テスト方針策定の参照フレームワーク</td>
+          </tr>
+          <tr>
+            <td><strong>UN AIガバナンス</strong></td>
+            <td>国際的なAIガバナンス枠組みの構築勧告</td>
+            <td>グローバル規制動向への対応</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="info-box tip">
+        <span class="box-title">試験のポイント（AI-1.1.8）</span>
+        EU AI Act の4つのリスク区分（容認できないリスク/高リスク/限定的リスク/最小リスク）の定義と例を覚えましょう。ISO/IEC 25059 がAI品質特性の標準（第2章の基盤）、ISO/IEC 22989 が用語定義標準、ISO/IEC TR 29119-11 がAIテストガイダンスであるという役割の違いも重要です。
+      </div>
+    </div>
+  </div>
+
+  <!-- Chapter Summary -->
+  <div class="info-box note" id="ch1-summary">
+    <span class="box-title">第1章 まとめ</span>
+    <p>第1章では、AIの基礎概念から最新の規制まで幅広く概説しました。主要な学習ポイントを整理します。</p>
+    <ul>
+      <li><strong>AIベースシステム vs 従来型システム</strong>：確率論的 vs 決定論的、ブラックボックス問題、テストオラクルの課題</li>
+      <li><strong>AI種別</strong>：ナローAI（実在）→ ジェネラルAI → スーパーAI（仮説上）の階層。フロンティアAIはナローAIの最先端</li>
+      <li><strong>AIテクノロジー</strong>：ML（教師あり/なし/強化学習）→ 深層学習（CNN/RNN/Transformer）→ NLP/コンピュータビジョン → 生成AI の階層構造</li>
+      <li><strong>生成AI</strong>：LLM（トークン予測）、ファウンデーションモデル・ファインチューニング、温度パラメータ、RAG</li>
+      <li><strong>ハードウェア</strong>：CPU（汎用）→ GPU（並列行列演算）→ TPU（Google設計）→ ニューロモルフィック（超低消費電力） → エッジAI</li>
+      <li><strong>デプロイメント</strong>：クラウド（スケーラブル）vs オンプレ（データ制御）vs エッジ（低レイテンシ）のトレードオフ</li>
+      <li><strong>フレームワーク</strong>：TensorFlow（本番）、PyTorch（研究）、scikit-learn（古典的ML）、MLflow（実験追跡）</li>
+      <li><strong>規制・標準</strong>：EU AI Act（リスクベース4区分）、ISO/IEC 25059（品質モデル）、ISO/IEC 22989（用語）、ISO/IEC TR 29119-11（テストガイダンス）</li>
+    </ul>
+  </div>
+
+</main>
+
+<footer class="app-footer">
+  <span><a href="../index.html">CT-AI v2.0</a></span>
+  <span><a href="chapter-0.html">← 第0章 序文</a> · <a href="chapter-2.html">第2章 品質特性 →</a></span>
+  <span>© 2026 · ISTQB® is a registered trademark of ISTQB</span>
+</footer>
+
+<script src="../../shared/js/theme.js"></script>
+<script src="../../shared/js/shell.js"></script>
+<script src="../../shared/js/search.js"></script>
+<script src="../js/toc.js"></script>
+</body>
+</html>
