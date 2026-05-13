@@ -1,338 +1,313 @@
 <!DOCTYPE html>
-<html lang="ja">
+<html lang="ja" data-carbon-theme="white">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ISTQB CT-GenAI 学習アプリ</title>
-  <link rel="stylesheet" href="css/style.css">
+  <title>ISTQB Study Portal</title>
   <link rel="manifest" href="manifest.json">
-  <meta name="theme-color" content="#2980b9">
+  <meta name="theme-color" content="#d6eaf8">
   <link rel="apple-touch-icon" href="icons/icon-192.png">
-  <script>if ('serviceWorker' in navigator) navigator.serviceWorker.register('./sw.js');</script>
-  <script>if(localStorage.getItem('ctgenai-dark')==='1'){document.addEventListener('DOMContentLoaded',()=>{document.body.classList.add('dark-mode');document.documentElement.style.display='';});document.documentElement.style.display='none';}</script>
+  <link rel="stylesheet" href="https://unpkg.com/carbon-components@10.58.0/css/carbon-components.min.css">
+  <link rel="stylesheet" href="shared/css/carbon-theme.css">
+  <link rel="stylesheet" href="shared/css/shell.css">
+  <style>
+    .portal-hero {
+      background: linear-gradient(135deg, #2e86c1 0%, #1a5276 100%);
+      color: #fff;
+      padding: 64px 32px;
+      text-align: center;
+      margin-bottom: 48px;
+    }
+    .portal-hero h1 { font-size: 2.5rem; font-weight: 300; margin: 0 0 12px; color: #fff; }
+    .portal-hero p  { font-size: 1.125rem; opacity: 0.85; margin: 0; }
+
+    .cert-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 24px;
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 32px 48px;
+    }
+
+    .cert-card {
+      background: var(--cds-ui-01);
+      border: 1px solid var(--sky-border);
+      border-radius: 6px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      text-decoration: none;
+      color: inherit;
+      transition: box-shadow 0.2s, transform 0.2s;
+    }
+    .cert-card:hover {
+      box-shadow: 0 8px 24px rgba(46,134,193,0.18);
+      transform: translateY(-2px);
+    }
+
+    .cert-card-header {
+      padding: 20px 20px 0;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .cert-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      flex-shrink: 0;
+    }
+
+    .cert-card-body { padding: 16px 20px; flex: 1; }
+    .cert-card-body h2 { font-size: 1.25rem; font-weight: 600; margin: 0 0 6px; }
+    .cert-card-body .cert-version { font-size: 0.75rem; color: var(--cds-text-03); margin-bottom: 10px; }
+    .cert-card-body p  { font-size: 0.875rem; color: var(--cds-text-02); line-height: 1.5; margin: 0; }
+
+    .cert-card-footer {
+      padding: 12px 20px;
+      border-top: 1px solid var(--sky-border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 0.8125rem;
+    }
+
+    .cert-stat { display: flex; flex-direction: column; gap: 2px; }
+    .cert-stat-value { font-weight: 700; color: var(--sky-dark); font-size: 1rem; }
+    .cert-stat-label { color: var(--cds-text-03); font-size: 0.75rem; }
+
+    .cert-cta {
+      font-size: 0.8125rem;
+      font-weight: 600;
+      color: var(--sky-dark);
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .cert-card.coming-soon {
+      opacity: 0.55;
+      pointer-events: none;
+    }
+
+    .cert-coming-badge {
+      background: var(--cds-ui-03);
+      color: var(--cds-text-03);
+      font-size: 0.7rem;
+      font-weight: 600;
+      padding: 2px 8px;
+      border-radius: 10px;
+    }
+
+    .cert-genai .cert-icon { background: #eaf4fb; color: #2e86c1; }
+    .cert-genai .cert-card-header { border-top: 3px solid #2e86c1; }
+    .cert-ai    .cert-icon { background: #e8f5e9; color: #2e7d32; }
+    .cert-ai    .cert-card-header { border-top: 3px solid #2e7d32; }
+    .cert-tae   .cert-icon { background: #fce4ec; color: #c62828; }
+    .cert-tae   .cert-card-header { border-top: 3px solid #c62828; }
+
+    @media (max-width: 671px) {
+      .portal-hero { padding: 40px 16px; }
+      .portal-hero h1 { font-size: 1.75rem; }
+      .cert-grid { padding: 0 16px 32px; }
+    }
+  </style>
 </head>
 <body>
-  <header>
-    <div class="header-inner">
-      <a href="index.html" class="logo">
-        ISTQB CT-GenAI <span class="badge">v1.0</span>
+
+<header class="bx--header" role="banner" aria-label="ISTQB Study Portal">
+  <button class="bx--header__menu-trigger bx--header__action" data-sidebar-trigger aria-label="メニュー" aria-expanded="false">&#9776;</button>
+  <a class="bx--header__name" href="index.html">
+    <svg class="header-logo-svg" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" stroke="#2e86c1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+    <span>ISTQB Study Portal</span>
+  </a>
+  <div class="bx--header__global">
+    <button class="bx--header__action header-search-btn" data-search-open aria-label="検索 (Ctrl+K)" title="検索 (Ctrl+K)">&#128269;</button>
+    <button class="bx--header__action header-theme-btn" data-theme-toggle data-theme-icon aria-label="ダークモードに切替" title="ダークモードに切替">🌙</button>
+  </div>
+</header>
+
+<div id="sidebar-overlay" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.4);z-index:7800;"></div>
+
+<nav class="bx--side-nav" aria-label="サイドナビゲーション">
+  <ul class="bx--side-nav__nav" role="list">
+    <li class="bx--side-nav__header">ポータル</li>
+    <li class="bx--side-nav__item">
+      <a href="index.html" class="bx--side-nav__link">
+        <span class="bx--side-nav__link-text">🏠 ホーム</span>
       </a>
-      <nav>
-        <a href="index.html" class="active">ホーム</a>
-        <a href="study.html">学習</a>
-        <a href="quiz.html">問題演習</a>
-        <a href="slides.html">スライド</a>
-        <a href="glossary.html">用語集</a>
-        <a href="syllabus-ja.html">日本語対訳</a>
-      </nav>
-      <button class="dark-toggle" onclick="toggleDark()" id="darkBtn">🌙 ダーク</button>
+    </li>
+    <li class="bx--side-nav__header">CT-GenAI v1.0</li>
+    <li class="bx--side-nav__item">
+      <a href="ct-genai/index.html" class="bx--side-nav__link">
+        <span class="bx--side-nav__link-text">CT-GenAI ホーム</span>
+      </a>
+    </li>
+    <li class="bx--side-nav__item">
+      <a href="ct-genai/study.html" class="bx--side-nav__link">
+        <span class="bx--side-nav__link-text">学習コンテンツ</span>
+      </a>
+    </li>
+    <li class="bx--side-nav__item">
+      <a href="ct-genai/quiz.html" class="bx--side-nav__link">
+        <span class="bx--side-nav__link-text">問題演習</span>
+      </a>
+    </li>
+    <li class="bx--side-nav__item">
+      <a href="ct-genai/glossary.html" class="bx--side-nav__link">
+        <span class="bx--side-nav__link-text">用語集</span>
+      </a>
+    </li>
+    <li class="bx--side-nav__item">
+      <a href="ct-genai/syllabus-ja.html" class="bx--side-nav__link">
+        <span class="bx--side-nav__link-text">シラバス対訳</span>
+      </a>
+    </li>
+    <li class="bx--side-nav__header">CT-AI v2.0</li>
+    <li class="bx--side-nav__item">
+      <a href="ct-ai/index.html" class="bx--side-nav__link">
+        <span class="bx--side-nav__link-text">CT-AI ホーム</span>
+      </a>
+    </li>
+    <li class="bx--side-nav__item">
+      <a href="ct-ai/chapters/chapter-1.html" class="bx--side-nav__link">
+        <span class="bx--side-nav__link-text">第1章: AI入門</span>
+        <span class="side-nav-chapter-badge">120分</span>
+      </a>
+    </li>
+    <li class="bx--side-nav__item">
+      <a href="ct-ai/chapters/chapter-3.html" class="bx--side-nav__link">
+        <span class="bx--side-nav__link-text">第3章: Machine Learning</span>
+        <span class="side-nav-chapter-badge">375分</span>
+      </a>
+    </li>
+    <li class="bx--side-nav__item">
+      <a href="ct-ai/chapters/chapter-4.html" class="bx--side-nav__link">
+        <span class="bx--side-nav__link-text">第4章: AIシステムのテスト</span>
+        <span class="side-nav-chapter-badge">195分</span>
+      </a>
+    </li>
+  </ul>
+</nav>
+
+<div id="search-dialog" hidden role="dialog" aria-modal="true" aria-label="検索">
+  <div class="search-modal">
+    <div class="search-input-wrap">
+      <span>&#128269;</span>
+      <input id="search-input" type="search" placeholder="資格名・章・キーワードで検索… (Ctrl+K)" autocomplete="off">
     </div>
-  </header>
+    <div id="search-results" class="search-results"></div>
+  </div>
+</div>
 
-  <main>
-    <!-- 試験カウントダウン -->
-    <div id="examCountdownArea"></div>
+<main class="bx--content" style="margin-left:0;padding:0;">
 
-    <!-- 進捗サマリー -->
-    <div id="progressSummaryArea"></div>
+  <div class="portal-hero">
+    <h1>ISTQB Study Portal</h1>
+    <p>AIテスト・生成AIテスト資格の学習サイト — バイリンガル（英日）対応</p>
+  </div>
 
-    <div class="hero">
-      <h1>ISTQB CT-GenAI 学習アプリ</h1>
-      <p>Certified Tester Specialist Level – Testing with Generative AI (CT-GenAI) v1.0 シラバスをベースにした学習・問題演習ツール</p>
-      <div class="version">シラバス v1.0 | 2025年7月25日 | 全5章 · 合計735分</div>
-    </div>
+  <div class="cert-grid">
 
-    <div class="card-grid">
-      <a href="study.html" class="card">
-        <div class="card-icon">📖</div>
-        <h3>学習コンテンツ</h3>
-        <p>5章にわたるシラバスの要点を整理。学習目標（LO）を章ごとに確認できます。</p>
-      </a>
-      <a href="quiz.html" class="card">
-        <div class="card-icon">✏️</div>
-        <h3>問題演習</h3>
-        <p>シラバスに基づいた想定問題（K1〜K3レベル）を章ごとまたは全章で演習できます。</p>
-      </a>
-      <a href="slides.html" class="card">
-        <div class="card-icon">🖥️</div>
-        <h3>学習スライド</h3>
-        <p>章別のスライド形式で要点を短時間で復習できます（Foundation Seminar 2023 参考）。</p>
-      </a>
-      <a href="glossary.html" class="card">
-        <div class="card-icon">📚</div>
-        <h3>用語集</h3>
-        <p>生成AI(GenAI)・LLM・プロンプトエンジニアリングなどの重要用語を検索・閲覧できます。</p>
-      </a>
-      <a href="CT-GenAI-Syllabus-v1.0.pdf" target="_blank" class="card">
-        <div class="card-icon">📄</div>
-        <h3>シラバスPDF</h3>
-        <p>原文シラバス (CT-GenAI v1.0) をPDFで参照できます。全70ページ。</p>
-      </a>
-    </div>
-
-    <div class="section-title">章構成</div>
-    <div class="chapter-list">
-      <div class="chapter-card">
-        <div class="chapter-header" onclick="this.parentElement.classList.toggle('open')">
-          <div class="chapter-num ch-1">1</div>
-          <div class="chapter-meta">
-            <h3>第1章：ソフトウェアテストにおける生成AIの概要</h3>
-            <div class="time">100分 · 6学習目標</div>
-          </div>
-          <div class="chapter-arrow">▶</div>
-        </div>
-        <div class="chapter-body">
-          <p style="font-size:0.875rem;color:var(--text-light);margin-bottom:8px;">LLMの基礎、AI技術の分類、ソフトウェアテストでの生成AI(GenAI)活用方法を学びます。</p>
-          <table class="lo-table">
-            <tr><th>LO ID</th><th>レベル</th><th>内容</th><th>進捗</th></tr>
-            <tr><td>生成AI(GenAI)-1.1.1</td><td><span class="badge-k1">K1</span></td><td>シンボリックAI・クラシカルML・ディープラーニング・生成AIの違いを想起する</td><td><span id="lo-GenAI-1.1.1"></span></td></tr>
-            <tr><td>生成AI(GenAI)-1.1.2</td><td><span class="badge-k2">K2</span></td><td>生成AIとLLMの基礎を説明する</td><td><span id="lo-GenAI-1.1.2"></span></td></tr>
-            <tr><td>生成AI(GenAI)-1.1.3</td><td><span class="badge-k2">K2</span></td><td>ファウンデーション・インストラクションチューニング・リーズニングLLMを区別する</td><td><span id="lo-GenAI-1.1.3"></span></td></tr>
-            <tr><td>生成AI(GenAI)-1.1.4</td><td><span class="badge-k2">K2</span></td><td>マルチモーダルLLMとビジョンランゲージモデルの基本原則を要約する</td><td><span id="lo-GenAI-1.1.4"></span></td></tr>
-            <tr><td>生成AI(GenAI)-1.2.1</td><td><span class="badge-k2">K2</span></td><td>テストタスクにおけるLLMの主要な能力の例を挙げる</td><td><span id="lo-GenAI-1.2.1"></span></td></tr>
-            <tr><td>生成AI(GenAI)-1.2.2</td><td><span class="badge-k2">K2</span></td><td>生成AI(GenAI)をソフトウェアテストで使用する際のインタラクションモデルを比較する</td><td><span id="lo-GenAI-1.2.2"></span></td></tr>
-          </table>
+    <a href="ct-genai/index.html" class="cert-card cert-genai">
+      <div class="cert-card-header">
+        <div class="cert-icon">🤖</div>
+        <div>
+          <div style="font-size:0.75rem;font-weight:600;color:var(--cds-text-03);">ISTQB® Certified Tester</div>
+          <div style="font-size:0.875rem;color:var(--sky-darker);font-weight:600;">CT-GenAI</div>
         </div>
       </div>
-
-      <div class="chapter-card">
-        <div class="chapter-header" onclick="this.parentElement.classList.toggle('open')">
-          <div class="chapter-num ch-2">2</div>
-          <div class="chapter-meta">
-            <h3>第2章：効果的なソフトウェアテストのためのプロンプトエンジニアリング</h3>
-            <div class="time">365分 · 13学習目標</div>
-          </div>
-          <div class="chapter-arrow">▶</div>
+      <div class="cert-card-body">
+        <h2>Certified Tester AI Testing — Generative AI</h2>
+        <p class="cert-version">Version 1.0</p>
+        <p>生成AI(GenAI)・大規模言語モデル(LLM)のテストに特化した資格。プロンプトエンジニアリング、ハルシネーション検知、バイアステストなどを扱います。</p>
+      </div>
+      <div class="cert-card-footer">
+        <div class="cert-stat">
+          <span class="cert-stat-value">5章</span>
+          <span class="cert-stat-label">学習コンテンツ</span>
         </div>
-        <div class="chapter-body">
-          <p style="font-size:0.875rem;color:var(--text-light);margin-bottom:8px;">効果的なプロンプト設計、コアプロンプティング技法、テストタスクへの適用方法を学びます。</p>
-          <table class="lo-table">
-            <tr><th>LO ID</th><th>レベル</th><th>内容</th><th>進捗</th></tr>
-            <tr><td>生成AI(GenAI)-2.1.1</td><td><span class="badge-k2">K2</span></td><td>ソフトウェアテストでの構造化プロンプトの例を挙げる</td><td><span id="lo-GenAI-2.1.1"></span></td></tr>
-            <tr><td>生成AI(GenAI)-2.1.2</td><td><span class="badge-k2">K2</span></td><td>コアプロンプティング技法を区別する</td><td><span id="lo-GenAI-2.1.2"></span></td></tr>
-            <tr><td>生成AI(GenAI)-2.1.3</td><td><span class="badge-k2">K2</span></td><td>システムプロンプトとユーザープロンプトを区別する</td><td><span id="lo-GenAI-2.1.3"></span></td></tr>
-            <tr><td>生成AI(GenAI)-2.2.1</td><td><span class="badge-k3">K3</span></td><td>生成AIをテスト分析タスクに適用する</td><td><span id="lo-GenAI-2.2.1"></span></td></tr>
-            <tr><td>生成AI(GenAI)-2.2.2</td><td><span class="badge-k3">K3</span></td><td>生成AIをテスト設計・テスト実装タスクに適用する</td><td><span id="lo-GenAI-2.2.2"></span></td></tr>
-            <tr><td>生成AI(GenAI)-2.2.3</td><td><span class="badge-k3">K3</span></td><td>生成AIを自動化リグレッションテストに適用する</td><td><span id="lo-GenAI-2.2.3"></span></td></tr>
-            <tr><td>生成AI(GenAI)-2.2.4</td><td><span class="badge-k3">K3</span></td><td>生成AIをテスト監視・制御タスクに適用する</td><td><span id="lo-GenAI-2.2.4"></span></td></tr>
-            <tr><td>生成AI(GenAI)-2.2.5</td><td><span class="badge-k3">K3</span></td><td>適切なプロンプティング技法を選択・適用する</td><td><span id="lo-GenAI-2.2.5"></span></td></tr>
-            <tr><td>生成AI(GenAI)-2.3.1</td><td><span class="badge-k2">K2</span></td><td>テストタスクにおける生成AI(GenAI)結果の評価指標を理解する</td><td><span id="lo-GenAI-2.3.1"></span></td></tr>
-            <tr><td>生成AI(GenAI)-2.3.2</td><td><span class="badge-k2">K2</span></td><td>プロンプトを評価・反復的に改良する技法の例を挙げる</td><td><span id="lo-GenAI-2.3.2"></span></td></tr>
-          </table>
+        <div class="cert-stat">
+          <span class="cert-stat-value">60問</span>
+          <span class="cert-stat-label">練習問題</span>
+        </div>
+        <span class="cert-cta">学習開始 →</span>
+      </div>
+    </a>
+
+    <a href="ct-ai/index.html" class="cert-card cert-ai">
+      <div class="cert-card-header">
+        <div class="cert-icon">🧠</div>
+        <div>
+          <div style="font-size:0.75rem;font-weight:600;color:var(--cds-text-03);">ISTQB® Certified Tester</div>
+          <div style="font-size:0.875rem;color:#2e7d32;font-weight:600;">CT-AI</div>
         </div>
       </div>
-
-      <div class="chapter-card">
-        <div class="chapter-header" onclick="this.parentElement.classList.toggle('open')">
-          <div class="chapter-num ch-3">3</div>
-          <div class="chapter-meta">
-            <h3>第3章：ソフトウェアテストにおける生成AIのリスク管理</h3>
-            <div class="time">160分 · 10学習目標</div>
-          </div>
-          <div class="chapter-arrow">▶</div>
-        </div>
-        <div class="chapter-body">
-          <p style="font-size:0.875rem;color:var(--text-light);margin-bottom:8px;">ハルシネーション・バイアス・データプライバシー・エネルギー消費・AI規制を学びます。</p>
-          <table class="lo-table">
-            <tr><th>LO ID</th><th>レベル</th><th>内容</th><th>進捗</th></tr>
-            <tr><td>生成AI(GenAI)-3.1.1</td><td><span class="badge-k1">K1</span></td><td>ハルシネーション・推論エラー・バイアスの定義を想起する</td><td><span id="lo-GenAI-3.1.1"></span></td></tr>
-            <tr><td>生成AI(GenAI)-3.1.2</td><td><span class="badge-k3">K3</span></td><td>LLM出力のハルシネーション・推論エラー・バイアスを特定する</td><td><span id="lo-GenAI-3.1.2"></span></td></tr>
-            <tr><td>生成AI(GenAI)-3.1.3</td><td><span class="badge-k2">K2</span></td><td>ハルシネーション・推論エラー・バイアスの軽減技法を要約する</td><td><span id="lo-GenAI-3.1.3"></span></td></tr>
-            <tr><td>生成AI(GenAI)-3.1.4</td><td><span class="badge-k1">K1</span></td><td>LLMの非決定論的動作の軽減技法を想起する</td><td><span id="lo-GenAI-3.1.4"></span></td></tr>
-            <tr><td>生成AI(GenAI)-3.2.1</td><td><span class="badge-k2">K2</span></td><td>生成AI(GenAI)使用に関連するデータプライバシーとセキュリティのリスクを説明する</td><td><span id="lo-GenAI-3.2.1"></span></td></tr>
-            <tr><td>生成AI(GenAI)-3.2.2</td><td><span class="badge-k2">K2</span></td><td>生成AI(GenAI)でのデータプライバシーと脆弱性の例を挙げる</td><td><span id="lo-GenAI-3.2.2"></span></td></tr>
-            <tr><td>生成AI(GenAI)-3.2.3</td><td><span class="badge-k2">K2</span></td><td>データプライバシー保護と安全性向上の緩和戦略を要約する</td><td><span id="lo-GenAI-3.2.3"></span></td></tr>
-            <tr><td>生成AI(GenAI)-3.3.1</td><td><span class="badge-k2">K2</span></td><td>タスク特性とモデル使用が生成AI(GenAI)のエネルギー消費に与える影響を説明する</td><td><span id="lo-GenAI-3.3.1"></span></td></tr>
-            <tr><td>生成AI(GenAI)-3.4.1</td><td><span class="badge-k1">K1</span></td><td>生成AI(GenAI)に関連するAI規制・標準・ベストプラクティスフレームワークの例を想起する</td><td><span id="lo-GenAI-3.4.1"></span></td></tr>
-          </table>
-        </div>
+      <div class="cert-card-body">
+        <h2>Certified Tester AI Testing</h2>
+        <p class="cert-version">Version 2.0</p>
+        <p>機械学習システムのテスト全般を扱う資格。入力データテスト、モデルテスト、品質特性、ML開発プロセステストまでを英日バイリンガルで学習できます。</p>
       </div>
-
-      <div class="chapter-card">
-        <div class="chapter-header" onclick="this.parentElement.classList.toggle('open')">
-          <div class="chapter-num ch-4">4</div>
-          <div class="chapter-meta">
-            <h3>第4章：ソフトウェアテストのためのLLM搭載テストインフラ</h3>
-            <div class="time">110分 · 7学習目標</div>
-          </div>
-          <div class="chapter-arrow">▶</div>
+      <div class="cert-card-footer">
+        <div class="cert-stat">
+          <span class="cert-stat-value">7章</span>
+          <span class="cert-stat-label">学習コンテンツ</span>
         </div>
-        <div class="chapter-body">
-          <p style="font-size:0.875rem;color:var(--text-light);margin-bottom:8px;">RAG・LLMエージェント・ファインチューニング・LLMOpsを学びます。</p>
-          <table class="lo-table">
-            <tr><th>LO ID</th><th>レベル</th><th>内容</th><th>進捗</th></tr>
-            <tr><td>生成AI(GenAI)-4.1.1</td><td><span class="badge-k2">K2</span></td><td>LLM搭載テストインフラの主要なアーキテクチャコンポーネントと概念を説明する</td><td><span id="lo-GenAI-4.1.1"></span></td></tr>
-            <tr><td>生成AI(GenAI)-4.1.2</td><td><span class="badge-k2">K2</span></td><td>RAGを要約する</td><td><span id="lo-GenAI-4.1.2"></span></td></tr>
-            <tr><td>生成AI(GenAI)-4.1.3</td><td><span class="badge-k2">K2</span></td><td>テストプロセスの自動化におけるLLM搭載エージェントの役割と適用を説明する</td><td><span id="lo-GenAI-4.1.3"></span></td></tr>
-            <tr><td>生成AI(GenAI)-4.2.1</td><td><span class="badge-k2">K2</span></td><td>特定のテストタスクに向けた言語モデルのファインチューニングを説明する</td><td><span id="lo-GenAI-4.2.1"></span></td></tr>
-            <tr><td>生成AI(GenAI)-4.2.2</td><td><span class="badge-k2">K2</span></td><td>LLMOpsとソフトウェアテストのためのLLMデプロイ・管理における役割を説明する</td><td><span id="lo-GenAI-4.2.2"></span></td></tr>
-          </table>
+        <div class="cert-stat">
+          <span class="cert-stat-value">46 LO</span>
+          <span class="cert-stat-label">学習目標</span>
         </div>
+        <span class="cert-cta">学習開始 →</span>
       </div>
+    </a>
 
-      <div class="chapter-card">
-        <div class="chapter-header" onclick="this.parentElement.classList.toggle('open')">
-          <div class="chapter-num ch-5">5</div>
-          <div class="chapter-meta">
-            <h3>第5章：テスト組織への生成AIの導入と統合</h3>
-            <div class="time">80分 · 7学習目標</div>
-          </div>
-          <div class="chapter-arrow">▶</div>
+    <div class="cert-card cert-tae coming-soon">
+      <div class="cert-card-header">
+        <div class="cert-icon">⚙️</div>
+        <div>
+          <div style="font-size:0.75rem;font-weight:600;color:var(--cds-text-03);">ISTQB® Certified Tester</div>
+          <div style="font-size:0.875rem;color:#c62828;font-weight:600;">CT-TAE</div>
         </div>
-        <div class="chapter-body">
-          <p style="font-size:0.875rem;color:var(--text-light);margin-bottom:8px;">生成AI(GenAI)戦略の策定、シャドウAI、LLM選択基準、組織変革管理を学びます。</p>
-          <table class="lo-table">
-            <tr><th>LO ID</th><th>レベル</th><th>内容</th><th>進捗</th></tr>
-            <tr><td>生成AI(GenAI)-5.1.1</td><td><span class="badge-k1">K1</span></td><td>シャドウAIのリスクを想起する</td><td><span id="lo-GenAI-5.1.1"></span></td></tr>
-            <tr><td>生成AI(GenAI)-5.1.2</td><td><span class="badge-k2">K2</span></td><td>ソフトウェアテストの生成AI(GenAI)戦略を定義する際の主要な側面を説明する</td><td><span id="lo-GenAI-5.1.2"></span></td></tr>
-            <tr><td>生成AI(GenAI)-5.1.3</td><td><span class="badge-k2">K2</span></td><td>ソフトウェアテストタスク向けLLM/SLM選択の主要基準を要約する</td><td><span id="lo-GenAI-5.1.3"></span></td></tr>
-            <tr><td>生成AI(GenAI)-5.1.4</td><td><span class="badge-k1">K1</span></td><td>テスト組織での生成AI(GenAI)採用における主要フェーズを想起する</td><td><span id="lo-GenAI-5.1.4"></span></td></tr>
-            <tr><td>生成AI(GenAI)-5.2.1</td><td><span class="badge-k2">K2</span></td><td>テストプロセスで生成AI(GenAI)を効果的に使用するために必要な必須スキルと知識領域を説明する</td><td><span id="lo-GenAI-5.2.1"></span></td></tr>
-            <tr><td>生成AI(GenAI)-5.2.2</td><td><span class="badge-k1">K1</span></td><td>テストチームでのAIスキル育成戦略を想起する</td><td><span id="lo-GenAI-5.2.2"></span></td></tr>
-            <tr><td>生成AI(GenAI)-5.2.3</td><td><span class="badge-k1">K1</span></td><td>生成AI(GenAI)採用によるテストプロセスと責任の変化を認識する</td><td><span id="lo-GenAI-5.2.3"></span></td></tr>
-          </table>
+        <span class="cert-coming-badge" style="margin-left:auto;">近日公開</span>
+      </div>
+      <div class="cert-card-body">
+        <h2>Test Automation Engineer</h2>
+        <p class="cert-version">Coming Soon</p>
+        <p>テスト自動化エンジニア向け資格。準備中です。</p>
+      </div>
+      <div class="cert-card-footer">
+        <div class="cert-stat">
+          <span class="cert-stat-value">—</span>
+          <span class="cert-stat-label">準備中</span>
         </div>
+        <span class="cert-cta" style="color:var(--cds-text-03);">Coming Soon</span>
       </div>
     </div>
-  </main>
 
-  <script>
-    /* ===== DARK MODE ===== */
-    function toggleDark() {
-      document.body.classList.toggle('dark-mode');
-      const on = document.body.classList.contains('dark-mode');
-      localStorage.setItem('ctgenai-dark', on ? '1' : '0');
-      document.getElementById('darkBtn').textContent = on ? '☀️ ライト' : '🌙 ダーク';
-    }
-    if (localStorage.getItem('ctgenai-dark') === '1') {
-      document.body.classList.add('dark-mode');
-      document.documentElement.style.display = '';
-      const btn = document.getElementById('darkBtn');
-      if (btn) btn.textContent = '☀️ ライト';
-    } else {
-      document.documentElement.style.display = '';
-    }
+  </div>
 
-    /* ===== STORAGE HELPERS ===== */
-    function load(key, def) { try { return JSON.parse(localStorage.getItem(key)) || def; } catch { return def; } }
+</main>
 
-    /* ===== EXAM COUNTDOWN ===== */
-    function renderExamCountdown() {
-      const examDate = localStorage.getItem('ctgenai-exam-date');
-      const area = document.getElementById('examCountdownArea');
-      if (!area) return;
+<footer class="app-footer" style="margin-left:0;">
+  <span>ISTQB Study Portal — 非公式学習サイト</span>
+  <span>
+    <a href="ct-ai/index.html">CT-AI v2.0</a> ·
+    <a href="ct-genai/index.html">CT-GenAI v1.0</a>
+  </span>
+  <span>© 2026 · ISTQB® is a registered trademark of ISTQB</span>
+</footer>
 
-      const setDateHtml = `<button class="set-date-btn" onclick="setExamDate()">📅 試験日を設定</button>`;
-
-      if (!examDate) {
-        area.innerHTML = `
-          <div class="exam-countdown">
-            <div class="countdown-icon">🎯</div>
-            <div class="countdown-info">
-              <h3>試験日カウントダウン</h3>
-              <p>受験予定日を設定してカウントダウンを開始しましょう</p>
-            </div>
-            ${setDateHtml}
-          </div>`;
-        return;
-      }
-
-      const now = new Date();
-      const exam = new Date(examDate);
-      const diff = exam - now;
-
-      if (diff < 0) {
-        area.innerHTML = `<div class="exam-countdown"><div class="countdown-icon">✅</div><div class="countdown-info"><h3>試験日が過ぎました</h3><p>お疲れ様でした！</p></div>${setDateHtml}</div>`;
-        return;
-      }
-
-      const days = Math.floor(diff / 86400000);
-      const hours = Math.floor((diff % 86400000) / 3600000);
-      const mins = Math.floor((diff % 3600000) / 60000);
-
-      area.innerHTML = `
-        <div class="exam-countdown">
-          <div class="countdown-icon">⏳</div>
-          <div class="countdown-info">
-            <h3>CT-GenAI 試験まで</h3>
-            <p>試験日: ${examDate} — 集中して仕上げましょう！</p>
-          </div>
-          <div class="countdown-numbers">
-            <div class="countdown-unit"><div class="num">${days}</div><div class="lbl">日</div></div>
-            <div class="countdown-unit"><div class="num">${hours}</div><div class="lbl">時間</div></div>
-            <div class="countdown-unit"><div class="num">${mins}</div><div class="lbl">分</div></div>
-          </div>
-          ${setDateHtml}
-        </div>`;
-    }
-
-    function setExamDate() {
-      const d = prompt('試験予定日を入力してください (例: 2026-06-15)');
-      if (d && /^\d{4}-\d{2}-\d{2}$/.test(d)) {
-        localStorage.setItem('ctgenai-exam-date', d);
-        renderExamCountdown();
-      }
-    }
-
-    /* ===== PROGRESS SUMMARY ===== */
-    function renderProgressSummary() {
-      const stats = load('ctgenai-lo-stats-v1', {});
-      const streak = load('ctgenai-streak-v1', {});
-      const hist = load('ctgenai-session-history-v1', []);
-      const area = document.getElementById('progressSummaryArea');
-      if (!area) return;
-
-      const los = Object.keys(stats);
-      const attempted = los.filter(lo => stats[lo].total > 0);
-      const mastered = los.filter(lo => stats[lo].total >= 3 && stats[lo].total > 0 && (stats[lo].correct / stats[lo].total) >= 0.8);
-      const totalSessions = streak.totalSessions || 0;
-      const lastPct = hist.length > 0 ? hist[hist.length - 1].pct : null;
-
-      if (totalSessions === 0) { area.innerHTML = ''; return; }
-
-      area.innerHTML = `
-        <div class="progress-summary">
-          <h3>📊 学習サマリー</h3>
-          <div class="progress-stat"><div class="num">${streak.streak || 0}</div><div class="lbl">連続日数🔥</div></div>
-          <div class="progress-stat"><div class="num">${totalSessions}</div><div class="lbl">総セッション</div></div>
-          <div class="progress-stat"><div class="num">${attempted.length}</div><div class="lbl">着手LO</div></div>
-          <div class="progress-stat"><div class="num">${mastered.length}</div><div class="lbl">定着LO</div></div>
-          ${lastPct !== null ? `<div class="progress-stat"><div class="num">${lastPct}%</div><div class="lbl">直近正答率</div></div>` : ''}
-          <div style="margin-left:auto;"><a href="quiz.html" class="btn btn-primary">演習を続ける →</a></div>
-        </div>`;
-    }
-
-    /* ===== LO BADGES ===== */
-    function renderLoBadges() {
-      const stats = load('ctgenai-lo-stats-v1', {});
-      const loIds = [
-        'GenAI-1.1.1','GenAI-1.1.2','GenAI-1.1.3','GenAI-1.1.4','GenAI-1.2.1','GenAI-1.2.2',
-        'GenAI-2.1.1','GenAI-2.1.2','GenAI-2.1.3','GenAI-2.2.1','GenAI-2.2.2','GenAI-2.2.3','GenAI-2.2.4','GenAI-2.2.5','GenAI-2.3.1','GenAI-2.3.2',
-        'GenAI-3.1.1','GenAI-3.1.2','GenAI-3.1.3','GenAI-3.1.4','GenAI-3.2.1','GenAI-3.2.2','GenAI-3.2.3','GenAI-3.3.1','GenAI-3.4.1',
-        'GenAI-4.1.1','GenAI-4.1.2','GenAI-4.1.3','GenAI-4.2.1','GenAI-4.2.2',
-        'GenAI-5.1.1','GenAI-5.1.2','GenAI-5.1.3','GenAI-5.1.4','GenAI-5.2.1','GenAI-5.2.2','GenAI-5.2.3'
-      ];
-      loIds.forEach(lo => {
-        const el = document.getElementById('lo-' + lo);
-        if (!el) return;
-        const s = stats[lo];
-        if (!s || s.total === 0) {
-          el.innerHTML = '<span class="lo-progress-badge lo-badge-new">未着手</span>';
-        } else {
-          const pct = Math.round(s.correct / s.total * 100);
-          if (pct >= 80 && s.total >= 3) {
-            el.innerHTML = `<span class="lo-progress-badge lo-badge-mastered">✓ ${pct}%</span>`;
-          } else {
-            el.innerHTML = `<span class="lo-progress-badge lo-badge-learning">${pct}%</span>`;
-          }
-        }
-      });
-    }
-
-    /* ===== INIT ===== */
-    renderExamCountdown();
-    renderProgressSummary();
-    renderLoBadges();
-  </script>
+<script>if ('serviceWorker' in navigator) navigator.serviceWorker.register('./sw.js');</script>
+<script src="shared/js/theme.js"></script>
+<script src="shared/js/shell.js"></script>
+<script src="shared/js/search.js"></script>
 </body>
 </html>

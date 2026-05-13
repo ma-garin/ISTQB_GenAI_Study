@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="ja" data-carbon-theme="white">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>用語集 — CT-AI v2.0</title>
+  <link rel="stylesheet" href="https://unpkg.com/carbon-components@10.58.0/css/carbon-components.min.css">
+  <link rel="stylesheet" href="../../shared/css/carbon-theme.css">
+  <link rel="stylesheet" href="../../shared/css/shell.css">
+  <link rel="stylesheet" href="../css/ct-ai.css">
+  <style>
+    .glossary-search-wrap {
+      position: sticky;
+      top: calc(var(--header-height) + 8px);
+      z-index: 100;
+      background: var(--cds-ui-background);
+      padding-bottom: 12px;
+      margin-bottom: 16px;
+    }
+    .glossary-search-wrap input {
+      width: 100%;
+      max-width: 500px;
+      padding: 8px 12px;
+      border: 1px solid var(--sky-border);
+      border-radius: 4px;
+      font-size: 0.875rem;
+      background: var(--cds-ui-01);
+      color: var(--cds-text-01);
+      font-family: var(--font-family);
+    }
+    .glossary-search-wrap input:focus { outline: 2px solid var(--sky-dark); }
+    .chapter-filter {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-top: 8px;
+    }
+    .chapter-filter button {
+      padding: 3px 10px;
+      border: 1px solid var(--sky-border);
+      border-radius: 12px;
+      font-size: 0.75rem;
+      background: var(--cds-ui-02);
+      color: var(--cds-text-02);
+      cursor: pointer;
+      transition: background 0.1s;
+    }
+    .chapter-filter button:hover { background: var(--sky-border); }
+    .chapter-filter button.active { background: var(--sky-dark); color: #fff; border-color: var(--sky-dark); }
+    .glossary-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 12px;
+    }
+    .term-card {
+      background: var(--cds-ui-01);
+      border: 1px solid var(--sky-border);
+      border-radius: 4px;
+      padding: 14px;
+    }
+    .term-card[hidden] { display: none; }
+    .term-card .term-en {
+      font-size: 0.9375rem;
+      font-weight: 700;
+      color: var(--sky-darker);
+      margin-bottom: 4px;
+    }
+    .term-card .term-chapter {
+      font-size: 0.7rem;
+      font-weight: 600;
+      background: var(--sky-border);
+      color: var(--sky-darker);
+      padding: 1px 6px;
+      border-radius: 8px;
+      display: inline-block;
+      margin-bottom: 6px;
+    }
+    .term-card .term-def-en {
+      font-size: 0.8125rem;
+      color: var(--cds-text-02);
+      line-height: 1.5;
+      margin-bottom: 8px;
+      font-style: italic;
+    }
+    .term-card .term-def-ja {
+      font-size: 0.875rem;
+      color: var(--cds-text-01);
+      line-height: 1.6;
+    }
+    .term-card .term-source {
+      font-size: 0.7rem;
+      color: var(--cds-text-03);
+      margin-top: 6px;
+    }
+    .count-badge {
+      background: var(--sky-border);
+      color: var(--sky-darker);
+      padding: 2px 8px;
+      border-radius: 10px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      margin-left: 8px;
+    }
+  </style>
+</head>
+<body>
+
+<header class="bx--header" role="banner">
+  <button class="bx--header__menu-trigger bx--header__action" data-sidebar-trigger aria-label="メニュー" aria-expanded="false">&#9776;</button>
+  <a class="bx--header__name" href="../../index.html">
+    <svg class="header-logo-svg" viewBox="0 0 24 24" fill="none"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" stroke="#2e86c1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    <span>ISTQB Study Portal</span>
+    <span class="header-product-name">/ CT-AI v2.0</span>
+  </a>
+  <div class="bx--header__global">
+    <a href="../../index.html" class="bx--header__action" style="font-size:0.75rem;width:auto;padding:0 12px;">← ポータル</a>
+    <button class="bx--header__action header-search-btn" data-search-open aria-label="検索">&#128269;</button>
+    <button class="bx--header__action header-theme-btn" data-theme-toggle data-theme-icon aria-label="ダークモードに切替">🌙</button>
+  </div>
+</header>
+
+<div id="sidebar-overlay" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.4);z-index:7800;"></div>
+
+<nav class="bx--side-nav" aria-label="CT-AI ナビゲーション">
+  <ul class="bx--side-nav__nav" role="list">
+    <li class="bx--side-nav__header">ポータル</li>
+    <li class="bx--side-nav__item"><a href="../../index.html" class="bx--side-nav__link"><span class="bx--side-nav__link-text">← ポータルに戻る</span></a></li>
+    <li class="bx--side-nav__item"><a href="../index.html" class="bx--side-nav__link"><span class="bx--side-nav__link-text">CT-AI ホーム</span></a></li>
+    <li class="bx--side-nav__header">CT-AI v2.0 章</li>
+    <li class="bx--side-nav__item"><a href="chapter-0.html" class="bx--side-nav__link"><span class="bx--side-nav__link-text">第0章 序文</span></a></li>
+    <li class="bx--side-nav__item"><a href="chapter-1.html" class="bx--side-nav__link"><span class="bx--side-nav__link-text">第1章 AI入門</span><span class="side-nav-chapter-badge ch1">120分</span></a></li>
+    <li class="bx--side-nav__item"><a href="chapter-2.html" class="bx--side-nav__link"><span class="bx--side-nav__link-text">第2章 品質特性</span><span class="side-nav-chapter-badge ch2">45分</span></a></li>
+    <li class="bx--side-nav__item"><a href="chapter-3.html" class="bx--side-nav__link"><span class="bx--side-nav__link-text">第3章 機械学習</span><span class="side-nav-chapter-badge ch3">375分</span></a></li>
+    <li class="bx--side-nav__item"><a href="chapter-4.html" class="bx--side-nav__link"><span class="bx--side-nav__link-text">第4章 AIテスト</span><span class="side-nav-chapter-badge ch4">195分</span></a></li>
+    <li class="bx--side-nav__item"><a href="chapter-5.html" class="bx--side-nav__link"><span class="bx--side-nav__link-text">第5章 入力データ</span><span class="side-nav-chapter-badge ch5">180分</span></a></li>
+    <li class="bx--side-nav__item"><a href="chapter-6.html" class="bx--side-nav__link"><span class="bx--side-nav__link-text">第6章 モデルテスト</span><span class="side-nav-chapter-badge ch6">225分</span></a></li>
+    <li class="bx--side-nav__item"><a href="chapter-7.html" class="bx--side-nav__link"><span class="bx--side-nav__link-text">第7章 ML開発</span><span class="side-nav-chapter-badge ch7">30分</span></a></li>
+    <li class="bx--side-nav__header">補足資料</li>
+    <li class="bx--side-nav__item"><a href="glossary.html" class="bx--side-nav__link bx--side-nav__link--current"><span class="bx--side-nav__link-text">用語集</span></a></li>
+    <li class="bx--side-nav__item"><a href="references.html" class="bx--side-nav__link"><span class="bx--side-nav__link-text">参考文献</span></a></li>
+    <li class="bx--side-nav__item"><a href="appendices.html" class="bx--side-nav__link"><span class="bx--side-nav__link-text">付録（BO/LO）</span></a></li>
+  </ul>
+</nav>
+
+<div id="search-dialog" hidden role="dialog" aria-modal="true" aria-label="検索">
+  <div class="search-modal">
+    <div class="search-input-wrap"><span>&#128269;</span><input id="search-input" type="search" placeholder="キーワードで検索…" autocomplete="off"></div>
+    <div id="search-results" class="search-results"></div>
+  </div>
+</div>
+
+<main class="bx--content">
+
+  <div class="page-header">
+    <p class="page-eyebrow">CT-AI v2.0 — Chapter 9</p>
+    <h1>AI-Specific Terms（AI固有用語集）<span class="count-badge" id="term-count"></span></h1>
+    <p class="page-subtitle">CT-AI v2.0シラバス第9章に定義されたAI/ML固有の用語集（英日対訳）</p>
+  </div>
+
+  <div class="glossary-search-wrap">
+    <input type="search" id="glossary-filter" placeholder="🔍 用語を検索（英語・日本語）…" autocomplete="off">
+    <div class="chapter-filter" id="chapter-filter">
+      <button class="active" data-ch="all">すべて</button>
+      <button data-ch="1">第1章</button>
+      <button data-ch="2">第2章</button>
+      <button data-ch="3">第3章</button>
+      <button data-ch="4">第4章</button>
+      <button data-ch="5">第5章</button>
+      <button data-ch="6">第6章</button>
+      <button data-ch="7">第7章</button>
+    </div>
+  </div>
+
+  <div class="glossary-grid" id="glossary-grid">
+    <!-- Rendered by JS -->
+  </div>
+
+</main>
+
+<footer class="app-footer">
+  <span><a href="../index.html">CT-AI v2.0</a></span>
+  <span>
+    <a href="chapter-7.html">← 第7章</a> ·
+    <a href="references.html">参考文献 →</a>
+  </span>
+  <span>© 2026 · ISTQB®</span>
+</footer>
+
+<script src="../../shared/js/theme.js"></script>
+<script src="../../shared/js/shell.js"></script>
+<script src="../../shared/js/search.js"></script>
+<script src="../js/glossary-data.js"></script>
+<script>
+(function() {
+  const grid = document.getElementById('glossary-grid');
+  const filterInput = document.getElementById('glossary-filter');
+  const chButtons = document.querySelectorAll('[data-ch]');
+  const countBadge = document.getElementById('term-count');
+  let currentCh = 'all';
+  let currentQ = '';
+
+  const CHAPTER_LABELS = { 1:'第1章',2:'第2章',3:'第3章',4:'第4章',5:'第5章',6:'第6章',7:'第7章' };
+
+  function chapterLabel(n) { return CHAPTER_LABELS[n] || ('Ch'+n); }
+
+  function render() {
+    const q = currentQ.toLowerCase();
+    const ch = currentCh;
+    const visible = CT_AI_GLOSSARY.filter(t => {
+      const matchCh = ch === 'all' || String(t.chapter) === ch;
+      const matchQ = !q || t.term.toLowerCase().includes(q) || t.en.toLowerCase().includes(q) || t.ja.includes(q);
+      return matchCh && matchQ;
+    }).sort((a,b) => a.term.localeCompare(b.term));
+
+    grid.innerHTML = visible.map(t => `
+      <div class="term-card">
+        <div class="term-en">${t.term}</div>
+        <span class="term-chapter">${chapterLabel(t.chapter)}</span>
+        ${t.source ? `<span class="term-source">${t.source}</span>` : ''}
+        <div class="term-def-en">${t.en}</div>
+        <div class="term-def-ja">${t.ja}</div>
+      </div>
+    `).join('');
+
+    countBadge.textContent = visible.length + ' / ' + CT_AI_GLOSSARY.length + ' 用語';
+  }
+
+  filterInput.addEventListener('input', () => { currentQ = filterInput.value.trim(); render(); });
+
+  chButtons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      chButtons.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      currentCh = btn.dataset.ch;
+      render();
+    });
+  });
+
+  render();
+})();
+</script>
+</body>
+</html>

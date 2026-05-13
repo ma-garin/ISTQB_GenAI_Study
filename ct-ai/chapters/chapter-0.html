@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="ja" data-carbon-theme="white">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>第0章: Introduction（序文） — CT-AI v2.0</title>
+  <link rel="stylesheet" href="https://unpkg.com/carbon-components@10.58.0/css/carbon-components.min.css">
+  <link rel="stylesheet" href="../../shared/css/carbon-theme.css">
+  <link rel="stylesheet" href="../../shared/css/shell.css">
+  <link rel="stylesheet" href="../css/ct-ai.css">
+</head>
+<body>
+
+<header class="bx--header" role="banner">
+  <button class="bx--header__menu-trigger bx--header__action" data-sidebar-trigger aria-label="メニュー" aria-expanded="false">&#9776;</button>
+  <a class="bx--header__name" href="../../index.html">
+    <svg class="header-logo-svg" viewBox="0 0 24 24" fill="none"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" stroke="#2e86c1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    <span>ISTQB Study Portal</span>
+    <span class="header-product-name">/ CT-AI v2.0</span>
+  </a>
+  <div class="bx--header__global">
+    <a href="../../index.html" class="bx--header__action" style="font-size:0.75rem;width:auto;padding:0 12px;" title="ポータルに戻る">← ポータル</a>
+    <button class="bx--header__action header-search-btn" data-search-open aria-label="検索" title="検索 (Ctrl+K)">&#128269;</button>
+    <button class="bx--header__action header-theme-btn" data-theme-toggle data-theme-icon aria-label="ダークモードに切替">🌙</button>
+  </div>
+</header>
+
+<div id="sidebar-overlay" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.4);z-index:7800;"></div>
+
+<nav class="bx--side-nav" aria-label="CT-AI ナビゲーション">
+  <ul class="bx--side-nav__nav" role="list">
+    <li class="bx--side-nav__header">ポータル</li>
+    <li class="bx--side-nav__item"><a href="../../index.html" class="bx--side-nav__link"><span class="bx--side-nav__link-text">← ポータルに戻る</span></a></li>
+    <li class="bx--side-nav__item"><a href="../index.html" class="bx--side-nav__link"><span class="bx--side-nav__link-text">CT-AI ホーム</span></a></li>
+    <li class="bx--side-nav__header">CT-AI v2.0 章</li>
+    <li class="bx--side-nav__item"><a href="chapter-0.html" class="bx--side-nav__link bx--side-nav__link--current"><span class="bx--side-nav__link-text">第0章 序文</span></a></li>
+    <li class="bx--side-nav__item"><a href="chapter-1.html" class="bx--side-nav__link"><span class="bx--side-nav__link-text">第1章 AI入門</span><span class="side-nav-chapter-badge ch1">120分</span></a></li>
+    <li class="bx--side-nav__item"><a href="chapter-2.html" class="bx--side-nav__link"><span class="bx--side-nav__link-text">第2章 品質特性</span><span class="side-nav-chapter-badge ch2">45分</span></a></li>
+    <li class="bx--side-nav__item"><a href="chapter-3.html" class="bx--side-nav__link"><span class="bx--side-nav__link-text">第3章 機械学習</span><span class="side-nav-chapter-badge ch3">375分</span></a></li>
+    <li class="bx--side-nav__item"><a href="chapter-4.html" class="bx--side-nav__link"><span class="bx--side-nav__link-text">第4章 AIテスト</span><span class="side-nav-chapter-badge ch4">195分</span></a></li>
+    <li class="bx--side-nav__item"><a href="chapter-5.html" class="bx--side-nav__link"><span class="bx--side-nav__link-text">第5章 入力データ</span><span class="side-nav-chapter-badge ch5">180分</span></a></li>
+    <li class="bx--side-nav__item"><a href="chapter-6.html" class="bx--side-nav__link"><span class="bx--side-nav__link-text">第6章 モデルテスト</span><span class="side-nav-chapter-badge ch6">225分</span></a></li>
+    <li class="bx--side-nav__item"><a href="chapter-7.html" class="bx--side-nav__link"><span class="bx--side-nav__link-text">第7章 ML開発</span><span class="side-nav-chapter-badge ch7">30分</span></a></li>
+    <li class="bx--side-nav__header">補足資料</li>
+    <li class="bx--side-nav__item"><a href="glossary.html" class="bx--side-nav__link"><span class="bx--side-nav__link-text">用語集</span></a></li>
+    <li class="bx--side-nav__item"><a href="references.html" class="bx--side-nav__link"><span class="bx--side-nav__link-text">参考文献</span></a></li>
+    <li class="bx--side-nav__item"><a href="appendices.html" class="bx--side-nav__link"><span class="bx--side-nav__link-text">付録（BO/LO）</span></a></li>
+  </ul>
+</nav>
+
+<div id="search-dialog" hidden role="dialog" aria-modal="true" aria-label="検索">
+  <div class="search-modal">
+    <div class="search-input-wrap"><span>&#128269;</span><input id="search-input" type="search" placeholder="キーワードで検索…" autocomplete="off"></div>
+    <div id="search-results" class="search-results"></div>
+  </div>
+</div>
+
+<main class="bx--content">
+
+  <!-- Chapter Hero -->
+  <div class="chapter-hero ch0">
+    <div class="chapter-num">第0章 — Introduction</div>
+    <h1>序文</h1>
+    <div class="chapter-en-title">Introduction — Purpose, Career Path, Business Outcomes, Exam Structure</div>
+    <div class="chapter-meta">
+      <span class="meta-item">📋 シラバス概要</span>
+      <span class="meta-item">🎯 8 Business Outcomes</span>
+      <span class="meta-item">前提: ISTQB® CTFL</span>
+    </div>
+  </div>
+
+  <!-- Sections -->
+
+  <!-- 0.1 Purpose of this Syllabus -->
+  <div class="bilingual-section" id="sec-0-1">
+    <div class="en-column">
+      <details class="en-original">
+        <summary>Original English ▸</summary>
+        <div class="en-text">
+          <p>This syllabus forms the basis for the International Software Testing Qualifications Board (ISTQB®) Certified Tester AI Testing (CT-AI) certification. The ISTQB® is a not-for-profit organization that sets and maintains standards for the qualification and certification of software testers globally.</p>
+          <p>The syllabus is used by:</p>
+          <p><strong>Member boards</strong> — to translate the syllabus into national languages and accredit training providers.</p>
+          <p><strong>Certification bodies</strong> — to create exams in an appropriate language and to accredit exam providers.</p>
+          <p><strong>Training providers</strong> — to develop courseware and determine appropriate teaching methods.</p>
+          <p><strong>Certification candidates</strong> — to prepare for the examination.</p>
+          <p><strong>The international software and systems testing community</strong> — to advance the profession of software and systems testing, and as a basis for books and articles.</p>
+        </div>
+      </details>
+    </div>
+    <div class="ja-column">
+      <h2>0.1 シラバスの目的</h2>
+      <p>本シラバスは、ISTQB®（International Software Testing Qualifications Board）が提供する<strong>Certified Tester AI Testing（CT-AI）</strong>認定試験の基盤となるものです。ISTQB® は世界のソフトウェアテスト担当者の資格・認定に関する基準を策定・維持している非営利組織です。</p>
+      <p>本シラバスは、以下の関係者が利用します。</p>
+      <ul>
+        <li><strong>各国メンバーボード</strong> — シラバスを各国語に翻訳し、トレーニングプロバイダーを認定する。</li>
+        <li><strong>認定機関</strong> — 適切な言語で試験を作成し、試験プロバイダーを認定する。</li>
+        <li><strong>トレーニングプロバイダー</strong> — コース教材を開発し、適切な教授方法を決定する。</li>
+        <li><strong>受験候補者</strong> — 試験準備のために活用する。</li>
+        <li><strong>国際的なソフトウェア・システムテストコミュニティ</strong> — テストの専門分野を発展させるための土台として、また書籍・記事の参考資料として利用する。</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- 0.2 CT-AI Certified Tester -->
+  <div class="bilingual-section" id="sec-0-2">
+    <div class="en-column">
+      <details class="en-original">
+        <summary>Original English ▸</summary>
+        <div class="en-text">
+          <p>The CT-AI syllabus is designed for people involved in software testing who work with AI-based systems. This includes testers, test analysts, data analysts, test engineers, test consultants, test managers, and software developers.</p>
+          <p>The primary goal is for candidates to understand how AI-based systems work, what makes them unique from a testing perspective, and how to design and execute appropriate tests.</p>
+          <p><strong>Entry requirement:</strong> Candidates must hold the ISTQB® Certified Tester Foundation Level (CTFL) certificate. No programming or data science background is required, although familiarity with general software testing concepts is assumed.</p>
+        </div>
+      </details>
+    </div>
+    <div class="ja-column">
+      <h2>0.2 Certified Tester AI Testing（CT-AI）について</h2>
+      <p>CT-AI シラバスは、AIベースのシステムを扱うソフトウェアテストの関係者を対象としています。具体的には、テスター・テストアナリスト・データアナリスト・テストエンジニア・テストコンサルタント・テストマネージャー・ソフトウェア開発者が該当します。</p>
+      <p>主な目的は、受験者がAIベースのシステムの仕組みを理解し、テスト観点からその特殊性を把握し、適切なテストを設計・実行できるようになることです。</p>
+      <div class="info-box note">
+        <span class="box-title">前提要件</span>
+        受験には <strong>ISTQB® Certified Tester Foundation Level（CTFL）</strong> 資格の保有が必要です。プログラミングやデータサイエンスの専門知識は不要ですが、一般的なソフトウェアテストの概念に精通していることが前提となります。
+      </div>
+    </div>
+  </div>
+
+  <!-- 0.3 Career Path -->
+  <div class="bilingual-section" id="sec-0-3">
+    <div class="en-column">
+      <details class="en-original">
+        <summary>Original English ▸</summary>
+        <div class="en-text">
+          <p>The ISTQB® qualification scheme supports a structured career path in software testing. The scheme is organized into several streams, each targeting different expertise areas.</p>
+          <p>The general progression is: Foundation Level → Advanced Level → Expert Level. In addition, the Specialist stream offers targeted certifications for specific domains, including AI Testing (CT-AI) and Generative AI Testing (CT-GenAI).</p>
+          <p>CT-AI sits within the Specialist stream and is accessible after achieving CTFL. It complements the CT-GenAI syllabus, which focuses specifically on generative AI testing scenarios.</p>
+        </div>
+      </details>
+    </div>
+    <div class="ja-column">
+      <h2>0.3 テスター向けキャリアパス</h2>
+      <p>ISTQB® の資格スキームは、ソフトウェアテストにおける体系的なキャリアパスを支援します。スキームはいくつかのストリームで構成されており、それぞれ異なる専門領域を対象としています。</p>
+      <p>一般的な進行は次の通りです。</p>
+      <ol>
+        <li><strong>Foundation Level（基礎レベル）</strong> — CTFL：すべてのキャリアパスの出発点</li>
+        <li><strong>Advanced Level（上級レベル）</strong> — Test Analyst / Test Manager / Technical Test Analyst</li>
+        <li><strong>Expert Level（エキスパートレベル）</strong> — テスト分野の最上位資格</li>
+        <li><strong>Specialist Stream（専門ストリーム）</strong> — 特定分野の専門資格<br>
+          例：AI Testing（CT-AI）、Generative AI Testing（CT-GenAI）、Agile、Security Testing など</li>
+      </ol>
+      <p>CT-AI は Specialist Stream に位置し、CTFL 取得後にアクセス可能です。生成AI特化の CT-GenAI シラバスと補完関係にあります。</p>
+    </div>
+  </div>
+
+  <!-- 0.4 Business Outcomes -->
+  <div class="bilingual-section" id="sec-0-4">
+    <div class="en-column">
+      <details class="en-original">
+        <summary>Original English ▸</summary>
+        <div class="en-text">
+          <p>The CT-AI syllabus defines eight Business Outcomes (BOs). Each BO describes a high-level capability that a certified tester should be able to demonstrate after completing this course of study.</p>
+          <p>Business Outcomes are distinct from Learning Objectives: BOs describe what value is delivered to the professional and the organization, while LOs describe specific knowledge or skills at a granular level.</p>
+        </div>
+      </details>
+    </div>
+    <div class="ja-column">
+      <h2>0.4 ビジネスアウトカム（Business Outcomes）</h2>
+      <p>CT-AI シラバスでは、8つの<strong>ビジネスアウトカム（BO）</strong>を定義しています。各BOは、本課程の学習を完了した認定テスターが実証できるべき高レベルな能力を記述したものです。</p>
+      <p>BOはラーニングオブジェクティブ（LO）とは異なります。BOはプロフェッショナルおよび組織にもたらされる価値を記述し、LOは粒度の細かい特定の知識・スキルを記述します。</p>
+
+      <table class="content-table">
+        <thead>
+          <tr>
+            <th style="width:60px;">BO ID</th>
+            <th>ビジネスアウトカム（日本語）</th>
+            <th>Business Outcome（英語）</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>BO1</strong></td>
+            <td>生成AIを含むAIの現状を理解する</td>
+            <td>Understand the current state of AI, including generative AI</td>
+          </tr>
+          <tr>
+            <td><strong>BO2</strong></td>
+            <td>MLモデルの実装とテストを体験する</td>
+            <td>Experience the implementation and testing of ML models</td>
+          </tr>
+          <tr>
+            <td><strong>BO3</strong></td>
+            <td>単純なニューラルネットワークの動作とテストを理解する</td>
+            <td>Understand the working and testing of simple neural networks</td>
+          </tr>
+          <tr>
+            <td><strong>BO4</strong></td>
+            <td>ISO/IEC 25059で定義されたAI品質特性を理解する</td>
+            <td>Understand AI quality characteristics defined by ISO/IEC 25059</td>
+          </tr>
+          <tr>
+            <td><strong>BO5</strong></td>
+            <td>ML機能性能メトリクスを計算・解釈する</td>
+            <td>Calculate and interpret ML functional performance metrics</td>
+          </tr>
+          <tr>
+            <td><strong>BO6</strong></td>
+            <td>2つのML固有テストレベルの範囲と重要性を認識する</td>
+            <td>Recognize scope and importance of the two ML-specific test levels</td>
+          </tr>
+          <tr>
+            <td><strong>BO7</strong></td>
+            <td>MLシステムの効果的なテスト戦略の策定に貢献する</td>
+            <td>Contribute to development of an effective test strategy for ML systems</td>
+          </tr>
+          <tr>
+            <td><strong>BO8</strong></td>
+            <td>MLシステムのテストケースを設計・実行する</td>
+            <td>Design and execute test cases for ML systems</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="info-box tip">
+        <span class="box-title">試験のポイント</span>
+        8つのBOはすべて試験に出題される可能性があります。特に BO4（ISO/IEC 25059）、BO5（性能メトリクス）、BO6（テストレベル）、BO8（テストケース設計）は、後の章で詳細に扱われる重要項目です。
+      </div>
+    </div>
+  </div>
+
+  <!-- 0.5 Learning Objectives and Cognitive Levels -->
+  <div class="bilingual-section" id="sec-0-5">
+    <div class="en-column">
+      <details class="en-original">
+        <summary>Original English ▸</summary>
+        <div class="en-text">
+          <p>Learning Objectives (LOs) support the Business Outcomes and are used to create the CT-AI exam. Each LO has a cognitive level that indicates the depth of understanding required.</p>
+          <p><strong>Knowledge Levels (K):</strong></p>
+          <p>K1 — Remember: Can recall and recognize terms, concepts, and facts.</p>
+          <p>K2 — Understand: Can explain and summarize concepts in own words.</p>
+          <p>K3 — Apply: Can carry out a procedure or use an abstraction in a given situation.</p>
+          <p>K4 — Analyze: Can distinguish, organize, and attribute parts to the whole; see the relationship between elements.</p>
+          <p><strong>Hands-on Levels (H):</strong></p>
+          <p>H0 — No hands-on experience required beyond understanding the concept.</p>
+          <p>H1 — Assisted: Can perform with guidance or using reference materials.</p>
+          <p>H2 — Performed: Can independently perform without guidance.</p>
+        </div>
+      </details>
+    </div>
+    <div class="ja-column">
+      <h2>0.5 ラーニングオブジェクティブと認知レベル</h2>
+      <p>ラーニングオブジェクティブ（LO）はビジネスアウトカムを支援し、CT-AI 試験の問題作成に使用されます。各LOには、要求される理解の深さを示す<strong>認知レベル</strong>が付与されています。</p>
+
+      <h3>知識レベル（K レベル）</h3>
+      <table class="content-table">
+        <thead>
+          <tr><th>レベル</th><th>名称</th><th>説明</th><th>動詞例</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="lo-badge k1">K1</span></td>
+            <td>記憶（Remember）</td>
+            <td>用語・概念・事実を想起・認識できる</td>
+            <td>識別する、列挙する、思い出す</td>
+          </tr>
+          <tr>
+            <td><span class="lo-badge k2">K2</span></td>
+            <td>理解（Understand）</td>
+            <td>概念を自分の言葉で説明・要約できる</td>
+            <td>説明する、分類する、比較する、要約する</td>
+          </tr>
+          <tr>
+            <td><span class="lo-badge k3">K3</span></td>
+            <td>適用（Apply）</td>
+            <td>与えられた状況で手順を実行したり抽象概念を使用できる</td>
+            <td>実行する、使用する、実装する、計算する</td>
+          </tr>
+          <tr>
+            <td><span class="lo-badge k4">K4</span></td>
+            <td>分析（Analyze）</td>
+            <td>部分と全体を区別・整理・帰属し、要素間の関係を見出せる</td>
+            <td>分析する、区別する、構造化する</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h3>ハンズオンレベル（H レベル）</h3>
+      <table class="content-table">
+        <thead>
+          <tr><th>レベル</th><th>名称</th><th>説明</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="lo-badge ho">H0</span></td>
+            <td>なし</td>
+            <td>概念の理解を超えた実践的な経験は不要</td>
+          </tr>
+          <tr>
+            <td><span class="lo-badge ho">H1</span></td>
+            <td>補助あり（Assisted）</td>
+            <td>ガイダンスや参考資料を用いて実行できる</td>
+          </tr>
+          <tr>
+            <td><span class="lo-badge ho">H2</span></td>
+            <td>独立（Performed）</td>
+            <td>ガイダンスなしで独立して実行できる</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="info-box tip">
+        <span class="box-title">試験のポイント</span>
+        CT-AI v2.0 の LO は K2 と K3 が中心です（全46個のうち K3 が4個）。K2 は「説明する・分類する・比較する」レベル、K3 は「実際に計算したり実装したりする」レベルを意味します。ハンズオン (H) レベルは試験問題の難易度指定に使われますが、試験は筆記形式のみです。
+      </div>
+    </div>
+  </div>
+
+  <!-- 0.6 The CT-AI Certificate Exam -->
+  <div class="bilingual-section" id="sec-0-6">
+    <div class="en-column">
+      <details class="en-original">
+        <summary>Original English ▸</summary>
+        <div class="en-text">
+          <p>The CT-AI exam consists of 40 multiple-choice questions. Candidates have 75 minutes to complete the exam. A passing score of 65% (26 out of 40 correct answers) is required.</p>
+          <p>For non-native language speakers taking the exam in a language other than their native language, additional time may be granted (typically 25% more time). The exam is offered by ISTQB® member boards and accredited exam providers worldwide.</p>
+          <p>All exam questions are based on Learning Objectives from this syllabus. The exam tests knowledge and understanding (K-levels) as described in each LO. No open-book or reference materials are permitted during the exam.</p>
+        </div>
+      </details>
+    </div>
+    <div class="ja-column">
+      <h2>0.6 CT-AI 認定試験</h2>
+      <p>CT-AI 認定試験は以下の形式で実施されます。</p>
+      <table class="content-table">
+        <thead>
+          <tr><th>項目</th><th>内容</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>問題形式</td><td>多肢選択式（Multiple Choice）</td></tr>
+          <tr><td>問題数</td><td>40問</td></tr>
+          <tr><td>試験時間</td><td>75分</td></tr>
+          <tr><td>合格基準</td><td>65%以上（40問中26問正解）</td></tr>
+          <tr><td>追加時間</td><td>母国語以外での受験者に最大25%の延長時間（約19分）が付与される場合あり</td></tr>
+          <tr><td>持ち込み</td><td>不可（オープンブック不可）</td></tr>
+          <tr><td>実施機関</td><td>ISTQB® メンバーボードおよびその認定試験プロバイダー</td></tr>
+        </tbody>
+      </table>
+      <p>すべての試験問題は本シラバスのラーニングオブジェクティブに基づいています。各LOに記載のKレベルに応じた知識・理解が問われます。</p>
+
+      <div class="info-box note">
+        <span class="box-title">日本での受験について</span>
+        日本では JSTQB（Japan Software Testing Qualifications Board）がメンバーボードとして試験を実施します。日本語での受験が可能な場合があります。最新の試験日程・会場については JSTQB 公式サイトをご確認ください。
+      </div>
+
+      <div class="info-box tip">
+        <span class="box-title">試験のポイント</span>
+        40問中26問正解（65%）が合格ラインです。章ごとの出題比重はシラバスの学習時間配分と概ね比例します。最も出題数が多い第3章（機械学習・375分）と第6章（モデルテスト・225分）を重点的に学習しましょう。
+      </div>
+    </div>
+  </div>
+
+</main>
+
+<footer class="app-footer">
+  <span><a href="../index.html">CT-AI v2.0</a></span>
+  <span><a href="../index.html">← CT-AI ホーム</a> · <a href="chapter-1.html">第1章 AI入門 →</a></span>
+  <span>© 2026 · ISTQB® is a registered trademark of ISTQB</span>
+</footer>
+
+<script src="../../shared/js/theme.js"></script>
+<script src="../../shared/js/shell.js"></script>
+<script src="../../shared/js/search.js"></script>
+<script src="../js/toc.js"></script>
+</body>
+</html>

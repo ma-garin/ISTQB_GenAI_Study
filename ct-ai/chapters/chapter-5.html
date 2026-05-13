@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="ja" data-carbon-theme="white">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>第5章: MLシステムの入力データテスト — CT-AI v2.0</title>
+  <link rel="stylesheet" href="https://unpkg.com/carbon-components@10.58.0/css/carbon-components.min.css">
+  <link rel="stylesheet" href="../../shared/css/carbon-theme.css">
+  <link rel="stylesheet" href="../../shared/css/shell.css">
+  <link rel="stylesheet" href="../css/ct-ai.css">
+</head>
+<body>
+
+<header class="bx--header" role="banner">
+  <button class="bx--header__menu-trigger bx--header__action" data-sidebar-trigger aria-label="メニュー" aria-expanded="false">&#9776;</button>
+  <a class="bx--header__name" href="../../index.html">
+    <svg class="header-logo-svg" viewBox="0 0 24 24" fill="none"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" stroke="#2e86c1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    <span>ISTQB Study Portal</span>
+    <span class="header-product-name">/ CT-AI v2.0</span>
+  </a>
+  <div class="bx--header__global">
+    <a href="../../index.html" class="bx--header__action" style="font-size:0.75rem;width:auto;padding:0 12px;">← ポータル</a>
+    <button class="bx--header__action header-search-btn" data-search-open aria-label="検索">&#128269;</button>
+    <button class="bx--header__action header-theme-btn" data-theme-toggle data-theme-icon aria-label="ダークモードに切替">🌙</button>
+  </div>
+</header>
+
+<div id="sidebar-overlay" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.4);z-index:7800;"></div>
+
+<nav class="bx--side-nav" aria-label="CT-AI ナビゲーション">
+  <ul class="bx--side-nav__nav" role="list">
+    <li class="bx--side-nav__header">ポータル</li>
+    <li class="bx--side-nav__item"><a href="../../index.html" class="bx--side-nav__link"><span class="bx--side-nav__link-text">← ポータル</span></a></li>
+    <li class="bx--side-nav__item"><a href="../index.html" class="bx--side-nav__link"><span class="bx--side-nav__link-text">CT-AI ホーム</span></a></li>
+    <li class="bx--side-nav__header">CT-AI v2.0 章</li>
+    <li class="bx--side-nav__item"><a href="chapter-0.html" class="bx--side-nav__link"><span class="bx--side-nav__link-text">第0章 序文</span></a></li>
+    <li class="bx--side-nav__item"><a href="chapter-1.html" class="bx--side-nav__link"><span class="bx--side-nav__link-text">第1章 AI入門</span><span class="side-nav-chapter-badge ch1">120分</span></a></li>
+    <li class="bx--side-nav__item"><a href="chapter-2.html" class="bx--side-nav__link"><span class="bx--side-nav__link-text">第2章 品質特性</span><span class="side-nav-chapter-badge ch2">45分</span></a></li>
+    <li class="bx--side-nav__item"><a href="chapter-3.html" class="bx--side-nav__link"><span class="bx--side-nav__link-text">第3章 機械学習</span><span class="side-nav-chapter-badge ch3">375分</span></a></li>
+    <li class="bx--side-nav__item"><a href="chapter-4.html" class="bx--side-nav__link"><span class="bx--side-nav__link-text">第4章 AIテスト</span><span class="side-nav-chapter-badge ch4">195分</span></a></li>
+    <li class="bx--side-nav__item"><a href="chapter-5.html" class="bx--side-nav__link bx--side-nav__link--current"><span class="bx--side-nav__link-text">第5章 入力データ</span><span class="side-nav-chapter-badge ch5">180分</span></a></li>
+    <li class="bx--side-nav__item"><a href="chapter-6.html" class="bx--side-nav__link"><span class="bx--side-nav__link-text">第6章 モデルテスト</span><span class="side-nav-chapter-badge ch6">225分</span></a></li>
+    <li class="bx--side-nav__item"><a href="chapter-7.html" class="bx--side-nav__link"><span class="bx--side-nav__link-text">第7章 ML開発</span><span class="side-nav-chapter-badge ch7">30分</span></a></li>
+    <li class="bx--side-nav__header">補足資料</li>
+    <li class="bx--side-nav__item"><a href="glossary.html" class="bx--side-nav__link"><span class="bx--side-nav__link-text">用語集</span></a></li>
+    <li class="bx--side-nav__item"><a href="references.html" class="bx--side-nav__link"><span class="bx--side-nav__link-text">参考文献</span></a></li>
+    <li class="bx--side-nav__item"><a href="appendices.html" class="bx--side-nav__link"><span class="bx--side-nav__link-text">付録（BO/LO）</span></a></li>
+  </ul>
+</nav>
+
+<div id="search-dialog" hidden role="dialog" aria-modal="true" aria-label="検索">
+  <div class="search-modal">
+    <div class="search-input-wrap"><span>&#128269;</span><input id="search-input" type="search" placeholder="キーワードで検索…" autocomplete="off"></div>
+    <div id="search-results" class="search-results"></div>
+  </div>
+</div>
+
+<main class="bx--content">
+
+  <!-- Chapter Hero -->
+  <div class="chapter-hero ch5">
+    <div class="chapter-num">第5章 — Input Data Testing for ML Systems</div>
+    <h1>MLシステムの入力データテスト</h1>
+    <div class="chapter-en-title">Input Data Testing — Bias, Data Pipelines, Representativeness, Constraints, Label Correctness</div>
+    <div class="chapter-meta">
+      <span class="meta-item">⏱ 180分</span>
+      <span class="meta-item">📋 7 LOs (K2–K3 + H2)</span>
+      <span class="meta-item">🎯 AI-5.1.x · HO-5.1.7</span>
+    </div>
+  </div>
+
+  <!-- LO Summary -->
+  <div class="bilingual-section" id="lo-summary">
+    <div class="en-column">
+      <details class="en-original">
+        <summary>Learning Objectives (English) ▸</summary>
+        <div class="en-text">
+          <ul>
+            <li><strong>AI-5.1.1 (K2)</strong> Give examples of test approaches for input data risk mitigation</li>
+            <li><strong>AI-5.1.2 (K2)</strong> Explain how to test for bias</li>
+            <li><strong>AI-5.1.3 (K2)</strong> Explain data pipeline testing</li>
+            <li><strong>AI-5.1.4 (K2)</strong> Explain testing for data representativeness</li>
+            <li><strong>AI-5.1.5 (K3)</strong> Apply dataset constraint testing to a given scenario</li>
+            <li><strong>AI-5.1.6 (K2)</strong> Explain label correctness testing</li>
+            <li><strong>HO-5.1.7 (H2)</strong> Hands-on: Input Data Testing</li>
+          </ul>
+        </div>
+      </details>
+    </div>
+    <div class="ja-column">
+      <h2>学習目標（Learning Objectives）</h2>
+      <table class="content-table">
+        <thead>
+          <tr><th style="width:120px;">LO ID</th><th>内容</th><th style="width:60px;">レベル</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><strong>AI-5.1.1</strong></td><td>入力データリスク軽減のためのテストアプローチの例を挙げられる</td><td>K2</td></tr>
+          <tr><td><strong>AI-5.1.2</strong></td><td>バイアスのテスト方法を説明できる</td><td>K2</td></tr>
+          <tr><td><strong>AI-5.1.3</strong></td><td>データパイプラインテストを説明できる</td><td>K2</td></tr>
+          <tr><td><strong>AI-5.1.4</strong></td><td>データ代表性のテストを説明できる</td><td>K2</td></tr>
+          <tr><td><strong>AI-5.1.5</strong></td><td>与えられたシナリオにデータセット制約テストを適用できる</td><td>K3</td></tr>
+          <tr><td><strong>AI-5.1.6</strong></td><td>ラベル正確性テストを説明できる</td><td>K2</td></tr>
+          <tr><td><strong>HO-5.1.7</strong></td><td>ハンズオン：入力データテスト</td><td>H2</td></tr>
+        </tbody>
+      </table>
+      <div class="info-box tip">
+        <span class="box-title">キーワード</span>
+        data bias / sampling bias / labeling bias / disparate impact analysis / data pipeline / data quality / representativeness / stratified sampling / dataset constraint / label correctness / inter-annotator agreement / Cohen's kappa / model confidence score analysis / model loss analysis / multiple annotation
+      </div>
+    </div>
+  </div>
+
+  <!-- 5.1.1 Input Data Risks and Mitigations -->
+  <div class="bilingual-section" id="sec-5-1-1">
+    <div class="en-column">
+      <details class="en-original">
+        <summary>Original English ▸</summary>
+        <div class="en-text">
+          <h3>5.1.1 Input Data Risks and Mitigations</h3>
+          <p>The quality of training data is often the single largest determinant of ML model quality. Poor data leads to poor models regardless of the sophistication of the model architecture. Common input data risks include:</p>
+          <ul>
+            <li><strong>Sampling bias</strong>: the training data is not representative of the target population (e.g., data collected only from a specific geographic region is used to build a global model)</li>
+            <li><strong>Labeling errors</strong>: incorrect or inconsistent labels degrade model learning</li>
+            <li><strong>Data drift</strong>: the statistical properties of production data differ from those of training data, causing model degradation over time</li>
+            <li><strong>Missing values</strong>: incomplete records can bias learned patterns or cause inference failures</li>
+            <li><strong>Outliers</strong>: extreme values may distort model training or indicate data quality issues</li>
+            <li><strong>Privacy violations</strong>: training data may contain personally identifiable information (PII) that should not be included</li>
+            <li><strong>Class imbalance</strong>: significant differences in the number of samples per class can bias the model toward the majority class</li>
+          </ul>
+          <p><strong>Mitigation approaches:</strong></p>
+          <ul>
+            <li><strong>Exploratory Data Analysis (EDA)</strong>: systematic visual and statistical exploration of data distributions, missing value patterns, and outliers before training</li>
+            <li><strong>Statistical tests</strong>: formal tests for distribution conformance, independence, and normality</li>
+            <li><strong>Schema validation</strong>: automated checks on column types, value ranges, and uniqueness constraints</li>
+            <li><strong>Automated data quality checks</strong>: pipelines with built-in monitoring for common data issues (tools: Great Expectations, dbt tests, TFX Data Validation)</li>
+          </ul>
+        </div>
+      </details>
+    </div>
+    <div class="ja-column">
+      <h2 id="sec511">5.1.1 入力データのリスクと軽減策</h2>
+      <p>訓練データの品質は、MLモデルの品質を決定する最大の要因の一つです。モデルアーキテクチャがどれほど洗練されていても、データが不良であれば不良なモデルが生まれます。</p>
+
+      <h3>一般的な入力データリスク</h3>
+      <table class="content-table">
+        <thead>
+          <tr><th>リスク</th><th>説明</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><strong>サンプリングバイアス</strong></td><td>訓練データが対象集団を代表していない（例：特定地域のデータのみでグローバルモデルを構築）</td></tr>
+          <tr><td><strong>ラベリングエラー</strong></td><td>不正確または一貫性のないラベルがモデルの学習を劣化させる</td></tr>
+          <tr><td><strong>データドリフト</strong></td><td>本番データの統計的性質が訓練データと乖離し、時間とともにモデルが劣化する</td></tr>
+          <tr><td><strong>欠損値</strong></td><td>不完全なレコードが学習パターンにバイアスをもたらすか、推論時に失敗を引き起こす</td></tr>
+          <tr><td><strong>外れ値</strong></td><td>極端な値がモデル訓練を歪める、またはデータ品質の問題を示す</td></tr>
+          <tr><td><strong>プライバシー違反</strong></td><td>訓練データに含まれるべきでない個人識別情報（PII）の混入</td></tr>
+          <tr><td><strong>クラス不均衡</strong></td><td>クラスごとのサンプル数の著しい差異が多数クラスへのバイアスを生む</td></tr>
+        </tbody>
+      </table>
+
+      <h3>軽減アプローチ</h3>
+      <table class="content-table">
+        <thead>
+          <tr><th>手法</th><th>説明</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><strong>探索的データ分析（EDA）</strong></td><td>訓練前にデータ分布・欠損パターン・外れ値を系統的に視覚化・統計的に探索</td></tr>
+          <tr><td><strong>統計的検定</strong></td><td>分布適合性・独立性・正規性の形式的検定</td></tr>
+          <tr><td><strong>スキーマ検証</strong></td><td>列型・値範囲・一意性制約の自動チェック</td></tr>
+          <tr><td><strong>自動データ品質チェック</strong></td><td>一般的なデータ問題を監視する組み込みパイプライン（Great Expectations・dbt tests・TFX Data Validationなど）</td></tr>
+        </tbody>
+      </table>
+
+      <div class="info-box tip">
+        <span class="box-title">試験のポイント</span>
+        7種類の入力データリスクとそれぞれの軽減策を例として挙げられるようにしてください（K2レベル）。「EDA」「スキーマ検証」「自動データ品質チェック」は代表的な軽減アプローチとして頻出です。
+      </div>
+    </div>
+  </div>
+
+  <!-- 5.1.2 Testing for Bias -->
+  <div class="bilingual-section" id="sec-5-1-2">
+    <div class="en-column">
+      <details class="en-original">
+        <summary>Original English ▸</summary>
+        <div class="en-text">
+          <h3>5.1.2 Testing for Bias</h3>
+          <p><strong>Bias types in ML data:</strong></p>
+          <ul>
+            <li><strong>Sampling bias</strong>: the data collection process systematically excludes or underrepresents certain subgroups</li>
+            <li><strong>Labeling bias</strong>: human annotators apply labels inconsistently or in ways that reflect societal prejudices (e.g., criminal risk scoring biased against minorities)</li>
+            <li><strong>Measurement bias</strong>: the features themselves contain systematic errors (e.g., a biometric sensor that performs less accurately for dark skin tones)</li>
+            <li><strong>Aggregation bias</strong>: combining data from distinct subgroups in a single model when separate models would be more appropriate (Simpson's Paradox)</li>
+          </ul>
+          <p><strong>Fairness metrics:</strong></p>
+          <ul>
+            <li><strong>Demographic parity</strong> (statistical parity): the proportion of positive predictions should be equal across groups. P(Ŷ=1 | group=A) = P(Ŷ=1 | group=B)</li>
+            <li><strong>Equal opportunity</strong>: the true positive rate should be equal across groups. P(Ŷ=1 | Y=1, group=A) = P(Ŷ=1 | Y=1, group=B)</li>
+            <li><strong>Predictive equality</strong> (equalized odds): both TPR and FPR should be equal across groups</li>
+          </ul>
+          <p><strong>Disparate impact analysis:</strong> measures whether decisions affect protected groups disproportionately. The "four-fifths rule" (80% rule) states that the selection rate for the disadvantaged group should be at least 80% of the selection rate of the advantaged group. Counterfactual testing swaps sensitive attributes and checks whether the model's decision changes.</p>
+          <p><strong>Tools:</strong> Fairlearn (Microsoft), AI Fairness 360 (IBM), Google What-If Tool.</p>
+        </div>
+      </details>
+    </div>
+    <div class="ja-column">
+      <h2 id="sec512">5.1.2 バイアスのテスト</h2>
+
+      <h3>MLデータにおけるバイアスの種類</h3>
+      <table class="content-table">
+        <thead>
+          <tr><th>バイアス種別</th><th>説明</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><strong>サンプリングバイアス</strong></td><td>データ収集プロセスが特定のサブグループを系統的に除外または過小代表にする</td></tr>
+          <tr><td><strong>ラベリングバイアス</strong></td><td>人間のアノテーターが一貫性なくラベルを付けたり、社会的偏見を反映したラベリングをする（例：マイノリティに不利な犯罪リスクスコアリング）</td></tr>
+          <tr><td><strong>測定バイアス</strong></td><td>特徴量自体に系統誤差が含まれる（例：暗い肌色で精度が低い生体認証センサー）</td></tr>
+          <tr><td><strong>集約バイアス</strong></td><td>個別モデルが適切な異なるサブグループのデータを単一モデルに混合する（シンプソンのパラドックス）</td></tr>
+        </tbody>
+      </table>
+
+      <h3>公平性指標（Fairness Metrics）</h3>
+      <table class="content-table">
+        <thead>
+          <tr><th>指標名</th><th>定義</th><th>意味</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>統計的パリティ（人口統計的均等）</strong></td>
+            <td>P(Ŷ=1 | グループA) = P(Ŷ=1 | グループB)</td>
+            <td>グループ間で陽性予測率が等しい</td>
+          </tr>
+          <tr>
+            <td><strong>機会均等（Equal Opportunity）</strong></td>
+            <td>P(Ŷ=1 | Y=1, グループA) = P(Ŷ=1 | Y=1, グループB)</td>
+            <td>グループ間で真陽性率（TPR）が等しい</td>
+          </tr>
+          <tr>
+            <td><strong>予測均等性（Equalized Odds）</strong></td>
+            <td>TPRとFPRがともにグループ間で等しい</td>
+            <td>より厳格な公平性の定義</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h3>差別的影響分析（Disparate Impact Analysis）</h3>
+      <p>意思決定が保護されたグループに不均衡な影響を与えるかどうかを測定します。</p>
+      <div class="info-box note">
+        <span class="box-title">4/5ルール（80%ルール）</span>
+        不利なグループの採用率が有利なグループの採用率の<strong>少なくとも80%以上</strong>でなければならないというルールです。これを下回る場合、差別的影響の可能性があります。
+      </div>
+      <p><strong>反事実テスト（Counterfactual Testing）</strong>：センシティブ属性（性別・人種等）を入れ替えてモデルの判断が変わるかどうかを確認します。</p>
+
+      <h3>主なツール</h3>
+      <ul>
+        <li><strong>Fairlearn</strong>（Microsoft） — 公平性制約付き機械学習と評価</li>
+        <li><strong>AI Fairness 360</strong>（IBM） — バイアス検出と軽減アルゴリズムの包括的ツールキット</li>
+        <li><strong>Google What-If Tool</strong> — インタラクティブな公平性可視化</li>
+      </ul>
+
+      <div class="info-box tip">
+        <span class="box-title">試験のポイント</span>
+        4種類のバイアス（サンプリング・ラベリング・測定・集約）と3種類の公平性指標（統計的パリティ・機会均等・予測均等性）の違いを整理してください。「反事実テスト」とはセンシティブ属性を入れ替えてモデルの判断変化を確認することです。
+      </div>
+    </div>
+  </div>
+
+  <!-- 5.1.3 Data Pipeline Testing -->
+  <div class="bilingual-section" id="sec-5-1-3">
+    <div class="en-column">
+      <details class="en-original">
+        <summary>Original English ▸</summary>
+        <div class="en-text">
+          <h3>5.1.3 Data Pipeline Testing</h3>
+          <p>An ML data pipeline transforms raw source data into model-ready features. Testing must validate every stage of this pipeline.</p>
+          <p><strong>Pipeline stages and testing focus:</strong></p>
+          <ul>
+            <li><strong>Ingestion</strong>: data is read from source systems — test for completeness, schema conformance, and connection reliability</li>
+            <li><strong>Cleaning</strong>: missing values are handled, outliers are treated — test that cleaning rules are applied correctly and consistently</li>
+            <li><strong>Transformation</strong>: normalization, encoding, aggregation — test that transformations produce the expected output for known inputs (unit tests)</li>
+            <li><strong>Feature engineering</strong>: creation of new features from raw data — test that feature formulas are correct; test for data leakage (features containing target information)</li>
+            <li><strong>Loading</strong>: features are stored in a feature store or training dataset — test for correctness of stored values, data volume, and freshness</li>
+          </ul>
+          <p><strong>Schema validation</strong> checks: column names and types match the expected schema; values are within valid ranges; uniqueness constraints are satisfied; referential integrity is maintained.</p>
+          <p><strong>Data lineage and provenance tracking</strong>: recording the origin and transformation history of data so that defects can be traced to their source. Lineage tools: Apache Atlas, OpenLineage, DataHub.</p>
+        </div>
+      </details>
+    </div>
+    <div class="ja-column">
+      <h2 id="sec513">5.1.3 データパイプラインテスト</h2>
+      <p>MLデータパイプラインは生の元データをモデルが使える特徴量に変換します。このパイプラインの各ステージを検証するためのテストが必要です。</p>
+
+      <h3>パイプラインテストチェックリスト</h3>
+      <table class="content-table">
+        <thead>
+          <tr><th>ステージ</th><th>テストの焦点</th><th>テスト手法</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>データ取り込み（Ingestion）</strong></td>
+            <td>完全性・スキーマ適合性・接続信頼性</td>
+            <td>スキーマ検証・ボリュームチェック</td>
+          </tr>
+          <tr>
+            <td><strong>クリーニング（Cleaning）</strong></td>
+            <td>欠損値処理・外れ値処理のルールが正しく一貫して適用されているか</td>
+            <td>既知の入力に対するユニットテスト</td>
+          </tr>
+          <tr>
+            <td><strong>変換（Transformation）</strong></td>
+            <td>正規化・エンコーディング・集計の変換結果が期待値通りか</td>
+            <td>変換関数のユニットテスト</td>
+          </tr>
+          <tr>
+            <td><strong>特徴量エンジニアリング</strong></td>
+            <td>特徴量計算式の正確性・データリーク（目的変数情報の混入）の有無</td>
+            <td>リーケージテスト・境界値テスト</td>
+          </tr>
+          <tr>
+            <td><strong>ロード（Loading）</strong></td>
+            <td>保存値の正確性・データ量・鮮度</td>
+            <td>統合テスト・フレッシュネスチェック</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h3>スキーマ検証の確認項目</h3>
+      <ul>
+        <li>列名と型が期待スキーマと一致しているか</li>
+        <li>値が有効範囲内に収まっているか</li>
+        <li>一意性制約が満たされているか</li>
+        <li>参照整合性が維持されているか</li>
+      </ul>
+
+      <h3>データ系譜とプロベナンス追跡</h3>
+      <p>データの出所と変換履歴を記録し、欠陥を発生源まで追跡できるようにします。</p>
+      <div class="info-box note">
+        <span class="box-title">系譜管理ツール</span>
+        Apache Atlas、OpenLineage、DataHub などが代表的なデータ系譜追跡ツールです。
+      </div>
+
+      <div class="info-box tip">
+        <span class="box-title">試験のポイント</span>
+        5つのパイプラインステージ（取り込み・クリーニング・変換・特徴量エンジニアリング・ロード）それぞれに対して何をテストするかを答えられるようにしてください。「データリーク」（特徴量に目的変数の情報が含まれる）は特徴量エンジニアリングステージの重要なリスクです。
+      </div>
+    </div>
+  </div>
+
+  <!-- 5.1.4 Testing for Data Representativeness -->
+  <div class="bilingual-section" id="sec-5-1-4">
+    <div class="en-column">
+      <details class="en-original">
+        <summary>Original English ▸</summary>
+        <div class="en-text">
+          <h3>5.1.4 Testing for Data Representativeness</h3>
+          <p>A training dataset is representative when it adequately captures the diversity and statistical properties of the target population — i.e., the population the model will be applied to in production.</p>
+          <p><strong>Methods for testing representativeness:</strong></p>
+          <ul>
+            <li><strong>Stratified sampling verification</strong>: confirm that each relevant subgroup (age group, geographic region, device type, etc.) is proportionally represented in the training data</li>
+            <li><strong>Kolmogorov-Smirnov (KS) test</strong>: a non-parametric statistical test comparing two empirical distribution functions to check whether training data and production data come from the same distribution</li>
+            <li><strong>Subpopulation analysis</strong>: evaluate model performance separately for each identified subgroup to detect differential performance</li>
+            <li><strong>Temporal representativeness</strong>: ensure the training data spans an adequate time period to capture seasonal, cyclical, and trend patterns present in production</li>
+          </ul>
+          <p>When a significant distribution shift between training and production is detected, the model should be retrained on data that better represents the production environment.</p>
+        </div>
+      </details>
+    </div>
+    <div class="ja-column">
+      <h2 id="sec514">5.1.4 データ代表性のテスト</h2>
+      <p>訓練データセットが<strong>代表的（representative）</strong>であるとは、モデルが本番環境で適用される対象集団の多様性と統計的性質を十分に捉えていることを意味します。</p>
+
+      <h3>代表性のテスト手法</h3>
+      <table class="content-table">
+        <thead>
+          <tr><th>手法</th><th>説明</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>層化サンプリング検証</strong></td>
+            <td>年齢層・地理的地域・デバイス種別等の各サブグループが訓練データに比例的に代表されているかを確認</td>
+          </tr>
+          <tr>
+            <td><strong>コルモゴロフ–スミルノフ検定（KS検定）</strong></td>
+            <td>2つの経験的分布関数を比較するノンパラメトリック統計検定。訓練データと本番データが同一分布から来ているかを確認</td>
+          </tr>
+          <tr>
+            <td><strong>サブ集団分析</strong></td><td>識別された各サブグループに対してモデル性能を個別に評価し、性能差を検出</td>
+          </tr>
+          <tr>
+            <td><strong>時間的代表性</strong></td>
+            <td>訓練データが本番環境で見られる季節・周期・トレンドパターンを捉えるのに十分な期間をカバーしているかを確認</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h3>訓練データ vs. 本番データの分布比較</h3>
+      <table class="content-table">
+        <thead>
+          <tr><th>確認項目</th><th>問題がある場合のサイン</th><th>対処</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>特徴量の平均・分散</td><td>訓練と本番で大きく異なる</td><td>データセットの刷新・追加収集</td></tr>
+          <tr><td>カテゴリカル特徴量の頻度分布</td><td>本番に訓練に存在しないカテゴリが出現</td><td>未知カテゴリの処理ロジック追加</td></tr>
+          <tr><td>サブグループの割合</td><td>特定サブグループが訓練に少ない</td><td>オーバーサンプリング・重み付け</td></tr>
+          <tr><td>時系列パターン</td><td>季節変動が訓練データに含まれない</td><td>訓練データの期間を拡張</td></tr>
+        </tbody>
+      </table>
+
+      <div class="info-box tip">
+        <span class="box-title">試験のポイント</span>
+        <strong>KS検定</strong>（コルモゴロフ–スミルノフ検定）は、訓練データと本番データの分布が同一かを検定するノンパラメトリック検定として頻出です。層化サンプリングは比例代表性を確保する手法として区別して覚えてください。
+      </div>
+    </div>
+  </div>
+
+  <!-- 5.1.5 Dataset Constraint Testing -->
+  <div class="bilingual-section" id="sec-5-1-5">
+    <div class="en-column">
+      <details class="en-original">
+        <summary>Original English ▸</summary>
+        <div class="en-text">
+          <h3>5.1.5 Dataset Constraint Testing (K3)</h3>
+          <p>Dataset constraint testing involves formally specifying constraints that a dataset must satisfy and then verifying that the dataset conforms to those constraints. The tester must identify which constraints apply to a given dataset specification and determine whether each constraint is violated.</p>
+          <p><strong>Types of dataset constraints:</strong></p>
+          <ul>
+            <li><strong>Completeness constraints</strong>: specified fields must have non-null values. Example: "The 'diagnosis' column must be populated for all records."</li>
+            <li><strong>Consistency constraints</strong>: values must be within valid ranges or conform to specified formats. Example: "Patient age must be between 0 and 130."</li>
+            <li><strong>Class balance constraints</strong>: the ratio between the most frequent and least frequent class must not exceed a specified threshold. Example: "No class may represent more than 70% of the dataset."</li>
+            <li><strong>Temporal constraints</strong>: data must meet freshness requirements. Example: "All records must have a timestamp within the last 90 days."</li>
+            <li><strong>Volume constraints</strong>: the dataset must contain at least a specified minimum number of samples. Example: "Each class must have at least 500 samples."</li>
+          </ul>
+          <p><strong>Worked example:</strong></p>
+          <p>Dataset specification: a medical image dataset for a tumor classifier. Constraints defined: (1) minimum 1000 images per class; (2) no more than 60% from a single hospital; (3) all images must have a confirmed pathology label; (4) no images older than 5 years.</p>
+          <p>Dataset audit results: Class A has 1200 images (PASS), Class B has 380 images (FAIL — volume constraint violated). 72% of images are from Hospital X (FAIL — source diversity constraint violated). 23 images have "unconfirmed" labels (FAIL — completeness constraint violated). All images are within 5 years (PASS).</p>
+        </div>
+      </details>
+    </div>
+    <div class="ja-column">
+      <h2 id="sec515">5.1.5 データセット制約テスト（K3 — 適用）</h2>
+      <p>データセット制約テストとは、データセットが満たすべき制約を形式的に定義し、データセットがその制約に適合しているかを検証することです。与えられたシナリオに対してどの制約が適用されるかを特定し、各制約が違反されているかを判定できなければなりません（K3：適用）。</p>
+
+      <h3>データセット制約の種類</h3>
+      <table class="content-table">
+        <thead>
+          <tr><th>制約種別</th><th>定義</th><th>例</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>完全性制約</strong></td>
+            <td>指定フィールドにnull値があってはならない</td>
+            <td>「diagnosis列はすべてのレコードで値が入力されていること」</td>
+          </tr>
+          <tr>
+            <td><strong>一貫性制約</strong></td>
+            <td>値が有効範囲内または指定フォーマットに従っていること</td>
+            <td>「患者年齢は0〜130の範囲内であること」</td>
+          </tr>
+          <tr>
+            <td><strong>クラスバランス制約</strong></td>
+            <td>最多クラスと最少クラスの比率が指定閾値を超えないこと</td>
+            <td>「いずれのクラスもデータセット全体の70%を超えないこと」</td>
+          </tr>
+          <tr>
+            <td><strong>時間制約（鮮度制約）</strong></td>
+            <td>データが鮮度要件を満たしていること</td>
+            <td>「すべてのレコードのタイムスタンプが過去90日以内であること」</td>
+          </tr>
+          <tr>
+            <td><strong>ボリューム制約</strong></td>
+            <td>データセットが指定された最小サンプル数を含んでいること</td>
+            <td>「各クラスは最低500サンプルを持つこと」</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h3>実践例：腫瘍分類器の医療画像データセット</h3>
+      <div class="info-box note">
+        <span class="box-title">データセット仕様（Specification）</span>
+        <ul>
+          <li>クラスごとに最低1000枚の画像（ボリューム制約）</li>
+          <li>単一病院からの画像が60%を超えてはならない（多様性制約）</li>
+          <li>すべての画像に確定済み病理ラベルがあること（完全性制約）</li>
+          <li>5年以内の画像であること（時間制約）</li>
+        </ul>
+      </div>
+      <table class="content-table">
+        <thead>
+          <tr><th>制約</th><th>監査結果</th><th>判定</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>クラスAが最低1000枚</td><td>1200枚</td><td style="color:green;"><strong>合格</strong></td></tr>
+          <tr><td>クラスBが最低1000枚</td><td>380枚</td><td style="color:red;"><strong>違反（ボリューム制約）</strong></td></tr>
+          <tr><td>単一病院60%以下</td><td>病院Xが72%</td><td style="color:red;"><strong>違反（多様性制約）</strong></td></tr>
+          <tr><td>確定済みラベルのみ</td><td>23枚が「未確定」</td><td style="color:red;"><strong>違反（完全性制約）</strong></td></tr>
+          <tr><td>5年以内のデータ</td><td>全画像が5年以内</td><td style="color:green;"><strong>合格</strong></td></tr>
+        </tbody>
+      </table>
+
+      <div class="info-box tip">
+        <span class="box-title">試験のポイント (K3)</span>
+        AI-5.1.5はK3（適用）レベルです。「与えられたデータセット仕様を読み、どの制約が違反されているかを特定する」形式の問題が出ます。5種類の制約（完全性・一貫性・クラスバランス・時間・ボリューム）を識別し、実際のデータ監査結果に適用できるようにしてください。
+      </div>
+    </div>
+  </div>
+
+  <!-- 5.1.6 Label Correctness Testing -->
+  <div class="bilingual-section" id="sec-5-1-6">
+    <div class="en-column">
+      <details class="en-original">
+        <summary>Original English ▸</summary>
+        <div class="en-text">
+          <h3>5.1.6 Label Correctness Testing</h3>
+          <p>Supervised ML models learn from labeled training data. If labels are incorrect or inconsistent, the model will learn incorrect patterns — the model can be no more accurate than the labels it was trained on. Label correctness testing aims to detect and quantify mislabeled data before or after model training.</p>
+          <p><strong>Methods for label correctness testing:</strong></p>
+          <ul>
+            <li><strong>Human review and audit</strong>: domain experts manually examine a random sample of labeled records to estimate the labeling error rate</li>
+            <li><strong>Multiple annotation</strong>: the same item is labeled by multiple independent annotators. The label is accepted when annotators agree; disagreements indicate potential labeling difficulty or errors</li>
+            <li><strong>Inter-annotator agreement (IAA)</strong>: Cohen's kappa (κ) measures the agreement between two annotators beyond chance. κ &lt; 0.60 generally indicates poor labeling consistency</li>
+            <li><strong>Model confidence score analysis</strong>: after training, items where the model assigns low confidence to the labeled class are flagged for review — these may be mislabeled</li>
+            <li><strong>Model loss analysis</strong>: items that generate high training loss are disproportionately represented among mislabeled data — training loss can be used to prioritize review of potential mislabeled points</li>
+            <li><strong>Cross-validation inconsistencies</strong>: items that are consistently misclassified across all cross-validation folds are strong candidates for review</li>
+          </ul>
+        </div>
+      </details>
+    </div>
+    <div class="ja-column">
+      <h2 id="sec516">5.1.6 ラベル正確性テスト</h2>
+      <p>教師あり学習モデルはラベル付きデータから学習します。ラベルが不正確または一貫性がなければ、モデルは誤ったパターンを学習します。<strong>モデルの精度はラベルの品質を超えることができません</strong>。ラベル正確性テストは、モデル学習の前後にラベルの誤りを検出・定量化することを目的とします。</p>
+
+      <h3>ラベル正確性テストの手法</h3>
+      <table class="content-table">
+        <thead>
+          <tr><th>手法</th><th>説明</th><th>タイミング</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>人間によるレビュー・監査</strong></td>
+            <td>ドメイン専門家がランダムサンプルを手動検査し、ラベルエラー率を推定</td>
+            <td>学習前・学習後</td>
+          </tr>
+          <tr>
+            <td><strong>複数アノテーション（Multiple Annotation）</strong></td>
+            <td>同一アイテムを複数の独立したアノテーターがラベル付け。一致はラベルを採用、不一致はレビュー対象</td>
+            <td>学習前</td>
+          </tr>
+          <tr>
+            <td><strong>アノテーター間一致度（IAA）— Cohen's Kappa（κ）</strong></td>
+            <td>偶然を超えた2人のアノテーター間の一致度を測定。κ &lt; 0.60 は一般的に一貫性が低いことを示す</td>
+            <td>学習前</td>
+          </tr>
+          <tr>
+            <td><strong>モデル確信度スコア分析</strong></td>
+            <td>学習後、モデルがラベル付きクラスに低い確信度を付けるアイテムをフラグ立て — ラベル誤りの可能性</td>
+            <td>学習後</td>
+          </tr>
+          <tr>
+            <td><strong>モデル損失分析</strong></td>
+            <td>高い訓練損失を生成するアイテムはラベル誤りデータに偏って多い。損失でラベル誤り候補の優先度付けが可能</td>
+            <td>学習後</td>
+          </tr>
+          <tr>
+            <td><strong>クロスバリデーション不一致</strong></td>
+            <td>全クロスバリデーションフォールドで一貫して誤分類されるアイテムは強力なレビュー候補</td>
+            <td>学習後</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h3>Cohen's Kappa の解釈</h3>
+      <table class="content-table">
+        <thead>
+          <tr><th>κ の値</th><th>一致度の解釈</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>&lt; 0.20</td><td>わずかな一致（Slight）</td></tr>
+          <tr><td>0.20 – 0.40</td><td>軽度の一致（Fair）</td></tr>
+          <tr><td>0.40 – 0.60</td><td>中程度の一致（Moderate）</td></tr>
+          <tr><td>0.60 – 0.80</td><td>実質的な一致（Substantial）— 許容レベル</td></tr>
+          <tr><td>0.80 – 1.00</td><td>ほぼ完全な一致（Almost Perfect）</td></tr>
+        </tbody>
+      </table>
+
+      <div class="info-box tip">
+        <span class="box-title">試験のポイント</span>
+        ラベル正確性テストの手法は学習「前」と学習「後」に分類できます。学習前：人間レビュー・複数アノテーション・IAA。学習後：確信度スコア分析・損失分析・クロスバリデーション不一致。Cohen's κ &lt; 0.60 が「ラベリング一貫性が低い」の目安として頻出です。
+      </div>
+    </div>
+  </div>
+
+</main>
+
+<footer class="app-footer">
+  <span><a href="../index.html">CT-AI v2.0</a></span>
+  <span><a href="chapter-4.html">← 第4章</a> · <a href="chapter-6.html">第6章 →</a></span>
+  <span>© 2026 · ISTQB®</span>
+</footer>
+
+<script src="../../shared/js/theme.js"></script>
+<script src="../../shared/js/shell.js"></script>
+<script src="../../shared/js/search.js"></script>
+<script src="../js/toc.js"></script>
+</body>
+</html>

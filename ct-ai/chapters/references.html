@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="ja" data-carbon-theme="white">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>参考文献 — CT-AI v2.0</title>
+  <link rel="stylesheet" href="https://unpkg.com/carbon-components@10.58.0/css/carbon-components.min.css">
+  <link rel="stylesheet" href="../../shared/css/carbon-theme.css">
+  <link rel="stylesheet" href="../../shared/css/shell.css">
+  <link rel="stylesheet" href="../css/ct-ai.css">
+  <style>
+    .ref-group { margin-bottom: 32px; }
+    .ref-group h2 { font-size: 1.125rem; font-weight: 600; margin-bottom: 12px; color: var(--cds-text-01); border-bottom: 1px solid var(--sky-border); padding-bottom: 8px; }
+    .ref-list { list-style: none; padding: 0; margin: 0; }
+    .ref-list li { display: flex; gap: 12px; padding: 10px 0; border-bottom: 1px solid var(--sky-border); font-size: 0.875rem; line-height: 1.6; }
+    .ref-list li:last-child { border-bottom: none; }
+    .ref-tag { font-size: 0.7rem; font-weight: 700; font-family: 'IBM Plex Mono', monospace; color: var(--sky-dark); background: var(--sky-border); padding: 2px 6px; border-radius: 3px; white-space: nowrap; align-self: flex-start; margin-top: 2px; flex-shrink: 0; }
+    .ref-text { color: var(--cds-text-02); }
+    .ref-text a { color: var(--cds-link-01); word-break: break-all; }
+    .ref-text strong { color: var(--cds-text-01); }
+  </style>
+</head>
+<body>
+
+<header class="bx--header" role="banner">
+  <button class="bx--header__menu-trigger bx--header__action" data-sidebar-trigger aria-label="メニュー" aria-expanded="false">&#9776;</button>
+  <a class="bx--header__name" href="../../index.html">
+    <svg class="header-logo-svg" viewBox="0 0 24 24" fill="none"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" stroke="#2e86c1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    <span>ISTQB Study Portal</span>
+    <span class="header-product-name">/ CT-AI v2.0</span>
+  </a>
+  <div class="bx--header__global">
+    <a href="../../index.html" class="bx--header__action" style="font-size:0.75rem;width:auto;padding:0 12px;">← ポータル</a>
+    <button class="bx--header__action header-search-btn" data-search-open aria-label="検索">&#128269;</button>
+    <button class="bx--header__action header-theme-btn" data-theme-toggle data-theme-icon aria-label="ダークモードに切替">🌙</button>
+  </div>
+</header>
+
+<div id="sidebar-overlay" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.4);z-index:7800;"></div>
+
+<nav class="bx--side-nav" aria-label="CT-AI ナビゲーション">
+  <ul class="bx--side-nav__nav" role="list">
+    <li class="bx--side-nav__header">ポータル</li>
+    <li class="bx--side-nav__item"><a href="../../index.html" class="bx--side-nav__link"><span class="bx--side-nav__link-text">← ポータルに戻る</span></a></li>
+    <li class="bx--side-nav__item"><a href="../index.html" class="bx--side-nav__link"><span class="bx--side-nav__link-text">CT-AI ホーム</span></a></li>
+    <li class="bx--side-nav__header">CT-AI v2.0 章</li>
+    <li class="bx--side-nav__item"><a href="chapter-1.html" class="bx--side-nav__link"><span class="bx--side-nav__link-text">第1章 AI入門</span></a></li>
+    <li class="bx--side-nav__item"><a href="chapter-2.html" class="bx--side-nav__link"><span class="bx--side-nav__link-text">第2章 品質特性</span></a></li>
+    <li class="bx--side-nav__item"><a href="chapter-3.html" class="bx--side-nav__link"><span class="bx--side-nav__link-text">第3章 機械学習</span></a></li>
+    <li class="bx--side-nav__item"><a href="chapter-4.html" class="bx--side-nav__link"><span class="bx--side-nav__link-text">第4章 AIテスト</span></a></li>
+    <li class="bx--side-nav__item"><a href="chapter-5.html" class="bx--side-nav__link"><span class="bx--side-nav__link-text">第5章 入力データ</span></a></li>
+    <li class="bx--side-nav__item"><a href="chapter-6.html" class="bx--side-nav__link"><span class="bx--side-nav__link-text">第6章 モデルテスト</span></a></li>
+    <li class="bx--side-nav__item"><a href="chapter-7.html" class="bx--side-nav__link"><span class="bx--side-nav__link-text">第7章 ML開発</span></a></li>
+    <li class="bx--side-nav__header">補足資料</li>
+    <li class="bx--side-nav__item"><a href="glossary.html" class="bx--side-nav__link"><span class="bx--side-nav__link-text">用語集</span></a></li>
+    <li class="bx--side-nav__item"><a href="references.html" class="bx--side-nav__link bx--side-nav__link--current"><span class="bx--side-nav__link-text">参考文献</span></a></li>
+    <li class="bx--side-nav__item"><a href="appendices.html" class="bx--side-nav__link"><span class="bx--side-nav__link-text">付録（BO/LO）</span></a></li>
+  </ul>
+</nav>
+
+<div id="search-dialog" hidden role="dialog" aria-modal="true" aria-label="検索">
+  <div class="search-modal">
+    <div class="search-input-wrap"><span>&#128269;</span><input id="search-input" type="search" placeholder="キーワードで検索…" autocomplete="off"></div>
+    <div id="search-results" class="search-results"></div>
+  </div>
+</div>
+
+<main class="bx--content">
+
+  <div class="page-header">
+    <p class="page-eyebrow">CT-AI v2.0 — Chapter 10</p>
+    <h1>参考文献 / References</h1>
+    <p class="page-subtitle">CT-AI v2.0シラバスに引用されている規格・文書・書籍・記事</p>
+  </div>
+
+  <div class="ref-group">
+    <h2>10.1 Standards（規格）</h2>
+    <ul class="ref-list">
+      <li>
+        <span class="ref-tag">ISO/IEC 12207</span>
+        <div class="ref-text"><strong>ISO/IEC/IEEE 12207:2017</strong> — Systems and software engineering — Software life cycle processes</div>
+      </li>
+      <li>
+        <span class="ref-tag">ISO/IEC 2382</span>
+        <div class="ref-text"><strong>ISO/IEC 2382:2015</strong> — Information technology — Vocabulary</div>
+      </li>
+      <li>
+        <span class="ref-tag">ISO/IEC 22989</span>
+        <div class="ref-text"><strong>ISO/IEC 22989:2022</strong> — Information technology — Artificial intelligence — Artificial intelligence concepts and terminology</div>
+      </li>
+      <li>
+        <span class="ref-tag">ISO/IEC TR 24027</span>
+        <div class="ref-text"><strong>ISO/IEC TR 24027:2021</strong> — Information technology — Artificial intelligence (AI) — Bias in AI systems and AI aided decision making</div>
+      </li>
+      <li>
+        <span class="ref-tag">ISO/IEC 25010</span>
+        <div class="ref-text"><strong>ISO/IEC 25010:2023</strong> — Systems and software engineering — Systems and software Quality Requirements and Evaluation (SQuaRE) — Product quality model</div>
+      </li>
+      <li>
+        <span class="ref-tag">ISO/IEC 25059</span>
+        <div class="ref-text"><strong>ISO/IEC 25059:2023</strong> — Software engineering — Systems and software Quality Requirements and Evaluation (SQuaRE) — Quality model for AI systems（AIシステム向け品質モデル。ISO/IEC 25010の拡張版）</div>
+      </li>
+      <li>
+        <span class="ref-tag">ISO 26262</span>
+        <div class="ref-text"><strong>ISO 26262-6:2018</strong> — Road vehicles — Functional safety — Part 6: Product development at the software level（自動車機能安全規格）</div>
+      </li>
+      <li>
+        <span class="ref-tag">ISO/IEC TR 29119-11</span>
+        <div class="ref-text"><strong>ISO/IEC TR 29119-11:2020</strong> — Software and systems engineering — Software testing — Part 11: Guidelines on the testing of AI-based systems（AIシステムのテストガイドライン）</div>
+      </li>
+      <li>
+        <span class="ref-tag">ISO/IEC TS 42119-2</span>
+        <div class="ref-text"><strong>ISO/IEC TS 42119-2:2025</strong> — Artificial intelligence — Testing of AI – Part 2: Overview of testing AI systems</div>
+      </li>
+      <li>
+        <span class="ref-tag">ISO/IEC 42119</span>
+        <div class="ref-text"><strong>ISO/IEC 42119 series (in development)</strong> — Artificial intelligence — Testing of AI</div>
+      </li>
+    </ul>
+  </div>
+
+  <div class="ref-group">
+    <h2>10.2 ISTQB® Documents（ISTQB文書）</h2>
+    <ul class="ref-list">
+      <li>
+        <span class="ref-tag">CTFL</span>
+        <div class="ref-text"><strong>ISTQB® Certified Tester Foundation Level v4.0.1</strong><br>
+        ISTQB® CT-AI受験の前提資格。最新版はISTQB公式サイトから入手可能。</div>
+      </li>
+      <li>
+        <span class="ref-tag">CT-GenAI</span>
+        <div class="ref-text"><strong>ISTQB® Certified Tester — Testing with Generative AI (CT-GenAI)</strong><br>
+        生成AIテストに特化した関連資格シラバス。</div>
+      </li>
+    </ul>
+  </div>
+
+  <div class="ref-group">
+    <h2>10.3 Glossary References（用語集参照）</h2>
+    <ul class="ref-list">
+      <li>
+        <span class="ref-tag">ISTQB Glossary</span>
+        <div class="ref-text"><strong>ISTQB® Glossary</strong> — <a href="https://glossary.istqb.org/" target="_blank" rel="noopener">https://glossary.istqb.org/</a><br>
+        シラバスで使用される用語の公式定義</div>
+      </li>
+    </ul>
+  </div>
+
+  <div class="ref-group">
+    <h2>10.4 Books, Articles and Web Pages（書籍・記事・Webページ）</h2>
+    <ul class="ref-list">
+      <li>
+        <span class="ref-tag">COV_REF</span>
+        <div class="ref-text"><strong>An Overview of Structural Coverage Metrics for Testing Neural Networks</strong><br>
+        Usman et al., Aug 2022, arXiv:2208.03407<br>
+        ニューラルネットワークの構造的カバレッジ指標の概要（第3章 AI-3.4.3関連）</div>
+      </li>
+      <li>
+        <span class="ref-tag">DATA_DOC</span>
+        <div class="ref-text"><strong>Datasheets for Datasets</strong><br>
+        Gebru, T., Morgenstern, J., Vecchione, B., et al. (2021). Communications of the ACM, 64(12), 86-92.<br>
+        データセット文書化のためのデータシートフレームワーク（第6章 AI-6.1.2関連）</div>
+      </li>
+      <li>
+        <span class="ref-tag">EU AI Act</span>
+        <div class="ref-text"><strong>EU Artificial Intelligence Act</strong>, July 2024<br>
+        欧州AI規制法。リスクベースのAI分類と要件を定義（第1章 AI-1.1.8関連）</div>
+      </li>
+      <li>
+        <span class="ref-tag">MODEL_DOC</span>
+        <div class="ref-text"><strong>Model Cards for Model Reporting</strong><br>
+        Mitchell, M., Wu, S., Varma, R., et al. (2019). Proceedings of FAccT.<br>
+        MLモデルの透明性確保のためのモデルカードフレームワーク（第6章 AI-6.1.2関連）</div>
+      </li>
+      <li>
+        <span class="ref-tag">OECD AI</span>
+        <div class="ref-text"><strong>OECD Recommendation of the Council on Artificial Intelligence</strong>, May 2024<br>
+        Organization for Economic Co-operation and Development (OECD)<br>
+        AI倫理・ガバナンスの国際的ガイドライン（第1章 AI-1.1.8関連）</div>
+      </li>
+      <li>
+        <span class="ref-tag">UN Gov AI</span>
+        <div class="ref-text"><strong>Governing AI for Humanity: Final Report</strong>, September 2024<br>
+        United Nations<br>
+        AI国際ガバナンスに関する国連報告書（第1章 AI-1.1.8関連）</div>
+      </li>
+      <li>
+        <span class="ref-tag">STATS</span>
+        <div class="ref-text"><strong>An Introduction to Statistical Learning</strong><br>
+        James, G., Witten, D., Hastie, T., Tibshirani, R.<br>
+        統計的学習の入門書。ML性能評価指標の統計的背景（第3章 AI-3.3.1関連）</div>
+      </li>
+    </ul>
+  </div>
+
+</main>
+
+<footer class="app-footer">
+  <span><a href="../index.html">CT-AI v2.0</a></span>
+  <span>
+    <a href="glossary.html">← 用語集</a> ·
+    <a href="appendices.html">付録 →</a>
+  </span>
+  <span>© 2026 · ISTQB®</span>
+</footer>
+
+<script src="../../shared/js/theme.js"></script>
+<script src="../../shared/js/shell.js"></script>
+<script src="../../shared/js/search.js"></script>
+</body>
+</html>

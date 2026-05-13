@@ -1,0 +1,267 @@
+/* =============================================================
+   CT-AI v2.0 — Specific Styles
+   ============================================================= */
+
+/* Chapter accent colors */
+:root {
+  --ch0-color: #607d8b;
+  --ch1-color: #1565c0;
+  --ch2-color: #6a1b9a;
+  --ch3-color: #2e7d32;
+  --ch4-color: #e65100;
+  --ch5-color: #00695c;
+  --ch6-color: #c62828;
+  --ch7-color: #4527a0;
+}
+
+/* Chapter hero variants */
+.chapter-hero.ch0 { background: linear-gradient(135deg, var(--ch0-color) 0%, #37474f 100%); }
+.chapter-hero.ch1 { background: linear-gradient(135deg, var(--ch1-color) 0%, #0d47a1 100%); }
+.chapter-hero.ch2 { background: linear-gradient(135deg, var(--ch2-color) 0%, #4a148c 100%); }
+.chapter-hero.ch3 { background: linear-gradient(135deg, var(--ch3-color) 0%, #1b5e20 100%); }
+.chapter-hero.ch4 { background: linear-gradient(135deg, var(--ch4-color) 0%, #bf360c 100%); }
+.chapter-hero.ch5 { background: linear-gradient(135deg, var(--ch5-color) 0%, #004d40 100%); }
+.chapter-hero.ch6 { background: linear-gradient(135deg, var(--ch6-color) 0%, #b71c1c 100%); }
+.chapter-hero.ch7 { background: linear-gradient(135deg, var(--ch7-color) 0%, #311b92 100%); }
+
+/* Active sidebar chapter highlights */
+.side-nav-chapter-badge.ch0 { background: var(--ch0-color); color: #fff; }
+.side-nav-chapter-badge.ch1 { background: var(--ch1-color); color: #fff; }
+.side-nav-chapter-badge.ch2 { background: var(--ch2-color); color: #fff; }
+.side-nav-chapter-badge.ch3 { background: var(--ch3-color); color: #fff; }
+.side-nav-chapter-badge.ch4 { background: var(--ch4-color); color: #fff; }
+.side-nav-chapter-badge.ch5 { background: var(--ch5-color); color: #fff; }
+.side-nav-chapter-badge.ch6 { background: var(--ch6-color); color: #fff; }
+.side-nav-chapter-badge.ch7 { background: var(--ch7-color); color: #fff; }
+
+/* Section anchor scroll margin */
+.section-anchor {
+  scroll-margin-top: calc(var(--header-height) + 16px);
+}
+
+/* Progress sidebar (TOC) */
+.toc-sidebar {
+  position: sticky;
+  top: calc(var(--header-height) + 16px);
+  font-size: 0.8125rem;
+}
+
+.toc-sidebar h4 {
+  font-size: 0.6875rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--cds-text-03);
+  margin: 0 0 8px;
+}
+
+.toc-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.toc-list li {
+  margin-bottom: 4px;
+}
+
+.toc-list a {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 8px;
+  border-radius: 3px;
+  color: var(--cds-text-02);
+  text-decoration: none;
+  transition: background 0.1s, color 0.1s;
+  font-size: 0.8125rem;
+}
+
+.toc-list a:hover {
+  background: var(--cds-hover-row);
+  color: var(--sky-dark);
+}
+
+.toc-list a.is-active {
+  background: var(--sky-border);
+  color: var(--sky-darker);
+  font-weight: 600;
+}
+
+.toc-list .toc-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--sky-border);
+  flex-shrink: 0;
+  transition: background 0.1s;
+}
+
+.toc-list a.is-active .toc-dot {
+  background: var(--sky-dark);
+}
+
+/* CT-AI Home page */
+.ct-ai-home-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  margin-bottom: 32px;
+}
+
+@media (max-width: 800px) {
+  .ct-ai-home-grid { grid-template-columns: 1fr; }
+}
+
+.stat-card {
+  background: var(--cds-ui-01);
+  border: 1px solid var(--sky-border);
+  border-radius: 6px;
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.stat-card-icon {
+  font-size: 2rem;
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+.stat-card-value {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: var(--sky-dark);
+  line-height: 1;
+  margin-bottom: 4px;
+}
+
+.stat-card-label {
+  font-size: 0.875rem;
+  color: var(--cds-text-02);
+}
+
+/* Chapter list on CT-AI home */
+.chapter-index-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 16px;
+  margin-bottom: 32px;
+}
+
+.chapter-index-card {
+  background: var(--cds-ui-01);
+  border: 1px solid var(--sky-border);
+  border-radius: 6px;
+  overflow: hidden;
+  text-decoration: none;
+  color: inherit;
+  display: flex;
+  flex-direction: column;
+  transition: box-shadow 0.2s, transform 0.15s;
+}
+
+.chapter-index-card:hover {
+  box-shadow: 0 4px 16px rgba(46,134,193,0.14);
+  transform: translateY(-1px);
+}
+
+.chapter-index-card-header {
+  height: 6px;
+}
+
+.chapter-index-card-body {
+  padding: 14px;
+  flex: 1;
+}
+
+.chapter-index-card-body .chap-num {
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  color: var(--cds-text-03);
+  margin-bottom: 4px;
+}
+
+.chapter-index-card-body h3 {
+  font-size: 0.9375rem;
+  font-weight: 600;
+  margin: 0 0 6px;
+  color: var(--cds-text-01);
+  line-height: 1.3;
+}
+
+.chapter-index-card-body .chap-en {
+  font-size: 0.8125rem;
+  color: var(--cds-text-03);
+  margin-bottom: 8px;
+}
+
+.chapter-index-card-footer {
+  padding: 8px 14px;
+  border-top: 1px solid var(--sky-border);
+  display: flex;
+  gap: 12px;
+  font-size: 0.75rem;
+  color: var(--cds-text-03);
+}
+
+/* Confusion matrix demo */
+.confusion-matrix {
+  display: grid;
+  grid-template-columns: auto 1fr 1fr;
+  gap: 4px;
+  font-size: 0.875rem;
+  max-width: 400px;
+  margin: 16px 0;
+}
+
+.cm-header { font-weight: 600; padding: 6px; text-align: center; }
+.cm-cell { padding: 10px; text-align: center; border-radius: 4px; font-weight: 600; }
+.cm-tp { background: #c8e6c9; color: #1b5e20; }
+.cm-fp { background: #ffcdd2; color: #b71c1c; }
+.cm-fn { background: #ffe0b2; color: #e65100; }
+.cm-tn { background: #c8e6c9; color: #1b5e20; }
+
+[data-carbon-theme="g100"] .cm-tp { background: #1b3a1f; color: #81c784; }
+[data-carbon-theme="g100"] .cm-fp { background: #3b0f0f; color: #ef9a9a; }
+[data-carbon-theme="g100"] .cm-fn { background: #2c1500; color: #ffcc80; }
+[data-carbon-theme="g100"] .cm-tn { background: #1b3a1f; color: #81c784; }
+
+/* Formula display */
+.formula-box {
+  background: var(--cds-ui-02);
+  border: 1px solid var(--sky-border);
+  border-radius: 4px;
+  padding: 12px 16px;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.9rem;
+  margin: 12px 0;
+  color: var(--cds-text-01);
+}
+
+/* LO grid on chapter pages */
+.lo-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 16px;
+}
+
+.lo-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: var(--cds-ui-02);
+  border: 1px solid var(--sky-border);
+  border-radius: 3px;
+  padding: 3px 8px;
+  font-size: 0.75rem;
+  color: var(--cds-text-02);
+  text-decoration: none;
+  transition: background 0.1s;
+}
+
+.lo-chip:hover { background: var(--sky-border); color: var(--sky-darker); }
+.lo-chip code { font-family: 'IBM Plex Mono', monospace; font-size: 0.7rem; color: var(--sky-dark); }

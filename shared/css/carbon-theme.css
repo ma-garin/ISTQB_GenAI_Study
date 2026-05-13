@@ -1,0 +1,213 @@
+/* =============================================================
+   ISTQB Study Portal — Carbon v10 Sky-Blue Theme Tokens
+   ============================================================= */
+
+/* IBM Plex Sans */
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap');
+
+:root {
+  /* Sky-blue overrides on top of Carbon v10 White theme */
+  --cds-interactive-01: #2e86c1;
+  --cds-interactive-02: #1a5276;
+  --cds-interactive-03: #5dade2;
+  --cds-interactive-04: #2e86c1;
+  --cds-ui-background: #f4f9fc;
+  --cds-ui-01: #fdfefe;
+  --cds-ui-02: #ebf5fb;
+  --cds-ui-03: #d6eaf8;
+  --cds-ui-04: #b3cde8;
+  --cds-ui-05: #1f2937;
+  --cds-text-01: #1f2937;
+  --cds-text-02: #374151;
+  --cds-text-03: #6b7280;
+  --cds-text-04: #ffffff;
+  --cds-text-05: #2e86c1;
+  --cds-link-01: #2e86c1;
+  --cds-link-02: #1a5276;
+  --cds-inverse-link: #5dade2;
+  --cds-support-01: #da1e28;
+  --cds-support-02: #24a148;
+  --cds-support-03: #f1c21b;
+  --cds-support-04: #0043ce;
+  --cds-inverse-support-01: #ff8389;
+  --cds-inverse-support-02: #42be65;
+  --cds-inverse-support-03: #f1c21b;
+  --cds-inverse-support-04: #4589ff;
+  --cds-overlay-01: rgba(22, 22, 22, 0.5);
+  --cds-focus: #2e86c1;
+  --cds-hover-primary: #1a5276;
+  --cds-hover-primary-text: #1a5276;
+  --cds-hover-secondary: #4d5358;
+  --cds-hover-ui: #d6eaf8;
+  --cds-hover-selected-ui: #c5dff2;
+  --cds-hover-danger: #b81921;
+  --cds-hover-row: #ebf5fb;
+  --cds-active-primary: #145374;
+  --cds-active-secondary: #393f44;
+  --cds-active-ui: #c2d9ed;
+  --cds-active-danger: #750e13;
+  --cds-selected-ui: #d6eaf8;
+  --cds-selected-light-ui: #ebf5fb;
+  --cds-highlight: #cce0f5;
+  --cds-skeleton-01: #e4eef6;
+  --cds-skeleton-02: #c5d9ea;
+  --cds-visited-link: #7b3fb5;
+  --cds-disabled-01: #f4f4f4;
+  --cds-disabled-02: #c6c6c6;
+  --cds-disabled-03: #8d8d8d;
+
+  /* App-specific tokens */
+  --sky-primary: #5dade2;
+  --sky-dark: #2e86c1;
+  --sky-darker: #1a5276;
+  --sky-header: #d6eaf8;
+  --sky-sidebar: #ebf5fb;
+  --sky-border: #d4e6f1;
+  --sky-accent: #2e86c1;
+
+  /* Typography */
+  --font-family: 'IBM Plex Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+
+  /* Layout */
+  --header-height: 48px;
+  --sidebar-width: 256px;
+}
+
+/* ── Dark Mode (g100) ─────────────────────────────────────── */
+[data-carbon-theme="g100"] {
+  --cds-ui-background: #0f1a24;
+  --cds-ui-01: #161616;
+  --cds-ui-02: #1c2a38;
+  --cds-ui-03: #213142;
+  --cds-ui-04: #2d4153;
+  --cds-ui-05: #f4f4f4;
+  --cds-text-01: #f4f4f4;
+  --cds-text-02: #c6c6c6;
+  --cds-text-03: #8d8d8d;
+  --cds-text-04: #ffffff;
+  --cds-text-05: #5dade2;
+  --cds-link-01: #5dade2;
+  --cds-link-02: #78b9e6;
+  --cds-interactive-01: #5dade2;
+  --cds-interactive-02: #78b9e6;
+  --cds-interactive-03: #2e86c1;
+  --cds-hover-ui: #1c2a38;
+  --cds-hover-row: #1c2a38;
+  --cds-selected-ui: #213142;
+  --cds-hover-selected-ui: #2d4153;
+  --cds-focus: #5dade2;
+  --cds-highlight: #1a3a54;
+  --cds-skeleton-01: #1c2a38;
+  --cds-skeleton-02: #213142;
+  --sky-header: #213142;
+  --sky-sidebar: #1c2a38;
+  --sky-border: #2d4153;
+}
+
+/* ── Base Reset / Typography ─────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; }
+
+html {
+  font-size: 16px;
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-family);
+  background: var(--cds-ui-background);
+  color: var(--cds-text-01);
+  margin: 0;
+  padding: 0;
+  line-height: 1.5;
+}
+
+/* ── Carbon Overrides ────────────────────────────────────── */
+.bx--header {
+  background-color: var(--sky-header) !important;
+  border-bottom: 1px solid var(--sky-border) !important;
+}
+
+.bx--header__name {
+  color: var(--sky-darker) !important;
+  font-weight: 600;
+}
+
+.bx--header__name:hover,
+.bx--header__name:focus {
+  color: var(--sky-darker) !important;
+}
+
+.bx--header__action {
+  color: var(--cds-text-02) !important;
+}
+
+.bx--header__action:hover,
+.bx--header__action:focus {
+  background-color: var(--cds-hover-ui) !important;
+  color: var(--sky-darker) !important;
+}
+
+.bx--side-nav {
+  background-color: var(--sky-sidebar) !important;
+  border-right: 1px solid var(--sky-border) !important;
+}
+
+.bx--side-nav__link {
+  color: var(--cds-text-02) !important;
+}
+
+.bx--side-nav__link:hover,
+.bx--side-nav__link:focus {
+  background-color: var(--cds-hover-ui) !important;
+  color: var(--sky-darker) !important;
+}
+
+.bx--side-nav__link--current,
+.bx--side-nav__item--active > .bx--side-nav__link {
+  background-color: var(--sky-border) !important;
+  color: var(--sky-darker) !important;
+  font-weight: 600;
+}
+
+.bx--side-nav__link--current::before,
+.bx--side-nav__item--active > .bx--side-nav__link::before {
+  background-color: var(--sky-dark) !important;
+}
+
+.bx--btn--primary {
+  background-color: var(--sky-dark) !important;
+  border-color: var(--sky-dark) !important;
+}
+
+.bx--btn--primary:hover {
+  background-color: var(--sky-darker) !important;
+  border-color: var(--sky-darker) !important;
+}
+
+.bx--tag--blue {
+  background-color: var(--sky-border) !important;
+  color: var(--sky-darker) !important;
+}
+
+/* ── LO Badge Colors ─────────────────────────────────────── */
+.lo-badge {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 12px;
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-right: 4px;
+}
+.lo-badge.k1 { background: #e8f5e9; color: #2e7d32; border: 1px solid #a5d6a7; }
+.lo-badge.k2 { background: #e3f2fd; color: #1565c0; border: 1px solid #90caf9; }
+.lo-badge.k3 { background: #fff8e1; color: #f57f17; border: 1px solid #ffe082; }
+.lo-badge.k4 { background: #fce4ec; color: #c62828; border: 1px solid #ef9a9a; }
+.lo-badge.ho { background: #f3e5f5; color: #6a1b9a; border: 1px solid #ce93d8; }
+
+[data-carbon-theme="g100"] .lo-badge.k1 { background: #1b3a1f; color: #81c784; border-color: #388e3c; }
+[data-carbon-theme="g100"] .lo-badge.k2 { background: #0d2137; color: #64b5f6; border-color: #1565c0; }
+[data-carbon-theme="g100"] .lo-badge.k3 { background: #2c1f00; color: #ffcc02; border-color: #f57f17; }
+[data-carbon-theme="g100"] .lo-badge.k4 { background: #2a0a0f; color: #ef9a9a; border-color: #c62828; }
+[data-carbon-theme="g100"] .lo-badge.ho { background: #1a0a26; color: #ce93d8; border-color: #6a1b9a; }
