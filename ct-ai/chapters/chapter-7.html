@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="ja" data-carbon-theme="white">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>第7章: ML開発テスト — CT-AI v2.0</title>
+  <link rel="stylesheet" href="https://unpkg.com/@carbon/styles/css/styles.css">
+  <link rel="stylesheet" href="../assets/css/carbon-overrides.css">
+  <link rel="stylesheet" href="../assets/css/app.css">
+  <link rel="stylesheet" href="../css/ct-ai.css">
+</head>
+<body>
+<header class="bx--header" role="banner">
+  <button class="bx--header__menu-trigger bx--header__action" data-sidebar-trigger aria-label="メニュー" aria-expanded="false">&#9776;</button>
+  <a class="bx--header__name" href="../../index.html">
+    <span>ISTQB Study Portal</span>
+    <span class="header-product-name">/ CT-AI v2.0</span>
+  </a>
+  <div class="bx--header__global">
+    <a href="../../index.html" class="bx--header__action" style="font-size:0.75rem;width:auto;padding:0 12px;" title="ポータルに戻る">← ポータル</a>
+    <label class="header-search" aria-label="サイト内検索"><input data-header-search type="search" placeholder="検索" autocomplete="off"></label>
+    <button class="header-toggle" type="button" data-english-toggle aria-pressed="true">English ON</button>
+    <button class="bx--header__action header-search-btn" data-search-open aria-label="検索" title="検索 (Ctrl+K)">&#128269;</button>
+    <button class="bx--header__action header-theme-btn" data-theme-toggle aria-label="ダークモードに切替">Dark</button>
+  </div>
+</header>
+
+<div class="progress-bar" aria-hidden="true"><span data-progress-bar></span></div>
+<div id="sidebar-overlay" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.4);z-index:7800;"></div>
+
+<nav class="bx--side-nav" aria-label="CT-AI ナビゲーション">
+  <ul class="bx--side-nav__nav" role="list">
+    <li class="bx--side-nav__header">ポータル</li>
+    <li class="bx--side-nav__item"><a href="../../index.html" class="bx--side-nav__link"><span class="bx--side-nav__link-text">← ポータルに戻る</span></a></li>
+    <li class="bx--side-nav__item"><a href="../index.html" class="bx--side-nav__link"><span class="bx--side-nav__link-text">CT-AI ホーム</span></a></li>
+    <li class="bx--side-nav__header">CT-AI v2.0 章</li>
+    <li class="bx--side-nav__item"><a href="chapter-0.html" class="bx--side-nav__link"><span class="bx--side-nav__link-text">第0章 序文</span></a></li>
+    <li class="bx--side-nav__item"><a href="chapter-1.html" class="bx--side-nav__link"><span class="bx--side-nav__link-text">第1章 AI入門</span></a></li>
+    <li class="bx--side-nav__item"><a href="chapter-2.html" class="bx--side-nav__link"><span class="bx--side-nav__link-text">第2章 品質特性</span></a></li>
+    <li class="bx--side-nav__item"><a href="chapter-3.html" class="bx--side-nav__link"><span class="bx--side-nav__link-text">第3章 機械学習</span></a></li>
+    <li class="bx--side-nav__item"><a href="chapter-4.html" class="bx--side-nav__link"><span class="bx--side-nav__link-text">第4章 AIテスト</span></a></li>
+    <li class="bx--side-nav__item"><a href="chapter-5.html" class="bx--side-nav__link"><span class="bx--side-nav__link-text">第5章 入力データ</span></a></li>
+    <li class="bx--side-nav__item"><a href="chapter-6.html" class="bx--side-nav__link"><span class="bx--side-nav__link-text">第6章 モデルテスト</span></a></li>
+    <li class="bx--side-nav__item"><a href="chapter-7.html" class="bx--side-nav__link bx--side-nav__link--current"><span class="bx--side-nav__link-text">第7章 ML開発</span><span class="side-nav-chapter-badge ch7">30分</span></a></li>
+    <li class="bx--side-nav__header">補足資料</li>
+    <li class="bx--side-nav__item"><a href="glossary.html" class="bx--side-nav__link"><span class="bx--side-nav__link-text">用語集</span></a></li>
+    <li class="bx--side-nav__item"><a href="references.html" class="bx--side-nav__link"><span class="bx--side-nav__link-text">参考文献</span></a></li>
+    <li class="bx--side-nav__item"><a href="appendices.html" class="bx--side-nav__link"><span class="bx--side-nav__link-text">付録（BO/LO）</span></a></li>
+  </ul>
+</nav>
+
+<div id="search-dialog" hidden role="dialog" aria-modal="true" aria-label="検索">
+  <div class="search-modal">
+    <div class="search-input-wrap"><span>&#128269;</span><input id="search-input" type="search" placeholder="キーワードで検索..." autocomplete="off"></div>
+    <div id="search-results" class="search-results"></div>
+  </div>
+</div>
+
+<main class="bx--content">
+  <div class="chapter-hero ch7">
+    <div class="chapter-num">第7章 — Machine Learning Development Testing</div>
+    <h1>ML開発テスト</h1>
+    <p class="chapter-en-title">MLシステムを安全にリリースし、変更リスクを制御する</p>
+    <div class="chapter-meta">
+      <span class="meta-item">30分</span>
+      <span class="meta-item">2 LO</span>
+      <span class="meta-item">K2</span>
+    </div>
+  </div>
+
+  <div class="lo-summary-grid" aria-label="Learning Objectives">
+    <div class="lo-summary-card"><div class="lo-ref">AI-7.1.1 <span class="lo-badge k2">K2</span></div><div class="lo-desc">ML開発リスクを軽減するテストアプローチの例を挙げる。</div></div>
+    <div class="lo-summary-card"><div class="lo-ref">AI-7.1.2 <span class="lo-badge k2">K2</span></div><div class="lo-desc">MLシステムのデプロイメントテストの各形態を説明する。</div></div>
+  </div>
+
+  <div class="content-layout">
+    <article>
+      <section class="bilingual-section" id="sec-7-1">
+        <div class="en-column">
+          <details class="en-original" open>
+            <summary>Original English</summary>
+            <div class="en-text">
+              <p>Machine learning development testing addresses risks introduced by the ML development process, including pipeline changes, model updates, environment differences, deployment strategy, monitoring, and rollback.</p>
+            </div>
+          </details>
+        </div>
+        <div class="ja-column">
+          <h2 id="development-risk">7.1 ML開発リスクの軽減</h2>
+          <p>ML開発テストは、モデル単体ではなく、MLシステムを作り、更新し、配信し、監視する開発プロセス全体のリスクを扱います。データパイプライン、特徴量生成、学習ジョブ、モデルレジストリ、推論サービス、監視ダッシュボードのどこかが変わると、モデル性能や運用品質に影響します。</p>
+          <p>典型的なテストアプローチには、パイプラインの自動テスト、データスキーマ検証、再現性確認、モデル成果物のバージョン管理、環境差分テスト、監視アラートのテスト、ロールバック手順の確認があります。</p>
+          <table class="content-table">
+            <thead><tr><th>リスク</th><th>テストアプローチ</th></tr></thead>
+            <tbody>
+              <tr><td>学習・推論環境の差分</td><td>依存関係、ランタイム、特徴量処理の一致を確認する。</td></tr>
+              <tr><td>パイプライン変更による回帰</td><td>代表データでのエンドツーエンドテストと差分比較を行う。</td></tr>
+              <tr><td>成果物の取り違え</td><td>モデル、データ、コード、設定のバージョンを追跡する。</td></tr>
+              <tr><td>監視漏れ</td><td>性能低下、ドリフト、異常入力のアラート条件をテストする。</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="bilingual-section" id="sec-7-2">
+        <div class="en-column">
+          <details class="en-original">
+            <summary>Original English</summary>
+            <div class="en-text">
+              <p>Deployment testing may include shadow deployment, canary release, A/B testing, rollback testing, monitoring verification, and comparison between old and new models.</p>
+            </div>
+          </details>
+        </div>
+        <div class="ja-column">
+          <h2 id="deployment-testing">7.2 デプロイメントテスト</h2>
+          <p>MLシステムのデプロイメントでは、モデル更新が利用者や業務に直接影響するため、段階的にリスクを下げるリリース戦略が重要です。特に、モデルの出力は確率的で、入力データ分布も時間とともに変わるため、従来のアプリケーションリリースよりも慎重な監視が求められます。</p>
+          <div class="figure-card">
+            <h3>主なデプロイメント形態</h3>
+            <table class="content-table">
+              <thead><tr><th>方式</th><th>概要</th><th>確認ポイント</th></tr></thead>
+              <tbody>
+                <tr><td>シャドウデプロイ</td><td>新モデルに本番入力を流すが、出力は利用者に返さない。</td><td>現行モデルとの差分、性能、レイテンシ、異常出力。</td></tr>
+                <tr><td>カナリアリリース</td><td>一部トラフィックだけを新モデルに流す。</td><td>限定ユーザーでの品質、監視、即時ロールバック。</td></tr>
+                <tr><td>A/Bテスト</td><td>複数モデルを並行運用し、業務指標や品質指標を比較する。</td><td>統計的有意性、バイアス、評価期間。</td></tr>
+                <tr><td>ロールバックテスト</td><td>問題発生時に旧モデルへ戻せることを確認する。</td><td>モデル、設定、データスキーマ、依存サービス。</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p>試験では、各方式の目的と使いどころを区別できることが重要です。シャドウデプロイは利用者影響を避けた観察、カナリアは段階的な実運用検証、A/Bテストは比較評価、ロールバックテストは障害時の復旧性確認に対応します。</p>
+        </div>
+      </section>
+    </article>
+
+    <aside class="toc-sidebar" aria-label="章内目次">
+      <h4>On This Page</h4>
+      <ul class="toc-list">
+        <li><a href="#development-risk">開発リスク</a></li>
+        <li><a href="#deployment-testing">デプロイメント</a></li>
+      </ul>
+    </aside>
+  </div>
+</main>
+
+<footer class="app-footer">
+  <span><a href="../index.html">CT-AI v2.0</a></span>
+  <span><a href="chapter-6.html">← 第6章 モデルテスト</a> · <a href="glossary.html">用語集 →</a></span>
+  <span>© 2026 · ISTQB® is a registered trademark of ISTQB</span>
+</footer>
+
+<script type="module" src="../assets/js/app.js"></script>
+</body>
+</html>

@@ -4,9 +4,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>第1章: AIの概要（Introduction to Artificial Intelligence） — CT-AI v2.0</title>
-  <link rel="stylesheet" href="https://unpkg.com/carbon-components@10.58.0/css/carbon-components.min.css">
-  <link rel="stylesheet" href="../../shared/css/carbon-theme.css">
-  <link rel="stylesheet" href="../../shared/css/shell.css">
+  <link rel="stylesheet" href="https://unpkg.com/@carbon/styles/css/styles.css">
+  <link rel="stylesheet" href="../assets/css/carbon-overrides.css">
+  <link rel="stylesheet" href="../assets/css/app.css">
   <link rel="stylesheet" href="../css/ct-ai.css">
 </head>
 <body>
@@ -20,10 +20,16 @@
   </a>
   <div class="bx--header__global">
     <a href="../../index.html" class="bx--header__action" style="font-size:0.75rem;width:auto;padding:0 12px;" title="ポータルに戻る">← ポータル</a>
+    <label class="header-search" aria-label="サイト内検索">
+      <input data-header-search type="search" placeholder="検索" autocomplete="off">
+    </label>
+    <button class="header-toggle" type="button" data-english-toggle aria-pressed="true">English ON</button>
     <button class="bx--header__action header-search-btn" data-search-open aria-label="検索" title="検索 (Ctrl+K)">&#128269;</button>
-    <button class="bx--header__action header-theme-btn" data-theme-toggle data-theme-icon aria-label="ダークモードに切替">🌙</button>
+    <button class="bx--header__action header-theme-btn" data-theme-toggle aria-label="ダークモードに切替">Dark</button>
   </div>
 </header>
+
+<div class="progress-bar" aria-hidden="true"><span data-progress-bar></span></div>
 
 <div id="sidebar-overlay" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.4);z-index:7800;"></div>
 
@@ -726,9 +732,6 @@
   <span>© 2026 · ISTQB® is a registered trademark of ISTQB</span>
 </footer>
 
-<script src="../../shared/js/theme.js"></script>
-<script src="../../shared/js/shell.js"></script>
-<script src="../../shared/js/search.js"></script>
-<script src="../js/toc.js"></script>
+<script type="module" src="../assets/js/app.js"></script>
 </body>
 </html>
