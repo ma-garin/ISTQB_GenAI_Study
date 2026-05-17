@@ -1,32 +1,47 @@
 <!DOCTYPE html>
-<html lang="ja">
+<html lang="ja" data-carbon-theme="white">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>学習コンテンツ | ISTQB CT-GenAI</title>
-  <link rel="stylesheet" href="css/ct-genai-legacy.css">
-  <link rel="stylesheet" href="css/carbon-shell-bridge.css">
+  <title>学習コンテンツ | CT-GenAI v1.0 — ISTQB Study Portal</title>
   <link rel="manifest" href="../manifest.json">
-  <meta name="theme-color" content="#2980b9">
-  <link rel="apple-touch-icon" href="../icons/icon-192.png">
-  <script>if ('serviceWorker' in navigator) navigator.serviceWorker.register('../sw.js');</script>
+  <meta name="theme-color" content="#d6eaf8">
+  <link rel="stylesheet" href="https://unpkg.com/@carbon/styles/css/styles.css">
+  <link rel="stylesheet" href="../ct-ai/assets/css/carbon-overrides.css">
+  <link rel="stylesheet" href="../ct-ai/assets/css/app.css">
+  <link rel="stylesheet" href="css/ct-genai.css">
 </head>
 <body>
-  <header>
-    <div class="header-inner">
-      <a href="index.html" class="logo">ISTQB CT-GenAI <span class="badge">v1.0</span></a>
-      <nav>
-        <a href="index.html">ホーム</a>
-        <a href="study.html" class="active">学習</a>
-        <a href="quiz.html">問題演習</a>
-        <a href="slides.html">スライド</a>
-        <a href="glossary.html">用語集</a>
-        <a href="syllabus-ja.html">日本語対訳</a>
-      </nav>
-    </div>
-  </header>
+<header class="bx--header" role="banner" aria-label="ISTQB Study Portal">
+  <button class="bx--header__menu-trigger bx--header__action" data-sidebar-trigger aria-label="メニュー" aria-expanded="false">&#9776;</button>
+  <a class="bx--header__name" href="../index.html">
+    <span>ISTQB Study Portal</span>
+    <span class="header-product-name">/ CT-GenAI v1.0</span>
+  </a>
+  <div class="bx--header__global">
+    <a href="../index.html" class="bx--header__action" style="font-size:0.75rem;width:auto;padding:0 12px;" title="ポータルに戻る">← ポータル</a>
+    <button class="bx--header__action header-theme-btn" data-theme-toggle aria-label="ダークモードに切替">Dark</button>
+  </div>
+</header>
 
-  <main>
+<div class="progress-bar" aria-hidden="true"><span data-progress-bar></span></div>
+<div id="sidebar-overlay" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.4);z-index:7800;"></div>
+
+<nav class="bx--side-nav" aria-label="CT-GenAI ナビゲーション">
+  <ul class="bx--side-nav__nav" role="list">
+    <li class="bx--side-nav__header">ポータル</li>
+    <li class="bx--side-nav__item"><a href="../index.html" class="bx--side-nav__link"><span class="bx--side-nav__link-text">← ポータルに戻る</span></a></li>
+    <li class="bx--side-nav__header">CT-GenAI v1.0</li>
+    <li class="bx--side-nav__item"><a href="index.html" class="bx--side-nav__link"><span class="bx--side-nav__link-text">ホーム</span></a></li>
+    <li class="bx--side-nav__item"><a href="study.html" class="bx--side-nav__link bx--side-nav__link--current"><span class="bx--side-nav__link-text">学習コンテンツ</span></a></li>
+    <li class="bx--side-nav__item"><a href="quiz.html" class="bx--side-nav__link"><span class="bx--side-nav__link-text">問題演習</span></a></li>
+    <li class="bx--side-nav__item"><a href="slides.html" class="bx--side-nav__link"><span class="bx--side-nav__link-text">学習スライド</span></a></li>
+    <li class="bx--side-nav__item"><a href="glossary.html" class="bx--side-nav__link"><span class="bx--side-nav__link-text">用語集</span></a></li>
+    <li class="bx--side-nav__item"><a href="syllabus-ja.html" class="bx--side-nav__link"><span class="bx--side-nav__link-text">シラバス対訳</span></a></li>
+  </ul>
+</nav>
+
+<main class="bx--content">
     <div class="section-title">📖 学習コンテンツ</div>
 
     <div class="chapter-list">
@@ -1056,6 +1071,14 @@
       </div>
 
     </div>
-  </main>
+</main>
+
+<footer class="app-footer">
+  <span>CT-GenAI v1.0 — ISTQB Study Portal</span>
+  <span><a href="index.html">CT-GenAI ホーム</a> · <a href="../index.html">ポータル</a></span>
+  <span>© 2026 · ISTQB® is a registered trademark of ISTQB</span>
+</footer>
+
+<script type="module" src="../ct-ai/assets/js/app.js"></script>
 </body>
 </html>
